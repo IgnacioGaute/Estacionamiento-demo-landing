@@ -75,9 +75,21 @@ function BentoGlow() {
   </div>;
 }
 
+// +54 9 261 485-9172. wa.me pide el número sin +, sin 0 y sin el 15: 549 + área + abonado.
+const WSP = 'https://wa.me/5492614859172?text=' + encodeURIComponent(
+  'Hola, vi la página del sistema para playas de estacionamiento y quiero saber más.',
+);
+
+const IconoWhatsApp = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.06 2.86 1.21 3.06c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35Z"/>
+    <path d="M12.04 2C6.6 2 2.18 6.42 2.18 11.86c0 1.74.46 3.44 1.32 4.94L2 22l5.34-1.4a9.82 9.82 0 0 0 4.7 1.2h.01c5.43 0 9.85-4.42 9.85-9.86 0-2.63-1.02-5.1-2.88-6.96A9.78 9.78 0 0 0 12.04 2Zm0 17.94h-.01a8.18 8.18 0 0 1-4.17-1.14l-.3-.18-3.1.81.83-3.02-.2-.31a8.16 8.16 0 0 1-1.25-4.36c0-4.52 3.68-8.19 8.2-8.19 2.19 0 4.25.86 5.8 2.4a8.15 8.15 0 0 1 2.4 5.8c0 4.52-3.68 8.19-8.2 8.19Z"/>
+  </svg>
+);
+
 export default function Home() {
   return <main>
-    <nav className="nav wrap"><a className="brand" href="#inicio"><span>ES</span> Estacionamiento</a><div className="nav-links"><a href="#sistema">Sistema</a><a href="#funciones">Funciones</a><a className="nav-cta" href="#contacto">Solicitar demo</a></div></nav>
+    <nav className="nav wrap"><a className="brand" href="#inicio"><span>ES</span> Estacionamiento</a><div className="nav-links"><a href="#sistema">Sistema</a><a href="#funciones">Funciones</a><a href="#planes">Planes</a><a className="nav-cta" href="#contacto">Solicitar demo</a></div></nav>
 
     <section id="inicio" className="hero wrap">
       <div className="hero-copy"><p className="kicker"><span/> HECHO PARA PLAYAS DE ESTACIONAMIENTO</p><h1>Tu playa,<br/><em>más simple.</em></h1><p className="hero-text">Tickets, patentes, tarifas y caja en una pantalla que cualquier operador puede entender desde el primer día.</p><div className="hero-actions"><a className="button primary" href="#sistema">Ver el sistema <b>↘</b></a><a className="button ghost" href="#funciones">Explorar funciones</a></div><div className="trust"><span><b>✓</b> Funciona en celular</span><span><b>✓</b> Sin instalaciones</span><span><b>✓</b> Una o varias playas</span></div></div>
@@ -112,10 +124,41 @@ export default function Home() {
 
     <section className="details wrap"><div className="details-copy"><p className="kicker"><span/> COBROS SIN SORPRESAS</p><h2>El sistema explica<br/><em>cada importe.</em></h2><p>Antes de cerrar una estadía se ve el tiempo, la tarifa aplicada, lo que ya fue pagado y lo que falta cobrar.</p><ul><li><b>Anticipos controlados.</b> Cobra o devuelve únicamente la diferencia.</li><li><b>Cortesías registradas.</b> Quedan visibles sin inflar el efectivo.</li><li><b>Cierre transaccional.</b> La salida, el cobro y la caja se guardan juntos.</li></ul></div><div className="calculation"><div className="calc-head"><span><Icon name="plate"/></span><div><small>PATENTE</small><strong>AA 123 BB</strong></div><b>EN LA PLAYA</b></div><div className="calc-time"><div><small>ENTRADA</small><strong>09:42</strong></div><div><small>TIEMPO</small><strong>2 h 18 min</strong></div></div><div className="calc-lines"><p><span>Primer período</span><b>$ 3.000</b></p><p><span>Período adicional</span><b>$ 3.000</b></p><p><span>Anticipo</span><b>− $ 1.000</b></p></div><div className="calc-total"><span>Falta cobrar ahora</span><strong>$ 5.000</strong></div></div></section>
 
-    <section className="pricing wrap"><div className="price-glow"><div className="price-copy"><p className="kicker light"><span/> PLAN COMPLETO</p><h2>Todo incluido.<br/><em>Un precio por playa.</em></h2><p>Sin módulos separados ni costos ocultos. La suscripción incluye el sistema completo y el acompañamiento para empezar a usarlo. El precio es por playa: si tu empresa maneja más de una, cada playa adicional se suma al plan.</p><ul><li><b>✓</b> Tickets por ficha y patente</li><li><b>✓</b> Día, semana y mes además de la hora</li><li><b>✓</b> Tarifas, caja, turnos y reportes</li><li><b>✓</b> Usuarios, roles y accesos</li><li><b>✓</b> Mantenimiento y actualizaciones</li><li><b>✓</b> Capacitación inicial</li></ul></div><div className="price-box"><span>PLAN MENSUAL · POR PLAYA</span><div><small>USD</small><strong>30</strong><i>/mes</i></div><p>≈ $46.050 ARS por mes, por playa</p><em>Referencia al dólar vendedor BNA de $1.535. El equivalente en pesos se actualiza según la cotización vigente.</em><b>Sin costo de instalación<br/>¿Más de una playa? Se cotiza cada una</b></div></div></section>
+    <section id="planes" className="pricing wrap"><div className="price-glow">
+      <div className="price-head"><p className="kicker light"><span/> PLANES</p><h2>Las mismas funciones.<br/><em>Pagás por el tamaño.</em></h2><p>Ningún plan recorta funciones: los tres traen el sistema entero. Lo único que cambia es el tamaño de la playa, porque una de 200 lugares le saca más provecho que una de 40. El precio es por playa.</p></div>
 
-    <section id="contacto" className="cta wrap"><div><p className="kicker light"><span/> LISTO PARA TU PLAYA</p><h2>Menos explicaciones.<br/><em>Más control.</em></h2><p>Conocé cómo se adapta el sistema a tus tarifas, vehículos y forma de trabajar.</p></div><a className="button dark" href="#sistema">Ver demostración visual <b>↑</b></a></section>
-    <footer className="wrap footer"><a className="brand" href="#inicio"><span>ES</span> Estacionamiento</a><p>Software para operar playas de estacionamiento.</p><span>© {new Date().getFullYear()}</span></footer>
+      <div className="plan-grid">
+        <article className="plan"><p className="plan__nombre">Chica</p><p className="plan__tamano">Hasta 50 lugares</p><p className="plan__pesos">$46.000<span>/mes</span></p><p className="plan__usd">USD 30 por mes, por playa</p></article>
+        <article className="plan plan--destacado"><span className="plan__tag">Recomendado</span><p className="plan__nombre">Mediana</p><p className="plan__tamano">51 a 120 lugares</p><p className="plan__pesos">$69.000<span>/mes</span></p><p className="plan__usd">USD 45 por mes, por playa</p></article>
+        <article className="plan"><p className="plan__nombre">Grande</p><p className="plan__tamano">Más de 120 lugares</p><p className="plan__pesos">$107.000<span>/mes</span></p><p className="plan__usd">USD 70 por mes, por playa</p></article>
+      </div>
+
+      <p className="plan-nota">Los valores en pesos son una referencia al dólar vendedor BNA de $1.535 y se actualizan según la cotización vigente.</p>
+
+      <div className="plan-incluido">
+        <p className="plan-incluido__titulo">En los tres, sin excepciones</p>
+        <ul>
+          <li><b>✓</b> Todas las funciones: tickets, patentes, tarifas, caja, turnos, reportes y usuarios</li>
+          <li><b>✓</b> Capacitación y puesta en marcha, sin costo</li>
+          <li><b>✓</b> Mantenimiento y actualizaciones</li>
+          <li><b>✓</b> Sin permanencia: te das de baja cuando quieras</li>
+          <li><b>✓</b> Primer mes sin cargo</li>
+          <li><b>✓</b> Playa adicional, 30% de descuento en cada una</li>
+        </ul>
+      </div>
+
+      <p className="plan-aparte"><b>¿Necesitás que funcione distinto?</b> El abono es el sistema tal como está. Si tu playa necesita una adaptación a medida, se cotiza aparte y se paga una sola vez.</p>
+    </div></section>
+
+    <section id="contacto" className="cta wrap"><div><p className="kicker light"><span/> LISTO PARA TU PLAYA</p><h2>Menos explicaciones.<br/><em>Más control.</em></h2><p>Escribime y lo vemos funcionando con tus tarifas y tus vehículos. Contesto yo, que soy el que lo hizo.</p></div><a className="button dark wsp-cta" href={WSP} target="_blank" rel="noopener noreferrer"><IconoWhatsApp /> Escribime por WhatsApp</a></section>
+    <footer className="wrap footer"><a className="brand" href="#inicio"><span>ES</span> Estacionamiento</a><p>Software para operar playas de estacionamiento.</p><a className="footer-wsp" href={WSP} target="_blank" rel="noopener noreferrer"><IconoWhatsApp /> 261 485-9172</a><span>© {new Date().getFullYear()}</span></footer>
+
+    {/* Botón flotante: la página se lee de arriba abajo y el contacto tiene que estar
+        siempre a un toque, no solo al final. */}
+    <a className="wsp-flotante" href={WSP} target="_blank" rel="noopener noreferrer" aria-label="Escribinos por WhatsApp al 261 485-9172">
+      <IconoWhatsApp />
+      <span>Escribinos</span>
+    </a>
   </main>;
 }
 

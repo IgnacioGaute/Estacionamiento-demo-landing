@@ -27,31 +27,46 @@
 .security-points strong { font-size: 14px; margin-bottom: 5px; }
 .security-points span { font-size: 12px; line-height: 1.55; color: #9d978d; }
 .pricing { padding-bottom: 130px; }
-.price-glow { position: relative; overflow: hidden; border-radius: 28px; background: var(--ink); color: white; padding: 72px; display: grid; grid-template-columns: 1fr 370px; gap: 80px; }
+
+/* ── Planes ─────────────────────────────────────────────
+   Tres planes que se diferencian SOLO por el tamaño de la playa: lo que está
+   incluido se lista una vez abajo, no tres veces en columnas, así la tabla no
+   repite "todas las funciones" en cada tarjeta. */
+.price-glow { position: relative; overflow: hidden; border-radius: 28px; background: var(--ink); color: white; padding: 64px 56px 56px; }
 .price-glow::before { content: ""; position: absolute; inset: -2px; border-radius: inherit; padding: 2px; background: conic-gradient(from var(--angle,0deg),transparent 0 30%,var(--yellow) 40%,var(--orange) 48%,transparent 58% 100%); animation: border-spin 6s linear infinite; pointer-events: none; mask: linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); mask-composite: exclude; }
-.price-copy h2 { font-size: 62px; }
-.price-copy h2 em { font-style: normal; color: var(--yellow); }
-.price-copy > p { color: #aaa49a; line-height: 1.7; max-width: 600px; }
-.price-copy ul { list-style: none; padding: 0; margin: 25px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
-.price-copy li { font-size: 12px; }
-.price-copy li b { color: var(--yellow); margin-right: 6px; }
-.price-box { position: relative; background: var(--yellow); color: var(--ink); border-radius: 20px; padding: 30px; box-shadow: 9px 10px 0 #000; transform: perspective(700px) rotateY(-4deg) rotateX(2deg); }
-.price-box > span { font: 600 10px JetBrains Mono; letter-spacing: .13em; }
-.price-box > div { display: flex; align-items: baseline; margin: 18px 0 7px; }
-.price-box small { font: 700 18px Oswald; margin-right: 7px; }
-.price-box strong { font: 700 77px Oswald; line-height: 1; }
-.price-box i { font-style: normal; font-size: 13px; }
-.price-box > p { font-weight: 800; margin: 0 0 10px; }
-.price-box > em { display: block; font-style: normal; font-size: 9px; line-height: 1.5; color: #62500b; }
-.price-box > b { display: block; margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(0,0,0,.2); font-size: 13px; line-height: 1.55; }
+.price-head { position: relative; max-width: 720px; }
+.price-head h2 { font-size: 58px; }
+.price-head h2 em { font-style: normal; color: var(--yellow); }
+.price-head > p { color: #aaa49a; line-height: 1.7; font-size: 14.5px; }
+.plan-grid { position: relative; display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 42px; align-items: stretch; }
+.plan { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 26px 24px 24px; border: 1px solid #2c2b26; border-radius: 18px; background: #121210; }
+.plan--destacado { background: var(--yellow); color: var(--ink); border-color: var(--yellow); box-shadow: 7px 8px 0 #000; }
+.plan__tag { position: absolute; top: -11px; left: 24px; padding: 4px 10px; border-radius: 99px; background: var(--ink); color: var(--yellow); font: 700 9.5px JetBrains Mono; letter-spacing: .1em; text-transform: uppercase; }
+.plan__nombre { margin: 0; font: 700 27px Oswald, Arial, sans-serif; text-transform: uppercase; letter-spacing: -.01em; }
+.plan__tamano { margin: 0 0 14px; font: 600 10.5px JetBrains Mono; letter-spacing: .08em; text-transform: uppercase; color: #8e8778; }
+.plan--destacado .plan__tamano { color: #6b5709; }
+.plan__pesos { margin: 0; font: 700 34px JetBrains Mono; line-height: 1.1; }
+.plan__pesos span { font-size: 13px; font-weight: 500; opacity: .65; margin-left: 2px; }
+.plan__usd { margin: 5px 0 0; font-size: 11.5px; color: #8e8778; }
+.plan--destacado .plan__usd { color: #6b5709; }
+.plan-nota { position: relative; margin: 14px 0 0; font-size: 10.5px; line-height: 1.55; color: #6f6a61; }
+.plan-incluido { position: relative; margin-top: 34px; padding-top: 26px; border-top: 1px solid #2c2b26; }
+.plan-incluido__titulo { margin: 0 0 16px; font: 600 10.5px JetBrains Mono; letter-spacing: .13em; text-transform: uppercase; color: var(--yellow); }
+.plan-incluido ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 30px; }
+.plan-incluido li { font-size: 13px; line-height: 1.5; color: #d8d2c6; }
+.plan-incluido li b { color: var(--yellow); margin-right: 8px; }
+.plan-aparte { position: relative; margin: 30px 0 0; padding: 16px 18px; border-left: 2px solid var(--orange); background: rgba(243,107,43,.07); font-size: 13px; line-height: 1.6; color: #b5aea2; }
+.plan-aparte b { color: var(--white); }
 @property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
 @keyframes border-spin { to { --angle: 360deg; } }
 @media (max-width: 900px) {
-  .security-card, .price-glow { grid-template-columns: 1fr; gap: 45px; }
-  .price-box { width: min(420px,100%); margin: auto; }
+  .security-card { grid-template-columns: 1fr; gap: 45px; }
+  .price-glow { padding: 48px 34px; }
+  .plan-grid { grid-template-columns: 1fr; gap: 22px; }
+  .plan__tag { top: -11px; }
   .role-row { grid-template-columns: 1.4fr repeat(2,.85fr); }
   .role-row > * { padding: 12px 10px; }
-  .price-copy ul { grid-template-columns: 1fr; }
+  .plan-incluido ul { grid-template-columns: 1fr; }
 }
 @media (max-width: 620px) {
   .admin-section { padding-block: 85px; }
@@ -62,10 +77,66 @@
   .role-row { min-width: 520px; }
   .security { padding-block: 85px; }
   .security-card { padding: 38px 24px; box-shadow: 7px 8px 0 var(--yellow); }
-  .security-card h2, .price-copy h2 { font-size: 43px; }
-  .price-glow { padding: 38px 24px; gap: 38px; }
+  .security-card h2, .price-head h2 { font-size: 43px; }
+  .price-glow { padding: 38px 22px 34px; }
   .pricing { padding-bottom: 90px; }
-  .price-box { padding: 24px; }
-  .price-box strong { font-size: 67px; }
+  .plan { padding: 22px 20px 20px; }
+  .plan__pesos { font-size: 30px; }
+  .plan-aparte { padding: 14px 15px; }
 }
 @media (prefers-reduced-motion: reduce) { .price-glow::before { animation: none; } }
+
+/* ── Contacto por WhatsApp ──────────────────────────────
+   El único canal de contacto de la página, así que va en tres lugares: el cierre,
+   el pie y un botón flotante que acompaña todo el scroll. */
+.wsp-cta { gap: 12px; }
+.wsp-cta svg { width: 20px; height: 20px; color: #25D366; }
+
+.footer-wsp {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 700;
+  font-size: 12.5px;
+  color: var(--ink);
+}
+.footer-wsp svg { width: 16px; height: 16px; color: #1FA855; }
+.footer-wsp:hover { color: #1FA855; }
+
+.wsp-flotante {
+  position: fixed;
+  z-index: 60;
+  right: 22px;
+  bottom: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 54px;
+  padding: 0 20px 0 17px;
+  border-radius: 99px;
+  background: #25D366;
+  color: #08320f;
+  font-weight: 800;
+  font-size: 14px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .3);
+  transition: transform .2s, box-shadow .2s;
+}
+.wsp-flotante svg { width: 26px; height: 26px; }
+.wsp-flotante:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(0, 0, 0, .38); color: #08320f; }
+.wsp-flotante:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+@media (max-width: 620px) {
+  /* En el teléfono queda solo el ícono: el texto se comería media pantalla. */
+  .wsp-flotante { right: 16px; bottom: 16px; height: 56px; width: 56px; padding: 0; justify-content: center; }
+  .wsp-flotante span { display: none; }
+  .wsp-cta { justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wsp-flotante { transition: none; }
+  .wsp-flotante:hover { transform: none; }
+}
+
+/* El botón flotante no debe taparle nada al pie: se le reserva el alto. */
+.footer { padding-bottom: 96px; }
+@media (max-width: 620px) { .footer { padding-bottom: 86px; } }
