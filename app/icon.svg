@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- La misma marca del sistema (ParkingMark): la M de las barreras, en degradado
+       amarillo a naranja sobre el fondo oscuro de la marca. -->
+  <defs>
+    <linearGradient id="g" x1="12" y1="16" x2="52" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffc91c"/>
+      <stop offset="1" stop-color="#f36b2b"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#0b0b0a"/>
+  <path d="M15 47 V19 L25.5 33.5 L33.2 17.8 L40.9 33.5 L51.4 19 V47"
+        fill="none" stroke="url(#g)" stroke-width="7"
+        stroke-linejoin="round" stroke-linecap="round"/>
+</svg>

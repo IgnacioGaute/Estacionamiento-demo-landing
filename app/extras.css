@@ -140,3 +140,24 @@
 /* El botón flotante no debe taparle nada al pie: se le reserva el alto. */
 .footer { padding-bottom: 96px; }
 @media (max-width: 620px) { .footer { padding-bottom: 86px; } }
+
+/* ── Marca ──────────────────────────────────────────────
+   La placa oscura con la M del sistema. Hereda de `.brand span`, así que hay que
+   pisar el fondo amarillo y la tipografía que traía el monograma "ES". */
+.brand .brand-mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  padding: 6px;
+  border-radius: 8px;
+  background: var(--ink);
+}
+.brand .brand-mark svg { width: 100%; height: 100%; display: block; }
+
+/* En el teléfono el nav no entra con la palabra y los tres links: queda la marca. */
+@media (max-width: 620px) {
+  .brand-nombre { display: none; }
+  .nav-links { gap: 14px; }
+}
