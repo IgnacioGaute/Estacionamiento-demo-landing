@@ -1,0 +1,372 @@
+/* =========================================================
+   DISPOSITIVOS 3D
+   La notebook y el celular se dibujan con CSS en perspectiva real: la tapa y la
+   base son dos planos que comparten la bisagra, uno recostado hacia atrás y el
+   otro abatido hacia el espectador. Por eso se ve el teclado y el trackpad en
+   escorzo, como en una foto, y no un canto plano.
+
+   La captura vive DENTRO de la pantalla, que recorta con overflow y tiene su
+   misma proporción (16/10 la notebook, 390/844 el celular): es imposible que se
+   salga del marco o quede estirada.
+
+   Todo se mide en cqw (porcentaje del ancho del contenedor), así que el equipo
+   entero escala solo, sin puntos de quiebre que haya que corregir a mano.
+   ========================================================= */
+
+.d3-rig {
+  container-type: inline-size;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+}
+
+/* Resplandor amarillo detrás del equipo. */
+.d3-rig__orb {
+  position: absolute;
+  z-index: -1;
+  top: -9cqw;
+  right: -5cqw;
+  width: 58cqw;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 0 6cqw 12cqw rgba(171, 128, 0, .28);
+}
+
+/* ── Notebook ───────────────────────────────────────────── */
+
+.d3-laptop {
+  position: relative;
+  width: 64cqw;
+  margin-left: auto;
+  /* El giro en Y empuja el borde derecho más allá de la caja: este margen es el
+     lugar que se le reserva para que no toque el borde de la pantalla. */
+  margin-right: 2cqw;
+  /* La perspectiva también en cqw: en px, al achicar el ancho la deformación se
+     volvería brutal. Bastante larga a propósito, para que el teclado no se
+     aplaste contra la bisagra. */
+  perspective: 200cqw;
+  perspective-origin: 50% 18%;
+}
+
+.d3-laptop__body {
+  transform-style: preserve-3d;
+  /* Mirada desde arriba: es lo que deja ver la base entera. */
+  transform: rotateX(13deg) rotateY(-14deg);
+}
+
+/* La tapa se recuesta hacia atrás sobre la bisagra, que es su borde de abajo. */
+.d3-laptop__lid {
+  position: relative;
+  z-index: 2;
+  padding: 1cqw 1cqw 1.9cqw;
+  border-radius: 1.4cqw 1.4cqw .3cqw .3cqw;
+  background: linear-gradient(160deg, #46453f 0%, #24231f 30%, #13120f 100%);
+  box-shadow:
+    inset 0 0 0 .09cqw rgba(255, 255, 255, .16),
+    0 2cqw 4cqw rgba(0, 0, 0, .4);
+  transform-origin: bottom center;
+  transform: rotateX(-9deg);
+}
+
+/* La camarita: el detalle chico que termina de leerse como notebook. */
+.d3-laptop__cam {
+  position: absolute;
+  top: .42cqw;
+  left: 50%;
+  width: .3cqw;
+  height: .3cqw;
+  border-radius: 50%;
+  background: #52514c;
+  box-shadow: 0 0 0 .07cqw rgba(0, 0, 0, .55);
+  transform: translateX(-50%);
+}
+
+/* Marca grabada en el mentón de la tapa. */
+.d3-laptop__mark {
+  position: absolute;
+  bottom: .6cqw;
+  left: 50%;
+  font: 700 .8cqw/1 Archivo, Arial, sans-serif;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .2);
+  transform: translateX(-50%);
+}
+
+.d3-screen {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: .7cqw;
+  overflow: hidden;
+  background: #0d0c0a;
+}
+
+.d3-screen img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* La captura ya viene en la proporción exacta de la pantalla: cover no recorta
+     nada, solo garantiza que ningún píxel quede fuera del marco. */
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Reflejo diagonal del vidrio. */
+.d3-screen__glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(118deg,
+    rgba(255, 255, 255, .13) 0%,
+    rgba(255, 255, 255, .05) 16%,
+    transparent 34%);
+}
+
+/* ── La base: el mismo plano de la tapa, abatido 60° ────── */
+
+.d3-laptop__deck {
+  position: relative;
+  aspect-ratio: 100 / 62;
+  margin-inline: -.3cqw;
+  /* La base ocupa en la maqueta su alto sin girar, pero al abatirse se ve mucho
+     más baja. Este margen negativo le devuelve al bloque el alto que realmente
+     ocupa en pantalla; si no, queda un hueco vacío enorme debajo del equipo. */
+  margin-bottom: -22%;
+  transform-origin: top center;
+  transform: rotateX(58deg);
+  border-radius: 0 0 1.8cqw 1.8cqw;
+  /* Aluminio: apagado contra la bisagra, encendido en el borde de adelante, que
+     es el que recibe la luz. */
+  background: linear-gradient(180deg, #8e8c87 0%, #b5b3ae 9%, #cdcbc6 44%, #b3b1ac 84%, #949289 100%);
+  box-shadow: 0 2cqw 3cqw rgba(0, 0, 0, .35);
+}
+
+/* Sombra de la tapa cayendo sobre el teclado. */
+.d3-laptop__deck::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 15%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, .38), transparent);
+  pointer-events: none;
+}
+
+/* Canto de adelante: le da espesor a la base. */
+.d3-laptop__deck::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3.5%;
+  border-radius: 0 0 1.8cqw 1.8cqw;
+  background: linear-gradient(180deg, #efede9, #b4b2ad 55%, #85837e);
+}
+
+/* Bisagra. */
+.d3-laptop__hinge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 90%;
+  height: 3%;
+  border-radius: 0 0 .7cqw .7cqw;
+  background: linear-gradient(180deg, #3d3c38, #6b6964);
+  transform: translateX(-50%);
+}
+
+/* Teclado. El bloque es el hueco oscuro; las rayas dibujan la separación entre
+   teclas, así no hacen falta setenta elementos. */
+.d3-laptop__keys {
+  position: absolute;
+  top: 9.8%;
+  left: 6%;
+  width: 88%;
+  height: 39%;
+  border-radius: .5cqw;
+  background-color: #46453f;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0) 0 5.75%, #171715 5.75% 6.25%),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0) 0 15.2%, #171715 15.2% 16.66%);
+  box-shadow:
+    inset 0 0 0 .3cqw #171715,
+    inset 0 .2cqw .5cqw rgba(0, 0, 0, .5);
+}
+
+/* Barra espaciadora: rompe la grilla y es lo que hace que se lea como teclado. */
+.d3-laptop__space {
+  position: absolute;
+  top: 41.7%;
+  left: 50%;
+  width: 31%;
+  height: 4.8%;
+  border-radius: .25cqw;
+  background: #46453f;
+  box-shadow: 0 0 0 .3cqw #171715;
+  transform: translateX(-50%);
+}
+
+/* Trackpad: al estar sobre el plano abatido se escorza solo. */
+.d3-laptop__pad {
+  position: absolute;
+  top: 55.4%;
+  left: 50%;
+  width: 31%;
+  height: 27%;
+  border-radius: .8cqw;
+  background: linear-gradient(180deg, #c8c6c1, #dbd9d4);
+  box-shadow: inset 0 0 0 .14cqw rgba(0, 0, 0, .16);
+  transform: translateX(-50%);
+}
+
+/* Sombra de apoyo: es lo que separa al equipo del fondo y lo hace ver posado. */
+.d3-laptop__shadow {
+  position: absolute;
+  z-index: -1;
+  left: 2%;
+  right: 2%;
+  bottom: -2cqw;
+  height: 7cqw;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(15, 12, 6, .42), transparent 72%);
+  filter: blur(.8cqw);
+}
+
+/* ── Celular ────────────────────────────────────────────── */
+
+.d3-phone {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  bottom: 0;
+  width: 19cqw;
+  perspective: 90cqw;
+}
+
+.d3-phone__body {
+  position: relative;
+  padding: .45cqw;
+  border-radius: 2.6cqw;
+  /* El degradado del marco imita el canto metálico tomando luz de un lado. */
+  background: linear-gradient(115deg, #6d6b64 0%, #2a2926 18%, #131312 45%, #0a0a09 72%, #55534d 100%);
+  box-shadow:
+    inset 0 0 0 .09cqw rgba(255, 255, 255, .16),
+    0 2.5cqw 4cqw rgba(0, 0, 0, .5);
+  transform: rotateX(2deg) rotateY(13deg);
+}
+
+.d3-phone__screen {
+  position: relative;
+  aspect-ratio: 390 / 844;
+  border-radius: 2.2cqw;
+  overflow: hidden;
+  background: #0d0c0a;
+}
+
+.d3-phone__screen img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.d3-phone__island {
+  position: absolute;
+  z-index: 2;
+  top: 1cqw;
+  left: 50%;
+  width: 4.6cqw;
+  height: 1.25cqw;
+  border-radius: 999px;
+  background: #070707;
+  transform: translateX(-50%);
+}
+
+.d3-phone__bar {
+  position: absolute;
+  z-index: 2;
+  bottom: .8cqw;
+  left: 50%;
+  width: 5.4cqw;
+  height: .32cqw;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .55);
+  transform: translateX(-50%);
+}
+
+.d3-phone__shadow {
+  position: absolute;
+  z-index: -1;
+  left: 4%;
+  right: 4%;
+  bottom: -1.4cqw;
+  height: 4cqw;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(15, 12, 6, .45), transparent 72%);
+  filter: blur(.5cqw);
+}
+
+/* ── Chapita flotante del hero ──────────────────────────── */
+
+.d3-rig .floating-stat {
+  z-index: 6;
+  right: 0;
+  bottom: 1cqw;
+}
+
+/* ── Panel oscuro de la sección "Se adapta al trabajo real" ── */
+
+.d3-rig--panel {
+  border-radius: 36px;
+  padding: 5cqw 6cqw 6cqw;
+  background:
+    radial-gradient(circle at 74% 34%, rgba(255, 201, 28, .3), transparent 42%),
+    linear-gradient(145deg, #171714, #090908);
+  box-shadow: 0 45px 90px rgba(25, 20, 10, .28);
+}
+
+.d3-rig--panel .d3-laptop { width: 54cqw; margin-right: 5cqw; }
+.d3-rig--panel .d3-phone { left: 5cqw; bottom: 3cqw; width: 21cqw; }
+.d3-rig--panel .device-note { z-index: 6; right: 4cqw; bottom: 2cqw; }
+
+/* ── Proporciones para contenedores angostos ────────────── */
+
+/* Con poco ancho el celular quedaría del tamaño de una uña: se agranda y la
+   notebook ocupa todo, que es como se ve bien en un teléfono. */
+@container (max-width: 560px) {
+  .d3-laptop { width: 80cqw; margin-right: 3cqw; }
+  .d3-phone { width: 27cqw; left: -1cqw; bottom: -2cqw; }
+  .d3-rig--panel { padding: 7cqw 5cqw 8cqw; }
+  .d3-rig--panel .d3-laptop { width: 80cqw; margin-right: 3cqw; }
+  .d3-rig--panel .d3-phone { left: 0; bottom: -1cqw; width: 28cqw; }
+}
+
+@media (max-width: 900px) {
+  .d3-rig--hero { width: min(100%, 720px); margin-inline: auto; }
+}
+
+@media (max-width: 620px) {
+  .d3-rig .floating-stat {
+    right: 0;
+    bottom: -8cqw;
+    transform: scale(.82);
+    transform-origin: right center;
+  }
+  .d3-rig--panel { border-radius: 22px; }
+  .d3-rig--panel .device-note {
+    right: 2cqw;
+    bottom: -6cqw;
+    transform: rotate(-3deg) scale(.78);
+    transform-origin: right center;
+  }
+}
+
+/* El hero ya no necesita reservar alto fijo: lo define el propio equipo. */
+.hero-visual { min-height: 0; }
+
+html, body { max-width: 100%; overflow-x: clip; }
+.hero, .hero > * { min-width: 0; }
