@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const Icon = ({ name }: { name: 'scan'|'plate'|'cash'|'price'|'shield'|'chart'|'clock'|'car' }) => {
   const paths = {
@@ -100,6 +100,42 @@ const Marca = () => (
   </span>
 );
 
+/**
+ * La captura del sistema andando en Garage Mitre. Mientras el archivo no esté en
+ * /public, muestra el hueco marcado en vez de una imagen rota: es preferible un
+ * cartel que diga que falta, a que el visitante vea el ícono de imagen caída.
+ */
+function CapturaCaso() {
+  const img = useRef<HTMLImageElement>(null);
+  const [falla, setFalla] = useState(false);
+
+  // `onError` solo alcanza si la imagen falla DESPUÉS de hidratar. En la primera
+  // carga el navegador ya intentó bajarla con el HTML del servidor, así que el
+  // evento pasó antes de que React estuviera escuchando: hay que preguntarle al
+  // elemento si quedó sin dibujar (complete + naturalWidth 0).
+  useEffect(() => {
+    const el = img.current;
+    if (el && el.complete && el.naturalWidth === 0) setFalla(true);
+  }, []);
+
+  if (falla) {
+    return (
+      <div className="caso-foto caso-foto--vacia">
+        <span className="caso-foto__falta">
+          FALTA LA CAPTURA<br/>
+          <b>La pantalla de Garage Mitre andando</b><br/>
+          Guardala como <code>/public/caso-garage-mitre.png</code>
+        </span>
+      </div>
+    );
+  }
+  return (
+    <div className="caso-foto">
+      <img ref={img} src="/caso-garage-mitre.png" alt="El sistema funcionando en Garage Mitre: registro de estacionamiento con el ticket escaneado, la salida registrada y el precio calculado" onError={() => setFalla(true)}/>
+    </div>
+  );
+}
+
 const IconoWhatsApp = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.06 2.86 1.21 3.06c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35Z"/>
@@ -112,7 +148,7 @@ export default function Home() {
     <nav className="nav wrap"><a className="brand" href="#inicio"><Marca /> <span className="brand-nombre">Estacionamiento</span></a><div className="nav-links"><a href="#sistema">Sistema</a><a href="#funciones">Funciones</a><a href="#planes">Planes</a></div></nav>
 
     <section id="inicio" className="hero wrap">
-      <div className="hero-copy"><p className="kicker"><span/> HECHO PARA PLAYAS DE ESTACIONAMIENTO</p><h1>Tu playa,<br/><em>más simple.</em></h1><p className="hero-text">Tickets, patentes, tarifas y caja en una pantalla que cualquier operador puede entender desde el primer día.</p><div className="hero-actions"><a className="button primary" href="#sistema">Ver el sistema <b>↘</b></a><a className="button ghost" href="#funciones">Explorar funciones</a></div><div className="trust"><span><b>✓</b> Funciona en celular</span><span><b>✓</b> Sin instalaciones</span><span><b>✓</b> Una o varias playas</span></div></div>
+      <div className="hero-copy"><p className="kicker"><span/> HECHO PARA PLAYAS DE ESTACIONAMIENTO</p><h1>Sabé cuánto entró<br/><em>en cada turno.</em></h1><p className="hero-text">La tarifa la calcula el sistema, no el empleado. Y al cerrar el turno sabés exactamente cuánto efectivo tiene que haber en la caja, quién lo contó y cuánto quedó para el que sigue.</p><div className="hero-actions"><a className="button primary" href={WSP} target="_blank" rel="noopener noreferrer"><IconoWhatsApp /> Escribime por WhatsApp</a><a className="button ghost" href="#sistema">Ver el sistema</a></div><div className="trust"><span><b>✓</b> No hay que comprar nada</span><span><b>✓</b> Funciona en celular</span><span><b>✓</b> Una o varias playas</span></div></div>
       <div className="hero-visual d3-rig d3-rig--hero">
         <div className="d3-rig__orb"/>
         <Notebook src="/screens/operacion-desktop.png" alt="Pantalla de tickets y patentes del sistema, en una notebook"/>
@@ -124,6 +160,20 @@ export default function Home() {
     <section className="proof"><div className="wrap proof-row"><p>UNA OPERACIÓN, DE PRINCIPIO A FIN</p><div><strong>01</strong><span>Registrá<br/>la entrada</span></div><i/><div><strong>02</strong><span>El sistema<br/>calcula</span></div><i/><div><strong>03</strong><span>Cobrá y<br/>cerrá</span></div></div></section>
 
     <section id="sistema" className="showcase wrap"><div className="section-head"><div><p className="kicker"><span/> SE ADAPTA AL TRABAJO REAL</p><h2>Grande cuando administrás.<br/><em>Rápido cuando operás.</em></h2></div><p>La notebook muestra el espacio completo de trabajo, con teclado y trackpad. En el celular, el sistema ocupa toda la pantalla y deja las acciones importantes al alcance del pulgar.</p></div><div className="d3-rig d3-rig--panel"><Notebook src="/screens/tarifas-desktop.png" alt="Pantalla de precios por duración, con las franjas de tarifa cargadas"/><Celular src="/screens/activos-mobile.png" alt="Lista de vehículos activos en el celular"/><div className="device-note"><b>100%</b><span>adaptado<br/>a mobile</span></div></div></section>
+
+    <section className="caso wrap">
+      <CapturaCaso />
+      <div className="caso-texto">
+        <p className="kicker"><span/> ANDANDO HOY</p>
+        <h2>No es una demo.<br/><em>Es una playa real.</em></h2>
+        <p className="caso-texto__cuerpo">En Garage Mitre todo esto se llevaba a mano: anotar cada auto, sacar la cuenta del tiempo, cobrar y después tratar de que el día cerrara. Hoy el operador registra la entrada y la salida, y de ahí sale todo lo demás solo — el precio, el cobro, la caja del turno y el histórico. Nadie suma nada a mano.</p>
+        <div className="caso-datos">
+          <p><b>117</b><span>abonos por día, semana o mes activos</span></p>
+          <p><b>0</b><span>cuentas hechas a mano</span></p>
+        </div>
+        <p className="caso-firma"><b>Garage Mitre</b> · Mendoza</p>
+      </div>
+    </section>
 
     <section id="funciones" className="features"><div className="wrap"><div className="section-head compact"><div><p className="kicker"><span/> TODO LO QUE NECESITÁS</p><h2>Potente por dentro.<br/><em>Claro por fuera.</em></h2></div><p>La complejidad vive en el motor. El operador ve decisiones simples y datos fáciles de comprobar.</p></div><BentoGlow/></div></section>
 
@@ -140,7 +190,7 @@ export default function Home() {
 
     <section className="roles-section"><div className="wrap"><div className="section-head compact"><div><p className="kicker"><span/> ACCESO SEGÚN RESPONSABILIDAD</p><h2>Cada persona ve<br/><em>lo que necesita.</em></h2></div><p>Los permisos no dependen de esconder botones: el servidor valida cada acción y cada registro solicitado.</p></div><div className="roles-table"><div className="role-row role-head"><span>Función</span><b>Operador</b><b>Admin</b></div><div className="role-row"><span>Entradas, salidas y cobros</span><b className="yes">Sí</b><b className="yes">Sí</b></div><div className="role-row"><span>Turno y caja propia</span><b className="yes">Sí</b><b className="yes">Sí</b></div><div className="role-row"><span>Tickets por día, semana o mes</span><b className="yes">Sí</b><b className="yes">Sí</b></div><div className="role-row"><span>Tarifas y configuración</span><b>—</b><b className="yes">Sí</b></div><div className="role-row"><span>Usuarios y accesos</span><b>—</b><b className="yes">Sí</b></div><div className="role-row"><span>Reportes e historial completo</span><b>—</b><b className="yes">Sí</b></div><div className="role-row"><span>Todas las playas de la empresa</span><b>Solo la suya</b><b className="yes">Sí</b></div></div></div></section>
 
-    <section className="security wrap"><div className="security-card"><div><p className="kicker light"><span/> SEGURIDAD DE LOS REGISTROS</p><h2>La información de cada empresa,<br/><em>aislada desde la base.</em></h2><p>No alcanza con ocultar una pantalla. El sistema valida la empresa, la playa, el usuario y su rol en cada pedido.</p></div><div className="security-points"><p><b>01</b><span><strong>Aislamiento por empresa y playa</strong>Cada consulta opera dentro del alcance autorizado. Una empresa no ve registros de otra, y una playa tampoco ve los de la playa de al lado.</span></p><p><b>02</b><span><strong>Sesiones revocables</strong>Un cambio de contraseña invalida las sesiones anteriores, incluso cuando lo realiza un administrador.</span></p><p><b>03</b><span><strong>Cobros consistentes</strong>Entrada, salida, movimientos y caja se confirman juntos. Un cierre repetido no vuelve a cobrar.</span></p><p><b>04</b><span><strong>Permisos en tiempo real</strong>Los eventos entre dispositivos también verifican usuario, empresa y playa antes de mostrar información.</span></p></div></div></section>
+    <section className="security wrap"><div className="security-card"><div><p className="kicker light"><span/> LO QUE EL EMPLEADO NO PUEDE HACER</p><h2>Vos ponés las reglas.<br/><em>El sistema las hace cumplir.</em></h2><p>No es que los botones estén escondidos: aunque alguien sepa por dónde entrar, el sistema no lo deja. Estas cuatro cosas son las que más tranquilidad te van a dar.</p></div><div className="security-points"><p><b>01</b><span><strong>No puede tocar las tarifas</strong>El operador cobra lo que el sistema calcula. No puede cambiar un precio, ni ver la configuración, ni aplicar un importe a mano sin que quede registrado.</span></p><p><b>02</b><span><strong>No se puede borrar un movimiento de caja</strong>Lo que se cobró, quedó. Si hubo un error, se corrige con un ajuste que lleva el motivo escrito y el nombre de quien lo hizo. El número original nunca desaparece.</span></p><p><b>03</b><span><strong>Si echás a alguien, queda afuera al instante</strong>Le cambiás la contraseña o le das de baja el usuario y se cierran todas sus sesiones, en todos los dispositivos, aunque haya dejado el celular con el sistema abierto.</span></p><p><b>04</b><span><strong>Cada playa ve lo suyo y nada más</strong>Si tenés dos playas, el operador de una no ve los tickets, la caja ni los turnos de la otra. Vos las ves todas.</span></p></div></div></section>
 
     <section className="details wrap"><div className="details-copy"><p className="kicker"><span/> COBROS SIN SORPRESAS</p><h2>El sistema explica<br/><em>cada importe.</em></h2><p>Antes de cerrar una estadía se ve el tiempo, la tarifa aplicada, lo que ya fue pagado y lo que falta cobrar.</p><ul><li><b>Anticipos controlados.</b> Cobra o devuelve únicamente la diferencia.</li><li><b>Cortesías registradas.</b> Quedan visibles sin inflar el efectivo.</li><li><b>Cierre transaccional.</b> La salida, el cobro y la caja se guardan juntos.</li></ul></div><div className="calculation"><div className="calc-head"><span><Icon name="plate"/></span><div><small>PATENTE</small><strong>AA 123 BB</strong></div><b>EN LA PLAYA</b></div><div className="calc-time"><div><small>ENTRADA</small><strong>09:42</strong></div><div><small>TIEMPO</small><strong>2 h 18 min</strong></div></div><div className="calc-lines"><p><span>Primer período</span><b>$ 3.000</b></p><p><span>Período adicional</span><b>$ 3.000</b></p><p><span>Anticipo</span><b>− $ 1.000</b></p></div><div className="calc-total"><span>Falta cobrar ahora</span><strong>$ 5.000</strong></div></div></section>
 
@@ -152,6 +202,8 @@ export default function Home() {
         <article className="plan plan--destacado"><span className="plan__tag">Recomendado</span><p className="plan__nombre">Mediana</p><p className="plan__tamano">51 a 120 lugares</p><p className="plan__pesos">$69.000<span>/mes</span></p><p className="plan__usd">USD 45 por mes, por playa</p></article>
         <article className="plan"><p className="plan__nombre">Grande</p><p className="plan__tamano">Más de 120 lugares</p><p className="plan__pesos">$107.000<span>/mes</span></p><p className="plan__usd">USD 70 por mes, por playa</p></article>
       </div>
+
+      <p className="plan-extra"><b>¿Tenés más de una playa?</b> Cada playa adicional paga <b>30% menos</b> que su plan, sin preguntar ni negociar: <span>$32.200</span> la chica, <span>$48.300</span> la mediana, <span>$74.900</span> la grande.</p>
 
       <p className="plan-nota">Los valores en pesos son una referencia al dólar vendedor BNA de $1.535 y se actualizan según la cotización vigente.</p>
 
@@ -169,6 +221,25 @@ export default function Home() {
 
       <p className="plan-aparte"><b>¿Necesitás que funcione distinto?</b> El abono es el sistema tal como está. Si tu playa necesita una adaptación a medida, se cotiza aparte y se paga una sola vez.</p>
     </div></section>
+
+    <section className="faq wrap">
+      <div className="section-head compact"><div><p className="kicker"><span/> LO QUE TODOS PREGUNTAN</p><h2>Antes de que<br/><em>me escribas.</em></h2></div><p>Las cuatro dudas que aparecen siempre, contestadas sin vueltas.</p></div>
+      <div className="faq-grid">
+        <article><h3>¿Qué necesito para empezar?</h3><p>Nada que no tengas. Funciona en la computadora del mostrador o en el celular, con el navegador que ya usás. No hay que comprar equipos, ni instalar programas, ni contratar internet aparte. Si querés usar tickets con código de barras, alcanza con un lector común por USB.</p></article>
+        <article><h3>¿Y si se corta internet?</h3><p>Te lo digo derecho: el sistema necesita conexión para trabajar. Lo que sí te garantizo es que <b>nada de lo ya registrado se pierde</b> — está guardado en el servidor, no en la computadora del mostrador. Cuando vuelve la conexión seguís donde estabas, sin recargar nada a mano. Si el corte es largo, se anota en papel y se carga después.</p></article>
+        <article><h3>¿Puedo darme de baja cuando quiera?</h3><p>Sí. No hay permanencia ni multa por irte. Avisás y el mes siguiente no se cobra. Los datos de tu playa son tuyos: si te vas, te los exporto.</p></article>
+        <article><h3>¿Cuánto tarda en estar andando?</h3><p>El mismo día. Lo que lleva tiempo no es instalarlo, es cargar bien tus tarifas y tus tipos de vehículo — y eso lo hacemos juntos en una videollamada o yendo a la playa. Al terminar ya podés registrar la primera entrada.</p></article>
+      </div>
+    </section>
+
+    <section className="autor wrap">
+      <div className="autor-marca"><Marca /></div>
+      <div>
+        <p className="kicker"><span/> QUIÉN ESTÁ DETRÁS</p>
+        <h3>Lo hice yo y te atiendo yo.</h3>
+        <p>Soy Ignacio Gaute, de Mendoza. Este sistema no lo compré ni lo revendo: lo escribí yo, mirando cómo trabaja una playa de verdad. Cuando escribís al WhatsApp no hay mesa de ayuda ni ticket de soporte: contesta el que lo programó, y si hay que ir hasta la playa, voy.</p>
+      </div>
+    </section>
 
     <section id="contacto" className="cta wrap"><div><p className="kicker light"><span/> LISTO PARA TU PLAYA</p><h2>Menos explicaciones.<br/><em>Más control.</em></h2><p>Escribime y lo vemos funcionando con tus tarifas y tus vehículos. Contesto yo, que soy el que lo hizo.</p></div><a className="button dark wsp-cta" href={WSP} target="_blank" rel="noopener noreferrer"><IconoWhatsApp /> Escribime por WhatsApp</a></section>
     <footer className="wrap footer"><a className="brand" href="#inicio"><Marca /> <span className="brand-nombre">Estacionamiento</span></a><p>Software para operar playas de estacionamiento.</p><a className="footer-wsp" href={WSP} target="_blank" rel="noopener noreferrer"><IconoWhatsApp /> 261 485-9172</a><span>© {new Date().getFullYear()}</span></footer>

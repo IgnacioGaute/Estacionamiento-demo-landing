@@ -161,3 +161,139 @@
   .brand-nombre { display: none; }
   .nav-links { gap: 14px; }
 }
+
+/* ── Caso real ──────────────────────────────────────────
+   La prueba de que el sistema existe fuera de esta página. Mientras no esté la
+   foto, el hueco se muestra marcado a propósito: es más honesto que rellenarlo
+   con una imagen de archivo. */
+.caso {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: 60px;
+  padding-block: 40px 120px;
+}
+/* La captura va con marco oscuro: es una pantalla del sistema, no una foto. */
+.caso-foto {
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--ink);
+  box-shadow: 10px 12px 0 var(--yellow);
+}
+.caso-foto img { display: block; width: 100%; height: auto; }
+.caso-foto--vacia {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  border: 2px dashed var(--line);
+  border-radius: 20px;
+  background: #e9e4d8;
+  padding: 24px;
+  text-align: center;
+  box-shadow: none;
+}
+.caso-foto__falta {
+  font: 600 11px JetBrains Mono;
+  line-height: 2;
+  letter-spacing: .08em;
+  color: #8d8778;
+}
+.caso-foto__falta b { display: inline-block; margin: 4px 0; font-size: 14px; color: #5d584e; }
+.caso-foto__falta code { font-size: 10.5px; color: #a09a8c; }
+.caso-texto h2 { font-size: clamp(38px, 4.6vw, 58px); letter-spacing: -.035em; }
+.caso-cita {
+  margin: 26px 0 0;
+  padding-left: 20px;
+  border-left: 3px solid var(--yellow);
+  font-size: 18px;
+  line-height: 1.6;
+  color: #5d584e;
+}
+.caso-firma { margin: 18px 0 0; font-size: 13px; color: #6f695f; }
+.caso-firma b { color: var(--ink); }
+
+/* ── Preguntas frecuentes ───────────────────────────────── */
+.faq { padding-bottom: 120px; }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.faq-grid article {
+  padding: 26px 24px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--white);
+}
+.faq-grid h3 { font-size: 21px; margin-bottom: 12px; }
+.faq-grid p { margin: 0; font-size: 13.5px; line-height: 1.7; color: #6b655b; }
+.faq-grid b { color: var(--ink); }
+
+/* ── Quién está detrás ──────────────────────────────────── */
+.autor {
+  display: flex;
+  align-items: flex-start;
+  gap: 26px;
+  margin-bottom: 110px;
+  padding: 34px 36px;
+  border-radius: 22px;
+  background: #e8e3d8;
+}
+.autor-marca .brand-mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 58px;
+  height: 58px;
+  padding: 11px;
+  border-radius: 14px;
+  background: var(--ink);
+}
+.autor-marca .brand-mark svg { width: 100%; height: 100%; display: block; }
+.autor h3 { font-size: 30px; margin: 10px 0 12px; }
+.autor p:not(.kicker) { margin: 0; max-width: 640px; font-size: 14px; line-height: 1.75; color: #5d584e; }
+
+@media (max-width: 900px) {
+  .caso { grid-template-columns: 1fr; gap: 34px; padding-bottom: 90px; }
+  .faq-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 620px) {
+  .caso { padding-bottom: 70px; }
+  .caso-cita { font-size: 16px; }
+  .faq { padding-bottom: 80px; }
+  .faq-grid article { padding: 22px 20px; }
+  .faq-grid h3 { font-size: 19px; }
+  .autor { flex-direction: column; gap: 18px; padding: 26px 22px; margin-bottom: 70px; }
+  .autor h3 { font-size: 25px; }
+}
+
+/* Línea del descuento por playa adicional: los números a la vista para que nadie
+   tenga que preguntar cuánto sale la segunda. */
+.plan-extra {
+  position: relative;
+  margin: 22px 0 0;
+  padding: 15px 18px;
+  border-radius: 12px;
+  background: rgba(255, 201, 28, .08);
+  border: 1px solid rgba(255, 201, 28, .22);
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #cfc8bb;
+}
+.plan-extra b { color: var(--yellow); }
+.plan-extra span { font-family: JetBrains Mono, monospace; font-weight: 600; color: var(--white); }
+
+/* El titular pasó de tres palabras a seis: con la medida anterior ocupaba cinco
+   renglones y se comía el hero entero. */
+.hero-copy h1 { font-size: clamp(42px, 5vw, 76px); letter-spacing: -.04em; }
+.hero-actions .button { gap: 12px; white-space: nowrap; }
+.hero-actions .button svg { width: 19px; height: 19px; flex: none; color: #25D366; }
+
+@media (max-width: 620px) {
+  .hero-copy h1 { font-size: 40px; }
+  .hero-actions .button { gap: 10px; }
+}
+
+.caso-texto__cuerpo { margin: 24px 0 0; font-size: 15px; line-height: 1.75; color: #5d584e; }
+.caso-datos { display: flex; gap: 34px; margin-top: 26px; }
+.caso-datos p { margin: 0; }
+.caso-datos b { display: block; font: 700 40px Oswald, Arial, sans-serif; line-height: 1; color: var(--orange); }
+.caso-datos span { display: block; margin-top: 5px; max-width: 150px; font-size: 11.5px; line-height: 1.45; color: #6f695f; }
+@media (max-width: 620px) { .caso-datos { gap: 24px; } .caso-datos b { font-size: 33px; } }
