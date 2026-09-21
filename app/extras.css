@@ -384,3 +384,49 @@
   .ia-copy h2 { font-size: 30px; }
   .ia-burbuja { max-width: 92%; }
 }
+
+/* ── Lectura de patente con la cámara ───────────────────
+   Chapa dibujada, no una foto: mostrar una patente real de alguien sería meter
+   el auto de un tercero en una página de venta. */
+.plate-demo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 12px 14px;
+  border-radius: 13px;
+  background: #101010;
+  border: 1px solid #292825;
+}
+.plate-demo__foto {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 46px;
+  height: 36px;
+  border-radius: 10px;
+  border: 2px solid #4b4739;
+  /* Las esquinas del encuadre de la cámara. */
+  background:
+    linear-gradient(#8f897f, #8f897f) 0 0 / 14px 2px no-repeat,
+    linear-gradient(#8f897f, #8f897f) 0 0 / 2px 14px no-repeat,
+    linear-gradient(#8f897f, #8f897f) 100% 100% / 14px 2px no-repeat,
+    linear-gradient(#8f897f, #8f897f) 100% 100% / 2px 14px no-repeat;
+}
+.plate-demo__foto b {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 2px solid var(--yellow);
+  box-shadow: inset 0 0 0 3px #101010, 0 0 12px rgba(255, 201, 28, .4);
+}
+.plate-demo__flecha { flex: none; font-size: 15px; line-height: 1; color: #6f6a61; }
+.plate-demo__patente {
+  padding: 7px 12px;
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--ink);
+  font: 700 15px JetBrains Mono, monospace;
+  letter-spacing: .06em;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .18);
+}

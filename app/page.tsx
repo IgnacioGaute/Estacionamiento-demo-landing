@@ -72,6 +72,7 @@ function BentoGlow() {
     <article className="bento"><span className="icon"><Icon name="clock" /></span><p className="eyebrow">CIERRE SEGURO</p><h3>Vista previa antes de cobrar</h3><p>Si el precio cambia mientras confirmás, el sistema frena el cierre y muestra el nuevo importe.</p></article>
     <article className="bento"><span className="icon"><Icon name="chart" /></span><p className="eyebrow">CONTROL</p><h3>Todo explicado</h3><p>Desglose de cálculo, anticipos, cortesías, actividad por horario y reportes por rango.</p></article>
     <article className="bento"><span className="icon"><Icon name="car" /></span><p className="eyebrow">DÍA, SEMANA O MES</p><h3>No todo se cobra por hora</h3><p>Registrá un vehículo por día, por semana o por mes, con su propio precio según el tipo. Se cobra al ingresar y entra en la caja como cualquier otro cobro.</p></article>
+    <article className="bento"><span className="icon"><Icon name="plate" /></span><p className="eyebrow">CÁMARA DEL CELULAR</p><h3>Sacale una foto y la patente se escribe sola</h3><p>El operador encuadra la chapa desde el celular y el sistema la lee. La muestra para revisar antes de confirmar: si salió movida, se corrige a mano.</p><div className="plate-demo"><span className="plate-demo__foto"><b/></span><span className="plate-demo__flecha">→</span><span className="plate-demo__patente">AA 123 BB</span></div></article>
   </div>;
 }
 
