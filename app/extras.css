@@ -297,3 +297,90 @@
 .caso-datos b { display: block; font: 700 40px Oswald, Arial, sans-serif; line-height: 1; color: var(--orange); }
 .caso-datos span { display: block; margin-top: 5px; max-width: 150px; font-size: 11.5px; line-height: 1.45; color: #6f695f; }
 @media (max-width: 620px) { .caso-datos { gap: 24px; } .caso-datos b { font-size: 33px; } }
+
+
+/* ── Asistente ──────────────────────────────────────────
+   Sin tarjeta oscura ni sombra dura: entre dos secciones negras (seguridad
+   arriba, el resto abajo) otra caja oscura se empastaba. Va sobre el papel, y
+   lo único enmarcado es el chat, dibujado como la ventanita real del sistema. */
+.ia { padding-block: 110px; }
+.ia-card {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 64px;
+  align-items: center;
+}
+.ia-copy h2 { font-size: clamp(32px, 3.6vw, 46px); letter-spacing: -.03em; }
+.ia-copy > p { margin: 16px 0 0; max-width: 44ch; font-size: 14.5px; line-height: 1.7; color: #6b655b; }
+/* El límite es una aclaración, no un argumento: más chico y sin peso. */
+.ia-limite {
+  margin-top: 20px;
+  padding-left: 14px;
+  border-left: 2px solid var(--line);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #857f74;
+}
+
+.ia-chat {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--white);
+  overflow: hidden;
+  box-shadow: 0 20px 44px rgba(25, 20, 10, .09);
+}
+.ia-chat__barra {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  background: #faf8f2;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.ia-chat__barra .brand-mark {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 5px;
+  border-radius: 7px;
+  background: var(--ink);
+}
+.ia-chat__barra .brand-mark svg { width: 100%; height: 100%; display: block; }
+/* El puntito verde de "en línea", al final de la barra. */
+.ia-chat__barra i {
+  margin-left: auto;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3f9a5c;
+}
+
+.ia-chat__hilo { display: flex; flex-direction: column; gap: 10px; padding: 18px 16px; }
+.ia-burbuja { max-width: 86%; padding: 10px 14px; font-size: 12.5px; line-height: 1.55; border-radius: 14px; }
+.ia-burbuja--vos {
+  align-self: flex-end;
+  background: var(--ink);
+  color: var(--white);
+  border-bottom-right-radius: 4px;
+  font-weight: 500;
+}
+.ia-burbuja--ia {
+  align-self: flex-start;
+  background: #f1ece1;
+  color: #46413a;
+  border-bottom-left-radius: 4px;
+}
+.ia-burbuja--ia b { color: var(--ink); font-weight: 700; }
+
+@media (max-width: 900px) {
+  .ia { padding-block: 80px; }
+  .ia-card { grid-template-columns: 1fr; gap: 34px; }
+}
+@media (max-width: 620px) {
+  .ia { padding-block: 60px; }
+  .ia-copy h2 { font-size: 30px; }
+  .ia-burbuja { max-width: 92%; }
+}

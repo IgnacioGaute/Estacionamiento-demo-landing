@@ -188,6 +188,28 @@ export default function Home() {
 
     <section className="security wrap"><div className="security-card"><div><p className="kicker light"><span/> LO QUE EL EMPLEADO NO PUEDE HACER</p><h2>Vos ponés las reglas.<br/><em>El sistema las hace cumplir.</em></h2><p>No es que los botones estén escondidos: aunque alguien sepa por dónde entrar, el sistema no lo deja. Estas cuatro cosas son las que más tranquilidad te van a dar.</p></div><div className="security-points"><p><b>01</b><span><strong>No puede tocar las tarifas</strong>El operador cobra lo que el sistema calcula. No puede cambiar un precio, ni ver la configuración, ni aplicar un importe a mano sin que quede registrado.</span></p><p><b>02</b><span><strong>No se puede borrar un movimiento de caja</strong>Lo que se cobró, quedó. Si hubo un error, se corrige con un ajuste que lleva el motivo escrito y el nombre de quien lo hizo. El número original nunca desaparece.</span></p><p><b>03</b><span><strong>Si un empleado es despedido, queda afuera al instante</strong>Le cambiás la contraseña o le das de baja el usuario y se cierran todas sus sesiones, en todos los dispositivos, aunque haya dejado el celular con el sistema abierto.</span></p><p><b>04</b><span><strong>Cada playa ve lo suyo y nada más</strong>Si tenés dos playas, el operador de una no ve los tickets, la caja ni los turnos de la otra. Vos las ves todas.</span></p></div></div></section>
 
+    <section className="ia wrap">
+      <div className="ia-card">
+        <div className="ia-copy">
+          <p className="kicker"><span/> ASISTENTE INCLUIDO</p>
+          <h2>Preguntale al sistema.</h2>
+          <p>Un asistente en cada pantalla. Explica cómo funciona cada sección y consulta los datos de tu playa para responder con números reales.</p>
+          <p className="ia-limite">Solo lectura: no cobra, no modifica tarifas ni cierra turnos. Cada persona ve únicamente lo que su rol permite.</p>
+        </div>
+        <div className="ia-chat">
+          <div className="ia-chat__barra"><Marca /><span>Asistente</span><i/></div>
+          <div className="ia-chat__hilo" aria-hidden="true">
+            <div className="ia-burbuja ia-burbuja--vos">¿Cómo cambio el precio de la hora?</div>
+            <div className="ia-burbuja ia-burbuja--ia">Administración → Tickets, pestaña <b>«Precios por duración»</b>. Abrí el menú <b>…</b> de la franja y tocá <b>Editar</b>.</div>
+            <div className="ia-burbuja ia-burbuja--vos">¿Y si la cambio con autos adentro?</div>
+            <div className="ia-burbuja ia-burbuja--ia">Cada auto guarda los precios de cuando entró: al que ya está se le cobra la tarifa vieja. La nueva rige para los que entren después.</div>
+            <div className="ia-burbuja ia-burbuja--vos">¿Cuánto efectivo debería haber en la caja?</div>
+            <div className="ia-burbuja ia-burbuja--ia">Fondo inicial $30.000 más $56.400 cobrados desde que abrió el turno: <b>$86.400</b>.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section className="details wrap"><div className="details-copy"><p className="kicker"><span/> COBROS SIN SORPRESAS</p><h2>El sistema explica<br/><em>cada importe.</em></h2><p>Antes de cerrar una estadía se ve el tiempo, la tarifa aplicada, lo que ya fue pagado y lo que falta cobrar.</p><ul><li><b>Anticipos controlados.</b> Cobra o devuelve únicamente la diferencia.</li><li><b>Cortesías registradas.</b> Quedan visibles sin inflar el efectivo.</li><li><b>Cierre transaccional.</b> La salida, el cobro y la caja se guardan juntos.</li></ul></div><div className="calculation"><div className="calc-head"><span><Icon name="plate"/></span><div><small>PATENTE</small><strong>AA 123 BB</strong></div><b>EN LA PLAYA</b></div><div className="calc-time"><div><small>ENTRADA</small><strong>09:42</strong></div><div><small>TIEMPO</small><strong>2 h 18 min</strong></div></div><div className="calc-lines"><p><span>Primer período</span><b>$ 3.000</b></p><p><span>Período adicional</span><b>$ 3.000</b></p><p><span>Anticipo</span><b>− $ 1.000</b></p></div><div className="calc-total"><span>Falta cobrar ahora</span><strong>$ 5.000</strong></div></div></section>
 
     <section id="planes" className="pricing wrap"><div className="price-glow">
@@ -206,7 +228,7 @@ export default function Home() {
       <div className="plan-incluido">
         <p className="plan-incluido__titulo">En los tres, sin excepciones</p>
         <ul>
-          <li><b>✓</b> Todas las funciones: tickets, patentes, tarifas, caja, turnos, reportes y usuarios</li>
+          <li><b>✓</b> Todas las funciones: tickets, patentes, tarifas, caja, turnos, reportes y usuarios</li><li><b>✓</b> El asistente con IA, sin costo aparte</li>
           <li><b>✓</b> Capacitación y puesta en marcha, sin costo</li>
           <li><b>✓</b> Mantenimiento y actualizaciones</li>
           <li><b>✓</b> Sin permanencia: te das de baja cuando quieras</li>
