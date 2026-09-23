@@ -172,7 +172,24 @@ export default function Home() {
       </div>
     </section>
 
-    <section id="funciones" className="features"><div className="wrap"><div className="section-head compact"><div><p className="kicker"><span/> TODO LO QUE NECESITÁS</p><h2>Potente por dentro.<br/><em>Claro por fuera.</em></h2></div><p>La complejidad vive en el motor. El operador ve decisiones simples y datos fáciles de comprobar.</p></div><BentoGlow/></div></section>
+    <section id="funciones" className="features"><div className="wrap"><div className="section-head compact"><div><p className="kicker"><span/> TODO LO QUE NECESITÁS</p><h2>Potente por dentro.<br/><em>Claro por fuera.</em></h2></div></div><BentoGlow/></div></section>
+
+    <section className="comp wrap">
+      <div className="section-head compact">
+        <div>
+          <p className="kicker"><span/> COMPROBANTES <b className="comp-tag">Próximamente</b></p>
+          <h2>Un comprobante al entrar<br/><em>y otro al salir.</em></h2>
+        </div>
+        <p>Se genera solo al registrar el movimiento, con la patente, los horarios, la tarifa aplicada y el importe. Elegís cómo entregarlo — o combinás varias.</p>
+      </div>
+      <div className="comp-grid">
+        <article><b>01</b><div><h3>QR en pantalla</h3><p>El cliente lo escanea con su celular y ve el comprobante. No hace falta pedirle ningún dato ni comprar nada.</p></div></article>
+        <article><b>02</b><div><h3>Enlace por WhatsApp</h3><p>Tocás el botón y se abre el chat del cliente con el mensaje y el enlace ya escritos, desde el WhatsApp de la empresa. No hay que buscar el contacto ni copiar nada: solo enviar.</p></div></article>
+        <article><b>03</b><div><h3>Impresora por USB <span className="comp-hw">Requiere impresora</span></h3><p>Imprimís desde la computadora del mostrador conectada a una impresora térmica.</p></div></article>
+        <article><b>04</b><div><h3>Impresora por Bluetooth <span className="comp-hw comp-hw--pend">Proximamante</span></h3><p>Imprimir desde el celular, automáticamente al registrar la entrada o la salida. Requiere impresora y depende del equipo: estamos confirmando con cuáles funciona y en qué teléfonos.</p></div></article>
+      </div>
+      <p className="comp-nota"><b>La impresora se compra aparte.</b> No está incluida en la suscripción, ni la de USB ni la de Bluetooth. Decime cómo trabaja tu playa y te recomiendo cuál conviene: son equipos comunes y no hacen falta modelos caros.</p>
+    </section>
 
     <section className="admin-section wrap"><div className="section-head"><div><p className="kicker"><span/> ADMINISTRACIÓN COMPLETA</p><h2>Configurá una vez.<br/><em>Operá todos los días.</em></h2></div><p>Cada pantalla administrativa tiene un objetivo concreto. Los cambios de configuración quedan separados de la operación diaria.</p></div><div className="admin-grid">
       <article><span>01</span><div><h3>Tickets y tarifas</h3><p>Crea fichas físicas, tipos de vehículo y precios por día, noche, duración, período iniciado, período completo o minuto exacto. Y aparte, precios por día, semana y mes para las estadías largas.</p></div></article>
@@ -233,7 +250,6 @@ export default function Home() {
           <li><b>✓</b> Capacitación y puesta en marcha, sin costo</li>
           <li><b>✓</b> Mantenimiento y actualizaciones</li>
           <li><b>✓</b> Sin permanencia: te das de baja cuando quieras</li>
-          <li><b>✓</b> Primer mes sin cargo</li>
           <li><b>✓</b> Playa adicional, 30% de descuento en cada una</li>
         </ul>
       </div>
