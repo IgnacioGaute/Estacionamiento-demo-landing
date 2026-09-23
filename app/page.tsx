@@ -177,7 +177,7 @@ export default function Home() {
     <section className="comp wrap">
       <div className="section-head compact">
         <div>
-          <p className="kicker"><span/> COMPROBANTES <b className="comp-tag">Próximamente</b></p>
+          <p className="kicker"><span/> COMPROBANTES</p>
           <h2>Un comprobante al entrar<br/><em>y otro al salir.</em></h2>
         </div>
         <p>Se genera solo al registrar el movimiento, con la patente, los horarios, la tarifa aplicada y el importe. Elegís cómo entregarlo — o combinás varias.</p>
@@ -186,7 +186,7 @@ export default function Home() {
         <article><b>01</b><div><h3>QR en pantalla</h3><p>El cliente lo escanea con su celular y ve el comprobante. No hace falta pedirle ningún dato ni comprar nada.</p></div></article>
         <article><b>02</b><div><h3>Enlace por WhatsApp</h3><p>Tocás el botón y se abre el chat del cliente con el mensaje y el enlace ya escritos, desde el WhatsApp de la empresa. No hay que buscar el contacto ni copiar nada: solo enviar.</p></div></article>
         <article><b>03</b><div><h3>Impresora por USB <span className="comp-hw">Requiere impresora</span></h3><p>Imprimís desde la computadora del mostrador conectada a una impresora térmica.</p></div></article>
-        <article><b>04</b><div><h3>Impresora por Bluetooth <span className="comp-hw comp-hw--pend">Proximamante</span></h3><p>Imprimir desde el celular, automáticamente al registrar la entrada o la salida. Requiere impresora y depende del equipo: estamos confirmando con cuáles funciona y en qué teléfonos.</p></div></article>
+        <article><b>04</b><div><h3>Impresora por Bluetooth <span className="comp-hw comp-hw--pend">Próximamente</span></h3><p>Imprimir desde el celular, automáticamente al registrar la entrada o la salida. Requiere impresora y depende del equipo: estamos confirmando con cuáles funciona y en qué teléfonos.</p></div></article>
       </div>
       <p className="comp-nota"><b>La impresora se compra aparte.</b> No está incluida en la suscripción, ni la de USB ni la de Bluetooth. Decime cómo trabaja tu playa y te recomiendo cuál conviene: son equipos comunes y no hacen falta modelos caros.</p>
     </section>
