@@ -230,32 +230,90 @@ export default function Home() {
 
     <section className="details wrap"><div className="details-copy"><p className="kicker"><span/> COBROS SIN SORPRESAS</p><h2>El sistema explica<br/><em>cada importe.</em></h2><p>Antes de cerrar una estadía se ve el tiempo, la tarifa aplicada, lo que ya fue pagado y lo que falta cobrar.</p><ul><li><b>Anticipos controlados.</b> Cobra o devuelve únicamente la diferencia.</li><li><b>Cortesías registradas.</b> Quedan visibles sin inflar el efectivo.</li><li><b>Cierre transaccional.</b> La salida, el cobro y la caja se guardan juntos.</li></ul></div><div className="calculation"><div className="calc-head"><span><Icon name="plate"/></span><div><small>PATENTE</small><strong>AA 123 BB</strong></div><b>EN LA PLAYA</b></div><div className="calc-time"><div><small>ENTRADA</small><strong>09:42</strong></div><div><small>TIEMPO</small><strong>2 h 18 min</strong></div></div><div className="calc-lines"><p><span>Primer período</span><b>$ 3.000</b></p><p><span>Período adicional</span><b>$ 3.000</b></p><p><span>Anticipo</span><b>− $ 1.000</b></p></div><div className="calc-total"><span>Falta cobrar ahora</span><strong>$ 5.000</strong></div></div></section>
 
-    <section id="planes" className="pricing wrap"><div className="price-glow">
-      <div className="price-head"><p className="kicker light"><span/> PLANES</p><h2>Las mismas funciones.<br/><em>Pagás por el tamaño.</em></h2><p>Ningún plan recorta funciones: Los tres incluyen el sistema completo. El valor depende del tamaño de la playa y el valor del costo mensual  es por playa. El precio es por playa.</p></div>
+<section id="planes" className="pricing wrap">
+  <div className="price-glow">
+    <div className="price-head">
+      <p className="kicker light"><span/> PLANES Y MODULOS</p>
+      <h2>Elegí las funciones que tu playa necesita.<br/><em>Pagás por el tamaño y módulo.</em></h2>
+      <p>Todos los planes incluyen el sistema base de rotación y tickets. Si además administrás alquileres fijos, podés sumar el módulo de gestión de mensuales.</p>
+    </div>
 
-      <div className="plan-grid">
-        <article className="plan"><p className="plan__nombre">Chica</p><p className="plan__tamano">Hasta 50 lugares</p><p className="plan__pesos">$46.000<span>/mes</span></p><p className="plan__usd">USD 30 por mes, por playa</p></article>
-        <article className="plan plan--destacado"><span className="plan__tag">Recomendado</span><p className="plan__nombre">Mediana</p><p className="plan__tamano">51 a 120 lugares</p><p className="plan__pesos">$69.000<span>/mes</span></p><p className="plan__usd">USD 45 por mes, por playa</p></article>
-        <article className="plan"><p className="plan__nombre">Grande</p><p className="plan__tamano">Más de 120 lugares</p><p className="plan__pesos">$107.000<span>/mes</span></p><p className="plan__usd">USD 70 por mes, por playa</p></article>
-      </div>
+    <div className="plan-grid">
+      {/* Plan Chica */}
+      <article className="plan">
+        <p className="plan__nombre">Playa Chica</p>
+        <p className="plan__tamano">Hasta 50 lugares</p>
+        <div className="plan__opcion">
+          <small>Solo Tickets / Rotación</small>
+          <p className="plan__pesos">$46.000<span>/mes</span></p>
+          <p className="plan__usd">USD 30 por mes</p>
+        </div>
+        <hr className="plan__divider" />
+        <div className="plan__opcion plan__opcion--full">
+          <small>+ Módulo Alquileres Mensuales</small>
+          <p className="plan__pesos">$69.000<span>/mes</span></p>
+          <p className="plan__usd">USD 45 por mes</p>
+        </div>
+      </article>
 
-      <p className="plan-extra"><b>¿Tenés más de una playa?</b> Cada playa adicional paga <b>30% menos</b> que su plan, sin preguntar ni negociar: <span>$32.200</span> la chica, <span>$48.300</span> la mediana, <span>$74.900</span> la grande.</p>
+      {/* Plan Mediana */}
+      <article className="plan plan--destacado">
+        <span className="plan__tag">Más elegido</span>
+        <p className="plan__nombre">Playa Mediana</p>
+        <p className="plan__tamano">51 a 120 lugares</p>
+        <div className="plan__opcion">
+          <small>Solo Tickets / Rotación</small>
+          <p className="plan__pesos">$69.000<span>/mes</span></p>
+          <p className="plan__usd">USD 45 por mes</p>
+        </div>
+        <hr className="plan__divider" />
+        <div className="plan__opcion plan__opcion--full">
+          <small>+ Módulo Alquileres Mensuales</small>
+          <p className="plan__pesos">$92.000<span>/mes</span></p>
+          <p className="plan__usd">USD 60 por mes</p>
+        </div>
+      </article>
 
-      <p className="plan-nota">Los valores en pesos son una referencia al dólar vendedor BNA de $1.535 y se actualizan según la cotización vigente.</p>
+      {/* Plan Grande */}
+      <article className="plan">
+        <p className="plan__nombre">Playa Grande</p>
+        <p className="plan__tamano">Más de 120 lugares</p>
+        <div className="plan__opcion">
+          <small>Solo Tickets / Rotación</small>
+          <p className="plan__pesos">$107.000<span>/mes</span></p>
+          <p className="plan__usd">USD 70 por mes</p>
+        </div>
+        <hr className="plan__divider" />
+        <div className="plan__opcion plan__opcion--full">
+          <small>+ Módulo Alquileres Mensuales</small>
+          <p className="plan__pesos">$138.000<span>/mes</span></p>
+          <p className="plan__usd">USD 90 por mes</p>
+        </div>
+      </article>
+    </div>
 
-      <div className="plan-incluido">
-        <p className="plan-incluido__titulo">En los tres, sin excepciones</p>
-        <ul>
-          <li><b>✓</b> Todas las funciones: tickets, patentes, tarifas, caja, turnos, reportes y usuarios</li><li><b>✓</b> El asistente con IA, sin costo aparte</li>
-          <li><b>✓</b> Capacitación y puesta en marcha, sin costo</li>
-          <li><b>✓</b> Mantenimiento y actualizaciones</li>
-          <li><b>✓</b> Sin permanencia: te das de baja cuando quieras</li>
-          <li><b>✓</b> Playa adicional, 30% de descuento en cada una</li>
-        </ul>
-      </div>
+    <p className="plan-extra">
+      <b>¿Tenés más de una playa?</b> Cada playa adicional paga <b>30% menos</b> que su plan, sin preguntar ni negociar.
+    </p>
 
-      <p className="plan-aparte"><b>¿Necesitás que funcione distinto?</b> El abono es el sistema tal como está. Si tu playa necesita una adaptación a medida, se cotiza aparte y se paga una sola vez.</p>
-    </div></section>
+    <p className="plan-nota">
+      Los valores en pesos son una referencia al dólar vendedor BNA de $1.535 y se actualizan según la cotización vigente.
+    </p>
+
+    <div className="plan-incluido">
+      <p className="plan-incluido__titulo">¿Qué incluye cada modalidad?</p>
+      <ul>
+        <li><b>✓ Plan Base (Tickets y Rotación):</b> Entradas/salidas, cálculo de tarifas, cobros por hora/fracción, lectura de patentes, control de caja de turnos, comprobantes por QR/WhatsApp/USB y reportes.</li>
+        <li><b>✓ Módulo Mensuales (Adicional):</b> Registro completo de clientes fijos, control de pagos mensuales y vencimientos, resúmenes históricos de pagos por cliente e integración a la caja.</li>
+        <li><b>✓ En todos los casos:</b> Asistente IA incluido, puesta en marcha sin costo, soporte directo por WhatsApp y sin contrato de permanencia.</li>
+      </ul>
+    </div>
+
+    <p className="plan-aparte">
+      <b>¿Necesitás que funcione distinto?</b> El abono es el sistema tal como está. Si tu playa necesita una adaptación a medida, se cotiza aparte y se paga una sola vez.
+    </p>
+  </div>
+</section>
 
     <section className="faq wrap">
       <div className="section-head compact"><div><p className="kicker"><span/> LO QUE TODOS PREGUNTAN</p><h2>Antes de que<br/><em>me escribas.</em></h2></div><p>Las cuatro dudas que aparecen siempre, contestadas sin vueltas.</p></div>
