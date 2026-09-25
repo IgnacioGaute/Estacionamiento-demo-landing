@@ -146,7 +146,7 @@ const IconoWhatsApp = () => (
 
 export default function Home() {
   return <main>
-    <nav className="nav wrap"><a className="brand" href="#inicio"><Marca /> <span className="brand-nombre">Estacionamiento</span></a><div className="nav-links"><a href="#sistema">Sistema</a><a href="#funciones">Funciones</a><a href="#planes">Planes</a></div></nav>
+    <nav className="nav wrap"><a className="brand" href="#inicio"><Marca /> <span className="brand-nombre">Estacionamiento</span></a><div className="nav-links"><a href="#sistema">Sistema</a><a href="#funciones">Funciones</a><a href="#inquilinos">Inquilinos</a><a href="#planes">Planes</a></div></nav>
 
     <section id="inicio" className="hero wrap">
       <div className="hero-copy"><p className="kicker"><span/> HECHO PARA PLAYAS DE ESTACIONAMIENTO</p><h1>Sabé cuánto entró<br/><em>en cada turno.</em></h1><p className="hero-text">El sistema calcula la tarifa, realiza cierre de caja , saldo  inicial del dia siguiente y responsable de cada movimiento.</p><div className="hero-actions"><a className="button primary" href={WSP} target="_blank" rel="noopener noreferrer"><IconoWhatsApp /> Escribime por WhatsApp</a><a className="button ghost" href="#sistema">Ver el sistema</a></div><div className="trust"><span><b>✓</b> No hay que comprar nada</span><span><b>✓</b> Funciona en celular</span><span><b>✓</b> Una o varias playas</span></div></div>
@@ -189,6 +189,27 @@ export default function Home() {
         <article><b>04</b><div><h3>Impresora por Bluetooth <span className="comp-hw comp-hw--pend">Próximamente</span></h3><p>Imprimir desde el celular, automáticamente al registrar la entrada o la salida. Requiere impresora y depende del equipo: estamos confirmando con cuáles funciona y en qué teléfonos.</p></div></article>
       </div>
       <p className="comp-nota"><b>La impresora se compra aparte.</b> No está incluida en la suscripción, ni la de USB ni la de Bluetooth. Decime cómo trabaja tu playa y te recomiendo cuál conviene: son equipos comunes y no hacen falta modelos caros.</p>
+    </section>
+
+    <section id="inquilinos" className="admin-section wrap">
+      <div className="section-head">
+        <div>
+          <p className="kicker"><span/> COCHERAS MENSUALES</p>
+          <h2>Quién alquila,<br/>cuánto paga<br/><em>y quién debe.</em></h2>
+        </div>
+        <p>Los abonados no se cobran por hora ni entran en la caja del día como una estadía. Llevan su propia ficha, su recibo numerado y su cuenta corriente: en qué mes quedaron, cuánto pagaron y cuánto falta.</p>
+      </div>
+      <div className="admin-grid">
+        <article><span>01</span><div><h3>Dueños e inquilinos</h3><p>Un cliente puede ser dueño de su cochera, inquilino de la cochera de otro, o particular. Si un dueño alquila la suya, queda marcada como alquilada y el inquilino aparece asociado a ella.</p></div></article>
+        <article><span>02</span><div><h3>La cochera, la patente y el titular</h3><p>Cada inquilino guarda su número de cochera, la patente del vehículo, el importe mensual y de quién es el lugar que ocupa. Un mismo cliente puede tener más de una.</p></div></article>
+        <article><span>03</span><div><h3>Precios por tipo</h3><p>Creás tipos de inquilino con su precio y se lo asignás a cada uno. Cuando sube el valor del mes, cambiás el tipo y no ficha por ficha.</p></div></article>
+        <article><span>04</span><div><h3>Recibos numerados</h3><p>Cada recibo lleva su número correlativo y la fecha del período. Generás los del mes de una vez para todos los abonados, no uno por uno.</p></div></article>
+        <article><span>05</span><div><h3>Se cobra con el mismo lector</h3><p>El recibo lleva código de barras. El operador lo pasa por el mismo lector con el que escanea los tickets y el sistema abre directo ese recibo para cobrarlo.</p></div></article>
+        <article><span>06</span><div><h3>Pagos parciales y a cuenta</h3><p>Si el cliente paga una parte, se registra contra ese recibo con su importe, su fecha y su medio de pago. El recibo sigue pendiente hasta que se completa, y queda el detalle de cada entrega.</p></div></article>
+        <article><span>07</span><div><h3>La deuda, mes por mes</h3><p>La ficha del cliente lista qué meses quedaron adeudados y por cuánto, no un total suelto. Al abrirla ves de dónde viene la deuda y desde cuándo.</p></div></article>
+        <article><span>08</span><div><h3>Saldo a favor</h3><p>Si un cliente pagó de más o adelantó un mes, queda registrado a su favor y se descuenta del próximo recibo en lugar de perderse en una anotación aparte.</p></div></article>
+      </div>
+      <p className="comp-nota"><b>Solo el efectivo entra a la caja del día.</b> Un recibo cobrado por transferencia o cheque queda registrado igual, con su medio y su fecha, pero no infla el arqueo del turno. Así el efectivo que contás al cerrar es el que tenés en el cajón.</p>
     </section>
 
     <section className="admin-section wrap"><div className="section-head"><div><p className="kicker"><span/> ADMINISTRACIÓN COMPLETA</p><h2>Configurá una vez.<br/><em>Operá todos los días.</em></h2></div><p>Cada pantalla administrativa tiene un objetivo concreto. Los cambios de configuración quedan separados de la operación diaria.</p></div><div className="admin-grid">
