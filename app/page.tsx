@@ -73,6 +73,26 @@ function BentoGlow() {
     <article className="bento"><span className="icon"><Icon name="chart" /></span><p className="eyebrow">CONTROL</p><h3>Todo explicado</h3><p>Desglose de cálculo, anticipos, cortesías, actividad por horario y reportes por rango.</p></article>
     <article className="bento"><span className="icon"><Icon name="car" /></span><p className="eyebrow">DÍA, SEMANA O MES</p><h3>No todo se cobra por hora</h3><p>Registrá un vehículo por día, por semana o por mes, con su propio precio según el tipo. Se cobra al ingresar y entra en la caja como cualquier otro cobro.</p></article>
     <article className="bento"><span className="icon"><Icon name="plate" /></span><p className="eyebrow">CÁMARA DEL CELULAR</p><h3>Sacale una foto y la patente se escribe sola</h3><p>El operador encuadra la chapa desde el celular y el sistema la lee. La muestra para revisar antes de confirmar: si salió movida, se corrige a mano.</p><div className="plate-demo"><span className="plate-demo__foto"><b/></span><span className="plate-demo__flecha">→</span><span className="plate-demo__patente">AA 123 BB</span></div></article>
+    <article className="bento bento-full">
+      <div>
+        <span className="icon"><Icon name="scan" /></span>
+        <p className="eyebrow">COBRO CON QR · MERCADO PAGO</p>
+        <h3>Que pague con el celular<br/>y que el sistema lo verifique</h3>
+        <p>Conectás la cuenta de tu empresa una sola vez. Al cobrar la salida, el cajero genera un QR con el importe y el cliente lo escanea: paga con tarjeta o con su cuenta, sin necesitar Mercado Pago. Y la pantalla consulta sola si la plata entró — se termina el «ya te transferí» que hay que creer sin poder comprobarlo. Sirve igual para los abonos por día, semana o mes.</p>
+      </div>
+      <div className="mp-card">
+        <svg className="mp-card__qr" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" rx="1.5" fill="none" stroke="#fff" strokeWidth="2"/>
+          <rect x="14" y="3" width="7" height="7" rx="1.5" fill="none" stroke="#fff" strokeWidth="2"/>
+          <rect x="3" y="14" width="7" height="7" rx="1.5" fill="none" stroke="#fff" strokeWidth="2"/>
+          <rect x="14" y="14" width="3" height="3"/>
+          <rect x="18" y="18" width="3" height="3"/>
+        </svg>
+        <small>MERCADO PAGO</small>
+        <strong>$ 6.000</strong>
+        <span><b/> Pago acreditado</span>
+      </div>
+    </article>
   </div>;
 }
 

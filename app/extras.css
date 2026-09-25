@@ -506,3 +506,53 @@
   background: rgba(243, 107, 43, .1);
   color: var(--orange);
 }
+
+/* ── COBRO CON QR DE MERCADO PAGO ──────────────────────────────────────────
+   Cierra la grilla de funciones ocupando el ancho completo: como .bento-wide
+   pero de tres columnas, así el recuadro no deja un hueco al final de la fila. */
+.bento-full {
+  grid-column: span 3;
+  display: grid;
+  grid-template-columns: 1fr .9fr;
+  gap: 25px;
+  align-items: center;
+}
+
+/* Mismo gesto que .cash-card (tarjeta inclinada con sombra dura) pero en el celeste
+   de Mercado Pago, para que se reconozca de quién es el cobro sin usar su logo. */
+.mp-card {
+  position: relative;
+  background: #009ee3;
+  color: #fff;
+  border-radius: 15px;
+  padding: 22px;
+  transform: rotate(-2deg);
+  box-shadow: 8px 9px 0 #080807;
+}
+.mp-card small, .mp-card strong, .mp-card span { display: block; }
+.mp-card small { font: 600 10px JetBrains Mono; letter-spacing: .12em; opacity: .85; }
+.mp-card strong { font: 700 34px JetBrains Mono; margin: 11px 0 20px; }
+.mp-card span { font-size: 11px; }
+.mp-card b {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c6f6a8;
+  margin-right: 5px;
+}
+.mp-card__qr {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 34px;
+  fill: #fff;
+  opacity: .9;
+}
+
+@media (max-width: 900px) {
+  .bento-full { grid-column: span 2; }
+}
+@media (max-width: 620px) {
+  .bento-full { grid-column: auto; grid-template-columns: 1fr; }
+}
