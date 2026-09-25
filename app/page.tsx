@@ -191,27 +191,6 @@ export default function Home() {
       <p className="comp-nota"><b>La impresora se compra aparte.</b> No está incluida en la suscripción, ni la de USB ni la de Bluetooth. Decime cómo trabaja tu playa y te recomiendo cuál conviene: son equipos comunes y no hacen falta modelos caros.</p>
     </section>
 
-    <section id="inquilinos" className="admin-section wrap">
-      <div className="section-head">
-        <div>
-          <p className="kicker"><span/> COCHERAS MENSUALES</p>
-          <h2>Quién alquila,<br/>cuánto paga<br/><em>y quién debe.</em></h2>
-        </div>
-        <p>Los abonados no se cobran por hora ni entran en la caja del día como una estadía. Llevan su propia ficha, su recibo numerado y su cuenta corriente: en qué mes quedaron, cuánto pagaron y cuánto falta.</p>
-      </div>
-      <div className="admin-grid">
-        <article><span>01</span><div><h3>Dueños e inquilinos</h3><p>Un cliente puede ser dueño de su cochera, inquilino de la cochera de otro, o particular. Si un dueño alquila la suya, queda marcada como alquilada y el inquilino aparece asociado a ella.</p></div></article>
-        <article><span>02</span><div><h3>La cochera, la patente y el titular</h3><p>Cada inquilino guarda su número de cochera, la patente del vehículo, el importe mensual y de quién es el lugar que ocupa. Un mismo cliente puede tener más de una.</p></div></article>
-        <article><span>03</span><div><h3>Precios por tipo</h3><p>Creás tipos de inquilino con su precio y se lo asignás a cada uno. Cuando sube el valor del mes, cambiás el tipo y no ficha por ficha.</p></div></article>
-        <article><span>04</span><div><h3>Recibos numerados</h3><p>Cada recibo lleva su número correlativo y la fecha del período. Generás los del mes de una vez para todos los abonados, no uno por uno.</p></div></article>
-        <article><span>05</span><div><h3>Se cobra con el mismo lector</h3><p>El recibo lleva código de barras. El operador lo pasa por el mismo lector con el que escanea los tickets y el sistema abre directo ese recibo para cobrarlo.</p></div></article>
-        <article><span>06</span><div><h3>Pagos parciales y a cuenta</h3><p>Si el cliente paga una parte, se registra contra ese recibo con su importe, su fecha y su medio de pago. El recibo sigue pendiente hasta que se completa, y queda el detalle de cada entrega.</p></div></article>
-        <article><span>07</span><div><h3>La deuda, mes por mes</h3><p>La ficha del cliente lista qué meses quedaron adeudados y por cuánto, no un total suelto. Al abrirla ves de dónde viene la deuda y desde cuándo.</p></div></article>
-        <article><span>08</span><div><h3>Saldo a favor</h3><p>Si un cliente pagó de más o adelantó un mes, queda registrado a su favor y se descuenta del próximo recibo en lugar de perderse en una anotación aparte.</p></div></article>
-      </div>
-      <p className="comp-nota"><b>Solo el efectivo entra a la caja del día.</b> Un recibo cobrado por transferencia o cheque queda registrado igual, con su medio y su fecha, pero no infla el arqueo del turno. Así el efectivo que contás al cerrar es el que tenés en el cajón.</p>
-    </section>
-
     <section className="admin-section wrap"><div className="section-head"><div><p className="kicker"><span/> ADMINISTRACIÓN COMPLETA</p><h2>Configurá una vez.<br/><em>Operá todos los días.</em></h2></div><p>Cada pantalla administrativa tiene un objetivo concreto. Los cambios de configuración quedan separados de la operación diaria.</p></div><div className="admin-grid">
       <article><span>01</span><div><h3>Tickets y tarifas</h3><p>Crea fichas físicas, tipos de vehículo y precios por día, noche, duración, período iniciado, período completo o minuto exacto. Y aparte, precios por día, semana y mes para las estadías largas.</p></div></article>
       <article><span>02</span><div><h3>Horarios y cruces</h3><p>Define cuándo empieza el día y la noche, y si una estadía usa el precio de entrada, salida o se divide por cada tramo.</p></div></article>
@@ -222,6 +201,27 @@ export default function Home() {
       <article><span>07</span><div><h3>Reportes</h3><p>Compara recaudación, actividad por hora, medios de pago y movimientos dentro del rango de fechas elegido.</p></div></article>
       <article><span>08</span><div><h3>Varias playas</h3><p>Una misma empresa puede manejar más de una playa. Cada una lleva sus propios tickets, tarifas, caja y usuarios, sin mezclarse entre sí.</p></div></article>
     </div></section>
+
+    <section id="inquilinos" className="admin-section wrap">
+      <div className="section-head">
+        <div>
+          <p className="kicker"><span/> COCHERAS MENSUALES</p>
+          <h2>Quién alquila,<br/>cuánto paga<br/><em>y quién debe.</em></h2>
+        </div>
+        <p>Los abonados no se cobran por hora ni entran en la caja del día como una estadía. Llevan su propia ficha, su recibo numerado y su cuenta corriente: en qué mes quedaron, cuánto pagaron y cuánto falta.</p>
+      </div>
+      <div className="admin-grid">
+        <article><span>01</span><div><h3>La ficha del inquilino</h3><p>Nombre, teléfono, número de cliente y desde cuándo alquila. Más las observaciones que quieras dejarle anotadas para acordarte de lo que arreglaron.</p></div></article>
+        <article><span>02</span><div><h3>Su cochera y su patente</h3><p>Número de cochera, patente del vehículo e importe mensual. Un mismo inquilino puede tener más de una cochera, cada una con lo suyo.</p></div></article>
+        <article><span>03</span><div><h3>Precios por tipo</h3><p>Creás tipos de inquilino con su precio y se lo asignás a cada uno. Cuando sube el valor del mes, cambiás el tipo y no ficha por ficha.</p></div></article>
+        <article><span>04</span><div><h3>Recibos numerados</h3><p>Cada recibo lleva su número correlativo y la fecha del período. Generás los del mes de una vez para todos los abonados, no uno por uno.</p></div></article>
+        <article><span>05</span><div><h3>Se cobra con el mismo lector</h3><p>El recibo lleva código de barras. El operador lo pasa por el mismo lector con el que escanea los tickets y el sistema abre directo ese recibo para cobrarlo.</p></div></article>
+        <article><span>06</span><div><h3>Pagos parciales y a cuenta</h3><p>Si el cliente paga una parte, se registra contra ese recibo con su importe, su fecha y su medio de pago. El recibo sigue pendiente hasta que se completa, y queda el detalle de cada entrega.</p></div></article>
+        <article><span>07</span><div><h3>La deuda, mes por mes</h3><p>La ficha del cliente lista qué meses quedaron adeudados y por cuánto, no un total suelto. Al abrirla ves de dónde viene la deuda y desde cuándo.</p></div></article>
+        <article><span>08</span><div><h3>Saldo a favor</h3><p>Si un cliente pagó de más o adelantó un mes, queda registrado a su favor y se descuenta del próximo recibo en lugar de perderse en una anotación aparte.</p></div></article>
+      </div>
+      <p className="comp-nota"><b>Solo el efectivo entra a la caja del día.</b> Un recibo cobrado por transferencia o cheque queda registrado igual, con su medio y su fecha, pero no infla el arqueo del turno. Así el efectivo que contás al cerrar es el que tenés en el cajón.</p>
+    </section>
 
     <section className="roles-section"><div className="wrap"><div className="section-head compact"><div><p className="kicker"><span/> ACCESO SEGÚN RESPONSABILIDAD</p><h2>Cada persona ve<br/><em>lo que necesita.</em></h2></div><p>Los permisos no dependen de esconder botones: el servidor valida cada acción y cada registro solicitado.</p></div><div className="roles-table"><div className="role-row role-head"><span>Función</span><b>Operador</b><b>Admin</b></div><div className="role-row"><span>Entradas, salidas y cobros</span><b className="yes">Sí</b><b className="yes">Sí</b></div><div className="role-row"><span>Turno y caja propia</span><b className="yes">Sí</b><b className="yes">Sí</b></div><div className="role-row"><span>Tickets por día, semana o mes</span><b className="yes">Sí</b><b className="yes">Sí</b></div><div className="role-row"><span>Tarifas y configuración</span><b>—</b><b className="yes">Sí</b></div><div className="role-row"><span>Usuarios y accesos</span><b>—</b><b className="yes">Sí</b></div><div className="role-row"><span>Reportes e historial completo</span><b>—</b><b className="yes">Sí</b></div><div className="role-row"><span>Todas las playas de la empresa</span><b>Solo la suya</b><b className="yes">Sí</b></div></div></div></section>
 
