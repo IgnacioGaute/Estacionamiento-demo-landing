@@ -518,36 +518,46 @@
   align-items: center;
 }
 
-/* Mismo gesto que .cash-card (tarjeta inclinada con sombra dura) pero en el celeste
-   de Mercado Pago, para que se reconozca de quién es el cobro sin usar su logo. */
+/* Mismo gesto que .cash-card (tarjeta inclinada con sombra dura) pero con la marca de
+   Mercado Pago: el amarillo al que se pasaron y el azul de su logotipo. Lleva el nombre
+   escrito en dos tonos, como su wordmark, porque el amarillo solo no alcanza para
+   distinguirlo del amarillo de esta misma página. */
 .mp-card {
   position: relative;
-  background: #009ee3;
-  color: #fff;
+  background: #ffe600;
+  color: #2d3277;
   border-radius: 15px;
-  padding: 22px;
+  padding: 24px;
   transform: rotate(-2deg);
   box-shadow: 8px 9px 0 #080807;
 }
-.mp-card small, .mp-card strong, .mp-card span { display: block; }
-.mp-card small { font: 600 10px JetBrains Mono; letter-spacing: .12em; opacity: .85; }
-.mp-card strong { font: 700 34px JetBrains Mono; margin: 11px 0 20px; }
-.mp-card span { font-size: 11px; }
-.mp-card b {
+.mp-card__marca {
+  display: block;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 800;
+  font-size: 21px;
+  line-height: .88;
+  letter-spacing: -.035em;
+}
+.mp-card__marca b, .mp-card__marca i { display: block; font-style: normal; }
+.mp-card__marca i { color: #00a1ea; }
+.mp-card__monto { display: block; font: 700 34px JetBrains Mono; margin: 20px 0 16px; }
+.mp-card__estado { display: block; font-size: 11px; font-weight: 600; }
+.mp-card__estado b {
   display: inline-block;
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #c6f6a8;
-  margin-right: 5px;
+  background: #2f8f4e;
+  margin-right: 6px;
 }
 .mp-card__qr {
   position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 34px;
-  fill: #fff;
-  opacity: .9;
+  top: 22px;
+  right: 22px;
+  width: 32px;
+  fill: #2d3277;
+  opacity: .8;
 }
 
 @media (max-width: 900px) {
@@ -555,4 +565,36 @@
 }
 @media (max-width: 620px) {
   .bento-full { grid-column: auto; grid-template-columns: 1fr; }
+}
+
+/* La sección de comprobantes arrancaba pegada al bloque oscuro de funciones: no tenía
+   aire arriba, así que el título aparecía apenas terminaba el fondo negro. */
+.comp { padding-top: 120px; }
+
+/* Los links del nav no tenían ningún estado: se veían igual antes y después de pasar el
+   mouse. La barrita es la misma que usa el kicker de cada sección. */
+.nav-links a { position: relative; padding: 6px 0; transition: color .18s ease; }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--yellow);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .18s ease;
+}
+.nav-links a:hover { color: var(--orange); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; border-radius: 2px; }
+
+@media (max-width: 620px) {
+  .comp { padding-top: 80px; }
+  /* En el celular «Cocheras mensuales» no entra al lado de los otros tres links. */
+  .nav-extra { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-links a, .nav-links a::after { transition: none; }
 }

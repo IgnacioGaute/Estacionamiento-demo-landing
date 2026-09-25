@@ -82,15 +82,17 @@ function BentoGlow() {
       </div>
       <div className="mp-card">
         <svg className="mp-card__qr" viewBox="0 0 24 24" aria-hidden="true">
-          <rect x="3" y="3" width="7" height="7" rx="1.5" fill="none" stroke="#fff" strokeWidth="2"/>
-          <rect x="14" y="3" width="7" height="7" rx="1.5" fill="none" stroke="#fff" strokeWidth="2"/>
-          <rect x="3" y="14" width="7" height="7" rx="1.5" fill="none" stroke="#fff" strokeWidth="2"/>
+          <rect x="3" y="3" width="7" height="7" rx="1.5" fill="none" stroke="#2d3277" strokeWidth="2"/>
+          <rect x="14" y="3" width="7" height="7" rx="1.5" fill="none" stroke="#2d3277" strokeWidth="2"/>
+          <rect x="3" y="14" width="7" height="7" rx="1.5" fill="none" stroke="#2d3277" strokeWidth="2"/>
           <rect x="14" y="14" width="3" height="3"/>
           <rect x="18" y="18" width="3" height="3"/>
         </svg>
-        <small>MERCADO PAGO</small>
-        <strong>$ 6.000</strong>
-        <span><b/> Pago acreditado</span>
+        {/* El nombre en dos tonos, como su logotipo: el amarillo solo no alcanza para
+            distinguirlo del amarillo de esta misma página. */}
+        <span className="mp-card__marca" aria-label="Mercado Pago"><b>mercado</b><i>pago</i></span>
+        <span className="mp-card__monto">$ 6.000</span>
+        <span className="mp-card__estado"><b/> Pago acreditado</span>
       </div>
     </article>
   </div>;
@@ -166,7 +168,7 @@ const IconoWhatsApp = () => (
 
 export default function Home() {
   return <main>
-    <nav className="nav wrap"><a className="brand" href="#inicio"><Marca /> <span className="brand-nombre">Estacionamiento</span></a><div className="nav-links"><a href="#sistema">Sistema</a><a href="#funciones">Funciones</a><a href="#inquilinos">Inquilinos</a><a href="#planes">Planes</a></div></nav>
+    <nav className="nav wrap"><a className="brand" href="#inicio"><Marca /> <span className="brand-nombre">Estacionamiento</span></a><div className="nav-links"><a href="#sistema">Sistema</a><a href="#funciones">Funciones</a><a href="#cocheras">Cocheras<span className="nav-extra"> mensuales</span></a><a href="#planes">Planes</a></div></nav>
 
     <section id="inicio" className="hero wrap">
       <div className="hero-copy"><p className="kicker"><span/> HECHO PARA PLAYAS DE ESTACIONAMIENTO</p><h1>Sabé cuánto entró<br/><em>en cada turno.</em></h1><p className="hero-text">El sistema calcula la tarifa, realiza cierre de caja , saldo  inicial del dia siguiente y responsable de cada movimiento.</p><div className="hero-actions"><a className="button primary" href={WSP} target="_blank" rel="noopener noreferrer"><IconoWhatsApp /> Escribime por WhatsApp</a><a className="button ghost" href="#sistema">Ver el sistema</a></div><div className="trust"><span><b>✓</b> No hay que comprar nada</span><span><b>✓</b> Funciona en celular</span><span><b>✓</b> Una o varias playas</span></div></div>
@@ -222,7 +224,7 @@ export default function Home() {
       <article><span>08</span><div><h3>Varias playas</h3><p>Una misma empresa puede manejar más de una playa. Cada una lleva sus propios tickets, tarifas, caja y usuarios, sin mezclarse entre sí.</p></div></article>
     </div></section>
 
-    <section id="inquilinos" className="admin-section wrap">
+    <section id="cocheras" className="admin-section wrap">
       <div className="section-head">
         <div>
           <p className="kicker"><span/> COCHERAS MENSUALES</p>
