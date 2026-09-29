@@ -288,14 +288,12 @@ export default function Home() {
         <p className="plan__tamano">Hasta 50 lugares</p>
         <div className="plan__opcion">
           <small>Solo Tickets / Rotación</small>
-          <p className="plan__pesos">$46.000<span>/mes</span></p>
-          <p className="plan__usd">USD 30 por mes</p>
+          <p className="plan__pesos">$50.000<span>/mes</span></p>
         </div>
         <hr className="plan__divider" />
         <div className="plan__opcion plan__opcion--full">
           <small>+ Módulo Alquileres Mensuales</small>
-          <p className="plan__pesos">$69.000<span>/mes</span></p>
-          <p className="plan__usd">USD 45 por mes</p>
+          <p className="plan__pesos">$70.000<span>/mes</span></p>
         </div>
       </article>
 
@@ -306,14 +304,12 @@ export default function Home() {
         <p className="plan__tamano">51 a 120 lugares</p>
         <div className="plan__opcion">
           <small>Solo Tickets / Rotación</small>
-          <p className="plan__pesos">$69.000<span>/mes</span></p>
-          <p className="plan__usd">USD 45 por mes</p>
+          <p className="plan__pesos">$70.000<span>/mes</span></p>
         </div>
         <hr className="plan__divider" />
         <div className="plan__opcion plan__opcion--full">
           <small>+ Módulo Alquileres Mensuales</small>
-          <p className="plan__pesos">$92.000<span>/mes</span></p>
-          <p className="plan__usd">USD 60 por mes</p>
+          <p className="plan__pesos">$95.000<span>/mes</span></p>
         </div>
       </article>
 
@@ -323,14 +319,12 @@ export default function Home() {
         <p className="plan__tamano">Más de 120 lugares</p>
         <div className="plan__opcion">
           <small>Solo Tickets / Rotación</small>
-          <p className="plan__pesos">$107.000<span>/mes</span></p>
-          <p className="plan__usd">USD 70 por mes</p>
+          <p className="plan__pesos">$110.000<span>/mes</span></p>
         </div>
         <hr className="plan__divider" />
         <div className="plan__opcion plan__opcion--full">
           <small>+ Módulo Alquileres Mensuales</small>
-          <p className="plan__pesos">$138.000<span>/mes</span></p>
-          <p className="plan__usd">USD 90 por mes</p>
+          <p className="plan__pesos">$140.000<span>/mes</span></p>
         </div>
       </article>
     </div>
