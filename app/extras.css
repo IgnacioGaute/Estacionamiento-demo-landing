@@ -29,7 +29,7 @@
 .pricing { padding-bottom: 130px; }
 
 /* ── Planes ─────────────────────────────────────────────
-   Tres planes que se diferencian SOLO por el tamaño de la playa: lo que está
+   Tres planes que se diferencian por la ocupación simultánea de rotación: lo que está
    incluido se lista una vez abajo, no tres veces en columnas, así la tabla no
    repite "todas las funciones" en cada tarjeta. */
 .price-glow { position: relative; overflow: hidden; border-radius: 28px; background: var(--ink); color: white; padding: 64px 56px 56px; }
@@ -45,6 +45,13 @@
 .plan__nombre { margin: 0; font: 700 27px Oswald, Arial, sans-serif; text-transform: uppercase; letter-spacing: -.01em; }
 .plan__tamano { margin: 0 0 14px; font: 600 10.5px JetBrains Mono; letter-spacing: .08em; text-transform: uppercase; color: #8e8778; }
 .plan--destacado .plan__tamano { color: #6b5709; }
+.plan-criterio { position: relative; display: grid; grid-template-columns: 38px minmax(0,1.4fr) minmax(0,.8fr); align-items: center; gap: 18px; margin-top: 24px; padding: 20px 22px; border: 1px solid #343126; border-radius: 16px; background: #1a1914; }
+.plan-criterio__icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: rgba(255,201,28,.12); color: var(--yellow); }
+.plan-criterio__icon svg { width: 22px; height: 22px; }
+.plan-criterio__titulo { margin: 0 0 6px; color: var(--white); font-size: 14px; font-weight: 700; }
+.plan-criterio p:not(.plan-criterio__titulo) { margin: 0; color: #bdb5a7; font-size: 12px; line-height: 1.6; }
+.plan-criterio b { color: var(--yellow); }
+.plan-criterio__tranquilidad { border-left: 1px solid #403b2c; padding-left: 18px; }
 .plan__pesos { margin: 0; font: 700 34px JetBrains Mono; line-height: 1.1; }
 .plan__pesos span { font-size: 13px; font-weight: 500; opacity: .65; margin-left: 2px; }
 .plan__usd { margin: 5px 0 0; font-size: 11.5px; color: #8e8778; }
@@ -63,6 +70,8 @@
   .security-card { grid-template-columns: 1fr; gap: 45px; }
   .price-glow { padding: 48px 34px; }
   .plan-grid { grid-template-columns: 1fr; gap: 22px; }
+  .plan-criterio { grid-template-columns: 38px minmax(0,1fr); }
+  .plan-criterio__tranquilidad { grid-column: 2; border-left: 0; padding-left: 0; }
   .plan__tag { top: -11px; }
   .role-row { grid-template-columns: 1.4fr repeat(2,.85fr); }
   .role-row > * { padding: 12px 10px; }
@@ -82,6 +91,7 @@
   .pricing { padding-bottom: 90px; }
   .plan { padding: 22px 20px 20px; }
   .plan__pesos { font-size: 30px; }
+  .plan-criterio { gap: 12px; padding: 18px; }
   .plan-aparte { padding: 14px 15px; }
 }
 @media (prefers-reduced-motion: reduce) { .price-glow::before { animation: none; } }

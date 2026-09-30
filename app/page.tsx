@@ -277,15 +277,15 @@ export default function Home() {
   <div className="price-glow">
     <div className="price-head">
       <p className="kicker light"><span/> PLANES Y MODULOS</p>
-      <h2>Elegí las funciones que tu playa necesita.<br/><em>Pagás por el tamaño y módulo.</em></h2>
-      <p>Todos los planes incluyen el sistema base de rotación y tickets. Si además administrás alquileres fijos, podés sumar el módulo de gestión de mensuales.</p>
+      <h2>Un precio fijo para tu playa.<br/><em>Sin contar las salidas.</em></h2>
+      <p>El plan se elige por la cantidad de autos de rotación que tenés estacionados al mismo tiempo. Todos incluyen tickets y cobros; la gestión de alquileres mensuales se suma si la necesitás.</p>
     </div>
 
     <div className="plan-grid">
       {/* Plan Chica */}
       <article className="plan">
         <p className="plan__nombre">Playa Chica</p>
-        <p className="plan__tamano">Hasta 50 lugares</p>
+        <p className="plan__tamano">Hasta 50 vehículos activos a la vez</p>
         <div className="plan__opcion">
           <small>Solo Tickets / Rotación</small>
           <p className="plan__pesos">$50.000<span>/mes</span></p>
@@ -301,7 +301,7 @@ export default function Home() {
       <article className="plan plan--destacado">
         <span className="plan__tag">Más elegido</span>
         <p className="plan__nombre">Playa Mediana</p>
-        <p className="plan__tamano">51 a 120 lugares</p>
+        <p className="plan__tamano">51 a 120 vehículos activos a la vez</p>
         <div className="plan__opcion">
           <small>Solo Tickets / Rotación</small>
           <p className="plan__pesos">$70.000<span>/mes</span></p>
@@ -316,7 +316,7 @@ export default function Home() {
       {/* Plan Grande */}
       <article className="plan">
         <p className="plan__nombre">Playa Grande</p>
-        <p className="plan__tamano">Más de 120 lugares</p>
+        <p className="plan__tamano">Más de 120 vehículos activos a la vez</p>
         <div className="plan__opcion">
           <small>Solo Tickets / Rotación</small>
           <p className="plan__pesos">$110.000<span>/mes</span></p>
@@ -329,13 +329,19 @@ export default function Home() {
       </article>
     </div>
 
+    <div className="plan-criterio">
+      <span className="plan-criterio__icon"><Icon name="car"/></span>
+      <div>
+        <p className="plan-criterio__titulo">¿Qué significa «activos a la vez»?</p>
+        <p>Son los vehículos de rotación que están dentro de la playa en ese momento. <b>No importa cuántos entren y salgan por día</b>, y los clientes de alquiler mensual no cuentan para este rango.</p>
+      </div>
+      <p className="plan-criterio__tranquilidad">Si un día superás el rango, seguís registrando normalmente. Si la ocupación crece de forma habitual, revisamos el plan para el mes siguiente.</p>
+    </div>
+
     <p className="plan-extra">
       <b>¿Tenés más de una playa?</b> Cada playa adicional paga <b>30% menos</b> que su plan, sin preguntar ni negociar.
     </p>
 
-    <p className="plan-nota">
-      Los valores en pesos son una referencia al dólar vendedor BNA de $1.535 y se actualizan según la cotización vigente.
-    </p>
 
     <div className="plan-incluido">
       <p className="plan-incluido__titulo">¿Qué incluye cada modalidad?</p>
