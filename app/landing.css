@@ -7,7 +7,10 @@
   font-size: 13px; font-weight: 500; color: var(--text-2);
 }
 .portada__pastilla::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: var(--yellow); }
-.portada h1 { max-width: 900px; font-size: clamp(42px, 6vw, 76px); line-height: 1.02; font-weight: 600; letter-spacing: -.04em; text-wrap: balance; }
+/* El título lo dibuja TechText en un canvas por línea; acá solo se le da el ancho disponible. */
+.portada__titulo { width: 100%; max-width: 1120px; margin-block: -12px; }
+.portada__lineas { display: flex; flex-direction: column; width: 100%; }
+.portada__linea { position: relative; display: block; width: 100%; }
 .portada__bajada { max-width: 620px; font-size: clamp(17px, 1.5vw, 20px); line-height: 1.55; color: var(--text-2); text-wrap: pretty; }
 .portada__acciones { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 .portada__confianza { margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; font-size: 14px; color: var(--text-2); }

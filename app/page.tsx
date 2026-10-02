@@ -7,6 +7,7 @@ import Marca from './components/Marca';
 import Planes from './components/Planes';
 import SpotlightCard from './components/reactbits/SpotlightCard';
 import TiltedCard from './components/reactbits/TiltedCard';
+import TituloPortada from './components/TituloPortada';
 import { guides } from './tutorial-data';
 import './landing.css';
 
@@ -37,8 +38,8 @@ export default function Home() {
     <Encabezado/>
     <main>
       <section id="inicio" className="contenedor portada">
-        <p className="portada__pastilla">Sistema para playas de estacionamiento</p>
-        <h1>Sabé cuánto entró en cada turno.</h1>
+        <p className="portada__pastilla">Playas por hora y cocheras mensuales</p>
+        <TituloPortada/>
         <p className="portada__bajada">Registrá entradas y salidas, cobrá la tarifa correcta y seguí cada movimiento de caja con el nombre de quien lo hizo.</p>
         <div className="portada__acciones">
           <a className="boton boton--oscuro" href={DEMO_WSP} target="_blank" rel="noopener noreferrer"><IconoWhatsApp/>Pedir una demo</a>
