@@ -31,3 +31,9 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# Local recordings and review artifacts
+/.revision/
+/.landing-*.log
+/scripts/*-temp.mjs
+/scripts/probe-*.mjs

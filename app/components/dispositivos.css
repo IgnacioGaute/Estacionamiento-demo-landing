@@ -1,0 +1,247 @@
+.pantalla {
+  position: relative;
+  overflow: hidden;
+  background: #0f0f0e;
+}
+
+.pantalla img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.isla {
+  position: absolute;
+  top: 1.2%;
+  left: 50%;
+  width: 30%;
+  height: 3%;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: #000;
+}
+
+/* Reflejo del vidrio: lo mueve TiltedCard con --glare-* y solo aparece con el mouse encima. */
+.reflejo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 40%), rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 55%);
+  opacity: var(--glare-o, 0);
+  transition: opacity 0.3s;
+}
+
+.capa {
+  position: absolute;
+  inset: 0;
+  background: var(--c);
+  transform: translateZ(var(--z));
+}
+
+/* ── De frente (portada) ─────────────────────────────────── */
+
+.notebook-frente__tapa {
+  padding: 1.4% 1.4% 2.4%;
+  border-radius: clamp(10px, 1.5vw, 20px) clamp(10px, 1.5vw, 20px) 4px 4px;
+  background: #1a1a19;
+  box-shadow: inset 0 0 0 1px #34332f, 0 40px 80px -36px rgba(18, 18, 17, 0.45);
+}
+
+.notebook-frente__pantalla {
+  aspect-ratio: 16 / 10;
+  border-radius: 4px;
+}
+
+.notebook-frente__base {
+  position: relative;
+  height: clamp(9px, 1.3vw, 18px);
+  margin: 0 -6%;
+  border-radius: 0 0 clamp(10px, 1.6vw, 22px) clamp(10px, 1.6vw, 22px);
+  background: linear-gradient(180deg, #ebeae6 0%, #d0cfca 60%, #adaca7 100%);
+  box-shadow: 0 18px 30px -14px rgba(18, 18, 17, 0.35);
+}
+
+/* La muesca para abrir la tapa. */
+.notebook-frente__base::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 13%;
+  height: 42%;
+  transform: translateX(-50%);
+  border-radius: 0 0 8px 8px;
+  background: #bebdb8;
+}
+
+/* El relleno en % se mide contra el ancho del contenedor del celular, así el marco escala con él. */
+.celular-frente {
+  padding: 4.5%;
+  border-radius: 15% / 7%;
+  background: #121211;
+  box-shadow: inset 0 0 0 1px #3a3936, 0 30px 60px -24px rgba(18, 18, 17, 0.55);
+}
+
+.celular-frente__pantalla {
+  aspect-ratio: 390 / 844;
+  border-radius: 11% / 5.2%;
+}
+
+/* ── Celular 3D ──────────────────────────────────────────── */
+
+.celular3d {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.celular3d .capa,
+.celular3d__frente {
+  border-radius: 36px;
+}
+
+.celular3d__frente {
+  position: relative;
+  padding: 8px;
+  background: #121211;
+  box-shadow: inset 0 0 0 1.5px #4a4945;
+}
+
+.celular3d__pantalla {
+  aspect-ratio: 390 / 844;
+  border-radius: 28px;
+}
+
+/* ── Notebook 3D ─────────────────────────────────────────── */
+
+.notebook3d {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.notebook3d__base {
+  position: absolute;
+  top: 100%;
+  left: -1.5%;
+  width: 103%;
+  aspect-ratio: 103 / 68;
+  transform-origin: 50% 0;
+  transform: rotateX(90deg);
+  transform-style: preserve-3d;
+}
+
+.notebook3d__base .capa,
+.notebook3d__cubierta {
+  border-radius: 4px 4px 16px 16px;
+}
+
+.notebook3d__sombra {
+  position: absolute;
+  inset: 0 -3% -8%;
+  border-radius: 40px;
+  background: rgba(18, 18, 17, 0.3);
+  filter: blur(16px);
+  transform: translateZ(-14px);
+}
+
+.notebook3d__cubierta {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #a9a8a3 0%, #d9d8d3 10%, #d2d1cc 100%);
+}
+
+.notebook3d__bisagra {
+  position: absolute;
+  top: 0;
+  left: 9%;
+  right: 9%;
+  height: 3%;
+  border-radius: 0 0 4px 4px;
+  background: #8a8984;
+}
+
+/* 15 teclas por 6 filas: las ranuras son dos gradientes repetidos sobre el color de las teclas. */
+.notebook3d__teclado {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 9%;
+  height: 42%;
+  border-radius: 5px;
+  background:
+    repeating-linear-gradient(90deg, rgba(31, 31, 30, 0) 0 6%, #1f1f1e 6% 6.6667%),
+    repeating-linear-gradient(180deg, rgba(31, 31, 30, 0) 0 13.6%, #1f1f1e 13.6% 16.6667%),
+    #343432;
+  box-shadow: inset 0 0 0 2px #1f1f1e;
+}
+
+.notebook3d__trackpad {
+  position: absolute;
+  left: 31%;
+  right: 31%;
+  top: 58%;
+  height: 32%;
+  border-radius: 7px;
+  background: #c9c8c3;
+  box-shadow: inset 0 0 0 1px rgba(18, 18, 17, 0.12);
+}
+
+/* La tapa abre un poco más de 90°, como se usa una notebook. */
+.notebook3d__tapa {
+  position: relative;
+  transform-style: preserve-3d;
+  transform-origin: 50% 100%;
+  transform: rotateX(6deg);
+}
+
+.notebook3d__tapa .capa,
+.notebook3d__marco {
+  border-radius: 14px 14px 3px 3px;
+}
+
+.notebook3d__marco {
+  position: relative;
+  padding: 9px 9px 14px;
+  background: #151514;
+  box-shadow: inset 0 0 0 1px #3a3936;
+}
+
+.notebook3d__pantalla {
+  aspect-ratio: 16 / 10;
+  border-radius: 3px;
+}
+
+/* ── Tablet 3D ───────────────────────────────────────────── */
+
+.tablet3d {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.tablet3d .capa,
+.tablet3d__frente {
+  border-radius: 26px;
+}
+
+.tablet3d__frente {
+  position: relative;
+  padding: 12px;
+  background: #121211;
+  box-shadow: inset 0 0 0 1px #3a3936;
+}
+
+.tablet3d__camara {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  margin-top: -1.5px;
+  border-radius: 50%;
+  background: #34332f;
+}
+
+.tablet3d__pantalla {
+  aspect-ratio: 1180 / 820;
+  border-radius: 12px;
+}

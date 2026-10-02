@@ -1,0 +1,222 @@
+/* ── Portada ─────────────────────────────────────────────── */
+
+.portada { padding-top: 80px; display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center; }
+.portada__pastilla {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px;
+  border: 1px solid var(--line); border-radius: 999px; background: #fff;
+  font-size: 13px; font-weight: 500; color: var(--text-2);
+}
+.portada__pastilla::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: var(--yellow); }
+.portada h1 { max-width: 900px; font-size: clamp(42px, 6vw, 76px); line-height: 1.02; font-weight: 600; letter-spacing: -.04em; text-wrap: balance; }
+.portada__bajada { max-width: 620px; font-size: clamp(17px, 1.5vw, 20px); line-height: 1.55; color: var(--text-2); text-wrap: pretty; }
+.portada__acciones { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.portada__confianza { margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; font-size: 14px; color: var(--text-2); }
+.portada__confianza li { display: flex; align-items: center; gap: 8px; }
+.portada__confianza .check { width: 16px; height: 16px; }
+
+/* La notebook de frente con el celular adelante, a la derecha. Todo en %: escala con el ancho. */
+.escenario { position: relative; margin-top: 56px; padding-bottom: 2%; }
+.escenario__notebook { width: 78%; margin-left: 2%; }
+.escenario__celular { position: absolute; right: 1%; bottom: 0; width: 19%; }
+
+@media (max-width: 640px) {
+  .portada { padding-top: 48px; gap: 20px; }
+  .portada__acciones { width: 100%; flex-direction: column; }
+  .portada__acciones .boton { width: 100%; }
+  .escenario { margin-top: 40px; padding-top: 40px; }
+  .escenario__notebook { width: 80%; margin-left: 0; }
+  .escenario__celular { right: 0; width: 31%; }
+}
+
+/* ── Secciones ───────────────────────────────────────────── */
+
+.seccion { padding-top: 96px; }
+.seccion__cabeza { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 64px; margin-bottom: 48px; }
+.seccion__titulo { max-width: 660px; display: flex; flex-direction: column; gap: 16px; }
+.seccion__bajada { max-width: 440px; font-size: 17px; line-height: 1.6; color: var(--text-2); }
+.titulo-2 { font-size: clamp(32px, 3.6vw, 46px); line-height: 1.08; font-weight: 600; letter-spacing: -.03em; text-wrap: balance; }
+
+/* ── El sistema: un bloque por tarea, cada uno con su equipo en 3D ── */
+
+.filas { display: flex; flex-direction: column; gap: 24px; }
+.fila { display: grid; grid-template-columns: 1fr; border: 1px solid var(--line); border-radius: 16px; background: #fff; overflow: hidden; }
+.fila__texto { padding: clamp(28px, 4.5vw, 56px); display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+.fila__tema { font-size: 13px; font-weight: 600; color: var(--text-3); }
+.fila__texto h3 { font-size: 30px; line-height: 1.15; font-weight: 600; letter-spacing: -.025em; }
+.fila__texto > p:not(.fila__tema) { font-size: 17px; line-height: 1.6; color: var(--text-2); }
+
+.puntos { margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 15px; line-height: 1.5; color: var(--text-body); }
+.puntos li { display: flex; gap: 10px; }
+.puntos .check { margin-top: 2px; }
+
+.fila__equipo { min-height: 480px; padding: 40px 24px; overflow: hidden; background: var(--muted); }
+.fila__equipo--celular { min-height: 500px; }
+.fila__equipo--tablet { min-height: 440px; }
+
+/* Sombra en el piso: fuera del equipo, así no gira con él. */
+.fila__equipo--celular::before,
+.fila__equipo--tablet::before {
+  content: ''; position: absolute; left: 50%; bottom: 36px; width: 230px; height: 40px;
+  transform: translateX(-50%); border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(18, 18, 17, .3), rgba(18, 18, 17, 0)); filter: blur(6px);
+}
+.fila__equipo--tablet::before { width: 70%; bottom: 40px; }
+
+.rig-celular { width: 196px; }
+.rig-notebook { width: min(470px, 84%); margin-bottom: 72px; }
+.rig-tablet { width: min(420px, 84%); }
+
+@media (min-width: 900px) {
+  .fila { grid-template-columns: 1fr 1fr; }
+  .fila--invertida .fila__equipo { order: -1; }
+}
+
+@media (max-width: 640px) {
+  .fila__texto h3 { font-size: 24px; }
+  .fila__equipo { min-height: 360px; }
+  .fila__equipo--celular { min-height: 470px; }
+  .fila__equipo--tablet { min-height: 320px; }
+  .rig-celular { width: 180px; }
+  /* Girada, la base asoma hacia la derecha: en un celular la notebook va más chica para que no se corte. */
+  .rig-notebook { width: min(470px, 72%); margin-bottom: 56px; }
+}
+
+/* ── Incluido en todos los planes ────────────────────────── */
+
+.incluidos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 16px; }
+.incluido {
+  padding: 28px; border: 1px solid var(--line); border-radius: 16px; background: #fff;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: transform .3s, box-shadow .3s, border-color .3s;
+}
+.incluido:hover { transform: translateY(-2px); border-color: var(--line-strong); box-shadow: 0 18px 36px -24px rgba(18, 18, 17, .3); }
+.incluido__icono { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); }
+.incluido h3 { font-size: 18px; font-weight: 600; letter-spacing: -.01em; }
+.incluido p { font-size: 15.5px; line-height: 1.6; color: var(--text-2); }
+
+/* ── Módulo de cocheras ──────────────────────────────────── */
+
+.modulo {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 40px 80px;
+  padding: clamp(28px, 5vw, 56px); border: 1px solid var(--line); border-radius: 16px; background: #fff;
+}
+.modulo__intro { display: flex; flex-direction: column; gap: 16px; }
+.modulo__intro h2 { font-size: clamp(28px, 3vw, 38px); line-height: 1.1; font-weight: 600; letter-spacing: -.03em; }
+.modulo__intro > p:last-child { font-size: 17px; line-height: 1.6; color: var(--text-2); }
+.modulo__lista { margin: 0; padding: 0; list-style: none; }
+.modulo__lista li { padding: 16px 0; display: flex; flex-direction: column; gap: 4px; border-bottom: 1px solid var(--line-soft); }
+.modulo__lista li:last-child { border-bottom: 0; }
+.modulo__lista strong { font-size: 16px; font-weight: 600; }
+.modulo__lista span { font-size: 15px; line-height: 1.55; color: var(--text-2); }
+
+/* ── Caso ────────────────────────────────────────────────── */
+
+.caso { margin-top: 96px; background: var(--ink); color: #f3f1ec; }
+.caso__contenido { padding-block: clamp(64px, 8vw, 104px); display: flex; flex-direction: column; gap: 28px; }
+.caso .etiqueta { color: #a8a49b; }
+.caso__texto { max-width: 1000px; font-size: clamp(24px, 2.8vw, 36px); line-height: 1.3; font-weight: 500; letter-spacing: -.02em; text-wrap: pretty; }
+.caso__firma { font-size: 15px; color: #a8a49b; }
+.caso__firma strong { font-weight: 600; color: #f3f1ec; }
+
+/* ── Planes ──────────────────────────────────────────────── */
+
+.planes { display: flex; flex-direction: column; align-items: center; gap: 32px; }
+.planes__cabeza { max-width: 720px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+.planes__cabeza > p:last-child { font-size: 17px; line-height: 1.6; color: var(--text-2); text-wrap: pretty; }
+
+.selector { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+.selector button {
+  height: 40px; padding: 0 16px; border: 0; border-radius: 7px; background: transparent;
+  color: var(--text-2); font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: background-color .25s, color .25s;
+}
+.selector button[aria-pressed='true'] { background: var(--ink); color: #fff; }
+
+.planes__grilla { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px; }
+.plan { display: flex; flex-direction: column; gap: 20px; padding: 32px; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
+.plan--destacado { border: 1.5px solid var(--ink); box-shadow: 0 24px 48px -32px rgba(18, 18, 17, .35); }
+.plan .plan__distintivo {
+  position: absolute; top: -12px; left: 32px; padding: 4px 10px; border-radius: 999px;
+  background: var(--yellow); color: var(--ink); font-size: 12px; font-weight: 700;
+}
+.plan__nombre { display: flex; flex-direction: column; gap: 4px; }
+.plan__nombre h3 { font-size: 18px; font-weight: 600; }
+.plan__nombre p { font-size: 14px; color: var(--text-2); }
+.plan__precio { display: flex; flex-direction: column; gap: 6px; }
+.plan__monto { display: flex; align-items: center; gap: 8px; }
+.plan__cifra { display: inline-flex; align-items: center; font-size: 44px; line-height: 1; font-weight: 600; letter-spacing: -.02em; }
+.plan__por { font-size: 15px; color: var(--text-3); }
+.plan__modo { font-size: 13px; color: var(--text-3); }
+.plan .puntos { margin: 0; padding-top: 20px; border-top: 1px solid var(--line-soft); gap: 10px; }
+.plan .boton { width: 100%; height: 48px; margin-top: auto; }
+
+.planes__notas { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px 40px; padding-top: 8px; }
+.planes__notas > div { padding-top: 20px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.planes__notas h3 { font-size: 16px; font-weight: 600; }
+.planes__notas p { font-size: 15px; line-height: 1.6; color: var(--text-2); }
+
+/* ── Guías ───────────────────────────────────────────────── */
+
+.guias {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr)); gap: 32px 64px; align-items: center;
+  padding: clamp(28px, 4vw, 40px); border: 1px solid var(--line); border-radius: 16px; background: #fff;
+}
+.guias__texto { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.guias__texto h2 { font-size: 28px; line-height: 1.15; font-weight: 600; letter-spacing: -.025em; }
+.guias__texto > p:not(.fila__tema) { font-size: 16px; line-height: 1.6; color: var(--text-2); }
+.guias__texto .boton { margin-top: 6px; height: 44px; padding: 0 16px; border-radius: 8px; font-size: 14px; }
+.guias__miniaturas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.guias__miniaturas a { display: flex; flex-direction: column; gap: 8px; font-size: 13px; line-height: 1.4; color: var(--text-body); }
+.guias__miniaturas img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--line); border-radius: 8px; transition: transform .3s; }
+.guias__miniaturas a:hover img { transform: translateY(-2px); }
+
+/* ── Preguntas ───────────────────────────────────────────── */
+
+.preguntas__titulo { margin-bottom: 40px; }
+.preguntas { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr)); gap: 0 56px; }
+.preguntas > div { padding: 24px 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.preguntas h3 { font-size: 18px; font-weight: 600; }
+.preguntas p { font-size: 16px; line-height: 1.6; color: var(--text-2); }
+
+/* ── Cierre ──────────────────────────────────────────────── */
+
+.cierre { padding-block: 96px; }
+.cierre__tarjeta {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr));
+  border-radius: 20px; overflow: hidden; background: var(--ink); color: #f3f1ec;
+}
+.cierre__demo { padding: clamp(32px, 5vw, 64px); display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.cierre__demo .etiqueta { color: #a8a49b; }
+.cierre__demo > p:not(.etiqueta) { max-width: 480px; font-size: 17px; line-height: 1.6; color: #c9c5bc; }
+.cierre__demo .boton { margin-top: 6px; }
+.pasos {
+  width: 100%; margin: 24px 0 0; padding: 24px 0 0; border-top: 1px solid #2c2b28; list-style: none;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 20px;
+}
+.pasos li { display: flex; flex-direction: column; gap: 6px; }
+.pasos__numero { font-family: var(--mono); font-size: 12px; color: #a8a49b; }
+.pasos strong { font-size: 15px; font-weight: 600; }
+.pasos li > span:last-child { font-size: 14px; line-height: 1.5; color: #a8a49b; }
+
+.cierre__autor { padding: clamp(32px, 5vw, 64px); background: #1a1a18; display: flex; flex-direction: column; justify-content: center; gap: 20px; }
+.autor { display: flex; align-items: center; gap: 14px; }
+.autor__iniciales { display: grid; place-items: center; flex: none; width: 56px; height: 56px; border-radius: 50%; background: #2c2b28; color: var(--yellow); font-size: 18px; font-weight: 700; }
+.autor strong { display: block; font-size: 17px; font-weight: 600; }
+.autor span { font-size: 14px; color: #a8a49b; }
+.cierre__autor > p { font-size: 17px; line-height: 1.65; color: #d9d6cf; }
+.cierre__autor > a { font-size: 15px; font-weight: 600; }
+.cierre__autor > a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ── Pie ─────────────────────────────────────────────────── */
+
+.pie { border-top: 1px solid var(--line); }
+.pie__contenido { padding-block: 48px 32px; display: flex; flex-direction: column; gap: 40px; }
+.pie__arriba { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px 64px; }
+.pie__marca { max-width: 340px; display: flex; flex-direction: column; gap: 14px; }
+.pie__marca p { font-size: 14px; line-height: 1.6; color: var(--text-2); }
+.pie__columnas { display: flex; flex-wrap: wrap; gap: 32px 64px; }
+.pie__columna { display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+.pie__columna strong { font-size: 13px; font-weight: 600; color: var(--text-3); }
+.pie__columna a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.pie__columna span { color: var(--text-2); }
+.pie__abajo { padding-top: 24px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--text-3); }

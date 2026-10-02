@@ -1,0 +1,116 @@
+/* Aprender: oscura y neutra, para que el video sea lo que se mire. El amarillo queda para el
+   botón de reproducir, la demo y la guía que se está viendo. */
+
+body:has(.aprender) { background: #0c0c0b; }
+.aprender { min-height: 100vh; background: #0c0c0b; color: #f3f1ec; }
+
+.aprender__cabeza { padding-block: 64px 48px; display: flex; flex-direction: column; gap: 16px; }
+.aprender__etiqueta { font-size: 14px; font-weight: 500; color: var(--yellow); }
+.aprender__cabeza h1 { max-width: 760px; font-size: clamp(36px, 5vw, 52px); line-height: 1.05; font-weight: 600; letter-spacing: -.03em; text-wrap: balance; }
+.aprender__cabeza > p:not(.aprender__etiqueta, .aprender__datos) { max-width: 620px; font-size: 18px; line-height: 1.6; color: #a8a49b; text-wrap: pretty; }
+.aprender__datos { display: flex; flex-wrap: wrap; gap: 8px 12px; font-size: 14px; color: #8a867e; }
+
+.aprender__cuerpo { padding-bottom: 96px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 40px; }
+.aprender__principal { flex: 1 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 28px; scroll-margin-top: 88px; }
+
+/* ── Reproductor ─────────────────────────────────────────── */
+
+.reproductor { position: relative; aspect-ratio: 16 / 9; border: 1px solid #22211e; border-radius: 12px; overflow: hidden; background: #000; }
+.reproductor video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
+.reproductor__portada { position: absolute; inset: 0; display: grid; place-items: center; padding: 0; border: 0; background: rgba(8, 8, 7, .38); cursor: pointer; }
+.reproductor__boton {
+  display: grid; place-items: center; width: 76px; height: 76px; border-radius: 50%;
+  background: var(--yellow); color: #141410; box-shadow: 0 8px 24px rgba(0, 0, 0, .35); transition: transform .2s;
+}
+.reproductor__boton svg { margin-left: 3px; }
+.reproductor__portada:hover .reproductor__boton,
+.reproductor__portada:focus-visible .reproductor__boton { transform: scale(1.06); }
+.reproductor__duracion {
+  position: absolute; right: 14px; bottom: 14px; padding: 4px 8px; border-radius: 6px;
+  background: rgba(12, 12, 11, .82); font-family: var(--mono); font-size: 12px; color: #f3f1ec;
+}
+
+/* ── La guía elegida ─────────────────────────────────────── */
+
+.guia { display: flex; flex-direction: column; gap: 12px; }
+.guia__meta { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #8a867e; }
+.guia__titulo { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; }
+.guia__titulo h2 { font-size: 32px; line-height: 1.15; font-weight: 600; letter-spacing: -.02em; }
+.guia__titulo .boton { height: 44px; padding: 0 14px; font-weight: 500; }
+.guia__titulo .boton svg { width: 16px; height: 16px; }
+.guia__descripcion { max-width: 640px; font-size: 16px; line-height: 1.6; color: #a8a49b; text-wrap: pretty; }
+
+.temas { padding-top: 24px; border-top: 1px solid #22211e; display: flex; flex-direction: column; gap: 8px; }
+.temas h3 { font-size: 15px; font-weight: 600; }
+.temas ol { max-width: 720px; margin: 0; padding: 0; list-style: none; }
+.temas li { display: flex; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid #1d1c1a; font-size: 15px; line-height: 1.5; color: #d9d6cf; }
+.temas li span { flex: none; width: 20px; font-family: var(--mono); font-size: 12px; color: #8a867e; }
+
+/* El consejo de girar la pantalla solo tiene sentido en el celular. */
+.consejo { display: none; }
+
+/* ── Lista de guías ──────────────────────────────────────── */
+
+.lista { flex: 1 1 320px; max-width: 360px; min-width: 0; border: 1px solid #22211e; border-radius: 12px; background: #121211; overflow: hidden; }
+.lista__cabeza { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 18px 20px; border-bottom: 1px solid #22211e; }
+.lista__cabeza h2 { font-size: 15px; font-weight: 600; }
+.lista__cabeza span { font-size: 13px; color: #8a867e; }
+.lista ol { margin: 0; padding: 8px; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.lista button {
+  width: 100%; display: flex; align-items: center; gap: 14px; padding: 10px 12px;
+  border: 0; border-radius: 8px; background: transparent; color: inherit; text-align: left; cursor: pointer;
+  transition: background-color .2s;
+}
+.lista button:hover { background: #171715; }
+.lista button[aria-current='true'] { background: #1d1c1a; }
+.lista img { flex: none; width: 112px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; background: #000; }
+.lista__texto { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.lista__tema { font-size: 12px; color: #8a867e; }
+.lista__titulo { font-size: 14px; font-weight: 500; line-height: 1.35; color: #d9d6cf; }
+.lista button[aria-current='true'] .lista__titulo { color: #f3f1ec; }
+.lista__duracion { font-family: var(--mono); font-size: 12px; color: #8a867e; }
+.lista__viendo { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--yellow); }
+.lista__viendo::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); }
+
+/* ── Cierre y pie ────────────────────────────────────────── */
+
+.aprender__cierre { padding-bottom: 96px; }
+.aprender__tarjeta {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px;
+  padding: 40px; border: 1px solid #22211e; border-radius: 12px; background: #121211;
+}
+.aprender__tarjeta > div { max-width: 560px; display: flex; flex-direction: column; gap: 8px; }
+.aprender__tarjeta h2 { font-size: 28px; line-height: 1.2; font-weight: 600; letter-spacing: -.02em; }
+.aprender__tarjeta p { font-size: 16px; line-height: 1.6; color: #a8a49b; }
+
+.aprender__pie { border-top: 1px solid #22211e; }
+.aprender__pie .contenedor { padding-block: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: #8a867e; }
+.aprender__pie a { color: #a8a49b; }
+.aprender__pie a:hover { color: #f3f1ec; }
+
+@media (max-width: 1000px) {
+  .lista { max-width: none; flex-basis: 100%; }
+}
+
+@media (max-width: 640px) {
+  .aprender__cabeza { padding-block: 36px 28px; gap: 12px; }
+  .aprender__cabeza > p:not(.aprender__etiqueta, .aprender__datos) { font-size: 16px; }
+  .aprender__cuerpo { gap: 24px; padding-bottom: 56px; }
+  .aprender__principal { gap: 24px; }
+  .reproductor { border-radius: 10px; }
+  .reproductor__boton { width: 60px; height: 60px; }
+  .reproductor__boton svg { width: 22px; height: 22px; }
+  .guia__titulo h2 { font-size: 24px; }
+  .guia__titulo .boton { width: 100%; justify-content: space-between; height: 48px; }
+  .consejo {
+    display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px;
+    border: 1px solid #22211e; border-radius: 10px; background: #121211;
+    font-size: 14px; line-height: 1.5; color: #a8a49b;
+  }
+  .consejo svg { flex: none; margin-top: 1px; color: #d9d6cf; }
+  .lista img { width: 96px; }
+  .aprender__tarjeta { padding: 24px 20px; }
+  .aprender__tarjeta h2 { font-size: 22px; }
+  .aprender__tarjeta .boton { width: 100%; }
+  .aprender__cierre { padding-bottom: 56px; }
+}

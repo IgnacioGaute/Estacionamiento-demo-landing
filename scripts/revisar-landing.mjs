@@ -24,7 +24,7 @@ const main = async () => {
     const desborde = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     console.log(`${nombre}: desborde horizontal = ${desborde}px`);
 
-    for (const sel of ['.hero', '.caso', '.bento-grid', '.ia-card', '.price-glow', '.faq', '.cta']) {
+    for (const sel of ['.portada', '.escenario', '#sistema', '.incluidos', '.caso', '#planes', '#preguntas', '.cierre']) {
       const loc = page.locator(sel).first();
       if (await loc.count() === 0) { console.log(`  ! falta ${sel}`); continue; }
       await loc.scrollIntoViewIfNeeded().catch(() => {});

@@ -1,0 +1,29 @@
+/* Mecánica del SpotlightCard de React Bits. Lo que en el original era el aspecto (fondo #111, borde,
+   radio y relleno) lo define cada tarjeta que la usa. */
+.card-spotlight {
+  position: relative;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --spotlight-color: rgba(255, 255, 255, 0.05);
+}
+
+.card-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 80%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.card-spotlight:hover::before,
+.card-spotlight:focus-within::before {
+  opacity: 0.6;
+}
+
+/* El contenido va por encima de la luz: así el texto no queda teñido. */
+.card-spotlight > * {
+  position: relative;
+}
