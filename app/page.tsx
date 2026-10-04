@@ -5,6 +5,7 @@ import Encabezado from './components/Encabezado';
 import { Calendario, Charla, Check, Comprobante, Escudo, Flecha, IconoWhatsApp, SinConexion, Ubicacion } from './components/Iconos';
 import Marca from './components/Marca';
 import Planes from './components/Planes';
+import { CATALOGO_FIJO, pedirCatalogo } from './catalogo';
 import SpotlightCard from './components/reactbits/SpotlightCard';
 import TiltedCard from './components/reactbits/TiltedCard';
 import TituloPortada from './components/TituloPortada';
@@ -33,7 +34,10 @@ const Puntos = ({ items }: { items: string[] }) => (
   </ul>
 );
 
-export default function Home() {
+// Los precios se leen de la plataforma al compilar (exportación estática); el navegador los vuelve a
+// pedir al abrir la página. Sin backend configurado o sin respuesta, quedan los de catalogo.ts.
+export default async function Home() {
+  const catalogo = (await pedirCatalogo()) ?? CATALOGO_FIJO;
   return <>
     <Encabezado/>
     <main>
@@ -173,7 +177,7 @@ export default function Home() {
           <h2 className="titulo-2">Precios simples. Sin contar las salidas.</h2>
           <p>El plan depende de cuántos vehículos de rotación tenés estacionados al mismo tiempo, no de cuántos entran por día.</p>
         </div>
-        <Planes/>
+        <Planes inicial={catalogo}/>
         <div className="planes__notas">
           <div>
             <h3>¿Qué cuenta como «a la vez»?</h3>
