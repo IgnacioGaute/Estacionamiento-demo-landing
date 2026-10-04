@@ -1,12 +1,15 @@
-﻿/** Recorridos reales del entorno de prueba. Credenciales: solo variables de entorno. */
+/** Recorridos reales del entorno de prueba. Credenciales: solo variables de entorno. */
 import { chromium } from 'playwright';
-import { mkdir, rename } from 'node:fs/promises';
+import { mkdir, rename, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { writeFileSync } from 'node:fs';
 
 const base = 'http://localhost:3000';
 const output = join(process.cwd(), '.revision', 'tutoriales');
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({ channel: 'chrome' });
+const sceneTimes = [];
+let recordingStartedAt = 0;
 
 async function authenticate(role) {
   const context = await browser.newContext({ serviceWorkers: 'block' });
@@ -37,7 +40,9 @@ async function recordedPage(name, role) {
     reducedMotion: 'no-preference',
     acceptDownloads: true,
   });
-  return { name, context, page: await context.newPage() };
+  const page = await context.newPage();
+  recordingStartedAt = Date.now();
+  return { name, context, page };
 }
 
 async function caption(page, number, chapter, title, detail) {
@@ -73,9 +78,13 @@ async function caption(page, number, chapter, title, detail) {
 }
 
 async function scene(page, number, chapter, title, detail, target = null, ms = 6500) {
+  if (process.argv[2]?.startsWith('inquilinos')) {
+    sceneTimes.push({ number, start: Number(((Date.now() - recordingStartedAt) / 1000).toFixed(2)), chapter, title, text: detail });
+    writeFileSync(join(output, process.argv[2] === 'inquilinos-final' ? 'inquilinos-final-scenes.json' : process.argv[2] === 'inquilinos-cobros' ? 'inquilinos-cobros-scenes.json' : 'inquilinos-v3-scenes.json'), JSON.stringify(sceneTimes, null, 2));
+  }
   console.log('ESCENA', String(number).padStart(2, '0'), chapter, title);
   await caption(page, number, chapter, title, detail);
-  if (target && await target.count()) await target.first().evaluate(node => node.classList.add('tutorial-focus'));
+  if (target && await target.count()) { await target.first().scrollIntoViewIfNeeded().catch(() => {}); await target.first().evaluate(node => node.classList.add('tutorial-focus')); }
   await page.waitForTimeout(ms);
   if (target && await target.count()) await target.first().evaluate(node => node.classList.remove('tutorial-focus')).catch(() => {});
 }
@@ -140,6 +149,9 @@ async function finish(recording) {
   const video = recording.page.video();
   await recording.context.close();
   await rename(await video.path(), join(output, recording.name + '.webm'));
+  if (recording.name === 'inquilinos-v3') await writeFile(join(output, 'inquilinos-v3-scenes.json'), JSON.stringify(sceneTimes, null, 2));
+  if (recording.name === 'inquilinos-final-v3') await writeFile(join(output, 'inquilinos-final-scenes.json'), JSON.stringify(sceneTimes, null, 2));
+  if (recording.name === 'inquilinos-cobros-v3') await writeFile(join(output, 'inquilinos-cobros-scenes.json'), JSON.stringify(sceneTimes, null, 2));
   console.log('VIDEO', recording.name + '.webm');
 }
 
@@ -432,89 +444,167 @@ async function hideRenterContact(page) {
 }
 
 async function renters() {
-  const recording = await recordedPage('inquilinos-v2', 'ADMIN');
+  const recording = await recordedPage('inquilinos-v3', 'ADMIN');
   const { page } = recording;
   await goto(page, '/renters', 'Inquilinos');
   await page.addStyleTag({ content: '[role="table"][aria-label="Inquilinos"] [role="row"] [role="cell"]:first-child {filter:blur(9px)!important}' });
-  await showMenu(page, 1, 'INQUILINOS', '/renters', 'En el menú, Operación → Inquilinos abre las cocheras mensuales. El módulo aparece cuando está habilitado para la playa.');
-  await scene(page, 2, 'RESUMEN', 'Leé la situación de la playa', 'Arriba se separan los saldos pendientes, lo cobrado este mes, el abono del mes y los saldos a favor.', page.getByText('Saldo pendiente').first(), 10500);
-  await scene(page, 3, 'ABONOS', 'Lo cobrado no es lo mismo que lo adeudado', '“Cobrado en el mes” incluye pagos de cualquier período; el indicador del abono muestra cuánto del mes actual ya está saldado.', page.getByText('Cobrado en').first(), 10500);
+  await showMenu(page, 1, 'UBICACIÓN', '/renters', 'Entramos por Operación, Inquilinos. Acá se administran las cocheras mensuales de la playa. La opción aparece cuando el módulo está habilitado.');
+  await scene(page, 2, 'PANORAMA', 'Entendé los saldos', 'El saldo pendiente es lo que todavía deben. Lo cobrado este mes es dinero recibido, aunque corresponda a meses anteriores. El abono del mes muestra qué parte del cargo actual está saldada.', page.getByText('Saldo pendiente').first(), 14000);
   const search = page.getByRole('textbox', { name: 'Buscar inquilino' });
-  await search.scrollIntoViewIfNeeded();
-  await scene(page, 4, 'BÚSQUEDA', 'Buscá por varios datos', 'Escribí nombre, patente o número de cochera. La lista se filtra sin perder el estado de la cuenta.', search, 9000);
-  await scene(page, 5, 'FILTROS', 'Separá los casos urgentes', 'Podés ver todos, quienes tienen saldo pendiente o quienes ya tienen deuda vencida. “Más filtros” incluye al día, a favor y dados de baja.', page.getByText('Con saldo pendiente').first(), 10500);
-  const list = page.getByRole('table', { name: 'Inquilinos' });
-  await scene(page, 6, 'LISTADO', 'Cada fila resume una cuenta', 'Se ven cochera, abono mensual y saldo. Desde la derecha podés cobrar o abrir el estado completo.', list, 9500);
+  await scene(page, 3, 'BUSCAR', 'Encontrá una cuenta', 'Escribí el nombre, la patente o la cochera. Los filtros separan cuentas al día, pendientes, vencidas, a favor y dadas de baja.', search, 11000);
+  await scene(page, 4, 'LISTA', 'Leé cada fila', 'Ves la cochera, el abono mensual y el saldo. El botón Ver cuenta abre la historia completa; Cobrar registra dinero recibido.', page.getByRole('table', { name: 'Inquilinos' }), 11000);
+
   const abonos = page.getByRole('button', { name: 'Cargar abonos' });
-  await scene(page, 7, 'ABONOS MENSUALES', 'Prepará el mes', 'El administrador carga los cargos mensuales cuando corresponde. Abrimos la vista previa antes de confirmar.', abonos, 8500);
+  await scene(page, 5, 'ABONOS', 'Empezá por Cargar abonos', 'Esta acción crea los cargos mensuales de todos los inquilinos elegibles. No registra un pago ni emite un recibo: eso sucede después, cuando se cobra.', abonos, 12000);
   await abonos.click();
   const abonoDialog = page.locator('[role="dialog"]').filter({ hasText: 'Cargar abonos de' });
   await abonoDialog.waitFor({ state: 'visible' });
-  await scene(page, 8, 'ABONOS MENSUALES', 'Elegí mes y vencimiento', 'Se puede preparar el mes actual o el próximo y definir el día de vencimiento. Cargar el abono crea una deuda, no un pago.', abonoDialog.getByText('Vence el día'), 11000);
-  await scene(page, 9, 'VISTA PREVIA', 'Revisá antes de cargar', 'La ventana calcula cuántos abonos faltan, el total y cuáles ya estaban cargados. El mismo mes no se cobra dos veces.', abonoDialog, 10500);
+  await scene(page, 6, 'MES', 'Elegí el período', 'Podés cargar el mes actual o el siguiente. El importe de cada cargo sale de la suma de los precios mensuales de sus cocheras.', abonoDialog.getByText('Mes', { exact: true }).first(), 12000);
+  await scene(page, 7, 'VENCIMIENTO', 'Definí el día', 'El número, del 1 al 28, fija cuándo vence el abono. Antes de esa fecha aparece pendiente. Si al día siguiente sigue impago, pasa a deuda vencida; no se cobra automáticamente.', abonoDialog.getByText('Vence el día'), 15000);
+  await scene(page, 8, 'CARGA TARDÍA', '¿Y si la fecha ya pasó?', 'Si cargás los abonos después del día elegido, estos cargos vencen el día en que los cargás. El sistema nunca crea una deuda que ya estaba vencida antes de registrarla.', abonoDialog.getByText('Vence el día'), 13000);
+  const detail = abonoDialog.getByRole('button', { name: 'Ver el detalle por inquilino' });
+  if (await detail.isVisible().catch(() => false)) await detail.click();
+  await scene(page, 9, 'VISTA PREVIA', 'Revisá antes de confirmar', 'Se ve cuántos abonos se crearán, el total y el detalle por inquilino. Los meses ya cargados se omiten; también se avisa si falta cochera o precio. Confirmar crea los cargos.', abonoDialog, 15000);
   await page.keyboard.press('Escape');
   await abonoDialog.waitFor({ state: 'hidden' });
+  await scene(page, 10, 'SEGURIDAD', 'Una sola carga por período', 'Si abrís otra vez la carga del mismo mes, los cargos existentes aparecen como ya cargados. No se duplican. En esta guía dejamos la vista previa sin confirmar.', abonos, 11500);
+
   const newRenter = page.getByRole('button', { name: 'Nuevo inquilino' });
-  await scene(page, 10, 'ALTA', 'Abrí “Nuevo inquilino”', 'El alta tiene dos pasos: primero identidad y contacto; después cochera, precio mensual y saldo inicial.', newRenter, 8500);
+  await scene(page, 11, 'ALTA', 'Abrí Nuevo inquilino', 'El primer paso reúne nombre y contacto. El celular sirve para enviar recibos por WhatsApp; no cambia el precio de la cochera.', newRenter, 11000);
   await newRenter.click();
   const editor = page.locator('[role="dialog"]').filter({ hasText: 'Nuevo inquilino' });
-  await scene(page, 11, 'IDENTIDAD', 'Nombre y apellido', 'Cargamos datos de ejemplo en el formulario. El número de celular permite entregar recibos por WhatsApp.', editor.getByText('Identidad').first(), 10000);
   await editor.locator('input[name="firstName"]').fill('Cliente');
   await editor.locator('input[name="lastName"]').fill('Ejemplo');
-  await scene(page, 12, 'COCHERAS', 'Indicá cuántas alquila', 'La cantidad de cocheras determina cuántas filas tendrás en el paso siguiente. Las notas internas quedan para el equipo.', editor.getByText('Número de cocheras'), 10000);
+  await scene(page, 12, 'DATOS', 'Completá la identidad', 'Escribimos un ejemplo para mostrar el formulario. También indicás cuántas cocheras alquila. No vamos a guardar un cliente ficticio.', editor.getByText('Identidad').first(), 11500);
   await editor.getByRole('button', { name: 'Siguiente' }).click();
   await editor.getByText('Cocheras y saldo').first().waitFor({ state: 'visible' });
-  await scene(page, 13, 'COCHERA Y ABONO', 'Asigná número y precio mensual', 'Cada cochera tiene su propio número y precio. El abono mensual de este inquilino es la suma de esos precios.', editor.getByLabel('Precio mensual de la cochera 1'), 11000);
-  await scene(page, 14, 'SALDO INICIAL', 'Definí cómo empieza la cuenta', 'Si ya debe meses anteriores o tiene crédito a favor, se carga acá. Si está al día, no hace falta agregar nada.', editor.getByText('¿Cómo está su cuenta hoy?'), 10500);
-  await scene(page, 15, 'REVISIÓN DEL ALTA', 'Confirmá solo cuando esté completo', 'Al crear se abre la cuenta corriente. Este ejemplo queda sin guardar para no incorporar un cliente ficticio.', editor.getByRole('button', { name: 'Crear inquilino' }), 9000);
+  await scene(page, 13, 'COCHERAS', 'Número y precio de cada cochera', 'Cada cochera lleva su número y su propio precio mensual. Si tiene varias, el abono del inquilino es la suma. Cambiar el precio después afecta los próximos cargos, no los ya cargados.', editor.getByLabel('Precio mensual de la cochera 1'), 14500);
+  await scene(page, 14, 'SALDO INICIAL', 'Elegí cómo empieza la cuenta', 'Está al día es el punto de partida normal. Si venís de una planilla anterior, podés registrar deuda previa o un crédito a favor. Esto no cobra ni mueve dinero.', editor.getByText('¿Cómo está su cuenta hoy?'), 13500);
+  await editor.getByRole('button', { name: 'Debe', exact: true }).click();
+  await scene(page, 15, 'DEUDA ANTERIOR', 'Mes por mes', 'Elegí Debe y Mes por mes cuando sabés qué períodos quedaron impagos. Cada mes se crea como un cargo separado y ya vencido, para identificarlo y cobrarlo por separado.', editor.getByText('Cómo cargar la deuda'), 14000);
+  await editor.getByRole('button', { name: 'Un total a una fecha' }).click();
+  await scene(page, 16, 'DEUDA ANTERIOR', 'Un total a una fecha', 'Si solo conocés cuánto debe, elegí un total y la fecha de corte. Se crea un único cargo Saldo inicial, vencido desde esa fecha; no se inventan meses que desconocés.', editor.getByText('Saldo pendiente total'), 14000);
+  await editor.getByRole('button', { name: 'Tiene saldo a favor' }).click();
+  await scene(page, 17, 'CRÉDITO', 'Saldo a favor', 'Si el inquilino pagó de más antes de usar el sistema, anotá ese importe. Queda como crédito y se descuenta automáticamente de los próximos cargos.', editor.getByText('Saldo a favor', { exact: true }).first(), 12500);
+  await scene(page, 18, 'GUARDADO', 'Se registra una sola vez', 'Al crear el inquilino, el saldo inicial queda asentado junto con su cuenta. Si elegís Está al día no se crea ningún saldo inicial, por eso se puede cargar más adelante desde su cuenta.', editor.getByRole('button', { name: 'Crear inquilino' }), 12500);
   await page.keyboard.press('Escape');
   await editor.waitFor({ state: 'hidden' });
-  const accounts = list.getByRole('link', { name: 'Ver cuenta' });
-  const firstAccount = accounts.nth(Math.min(4, (await accounts.count()) - 1));
-  await scene(page, 16, 'CUENTA CORRIENTE', 'Abrí el detalle de un inquilino', 'El administrador puede ver todos los cargos, pagos y ajustes de la cuenta, con sus fechas y saldos.', firstAccount, 9000);
-  const firstHref = await firstAccount.getAttribute('href');
-  await firstAccount.click();
-  try { await page.waitForFunction(() => /^\/renters\/[^/]+$/.test(window.location.pathname), null, { timeout: 8000 }); }
-  catch { await goto(page, firstHref); }
+
+  const accounts = page.getByRole('table', { name: 'Inquilinos' }).getByRole('link', { name: 'Ver cuenta' });
+  const account = accounts.nth(Math.min(1, (await accounts.count()) - 1));
+  await scene(page, 19, 'CUENTA', 'Abrí Ver cuenta', 'La cuenta individual reúne abono, cocheras, saldo y los movimientos que explican de dónde sale ese número.', account, 11000);
+  const href = await account.getAttribute('href');
+  await account.click();
+  try { await page.waitForFunction(() => /^\/renters\/[^/]+$/.test(location.pathname), null, { timeout: 8000 }); }
+  catch { await goto(page, href); }
   await page.addStyleTag({ content: 'h1, h1+div span:has(svg), .gm-display + div .text-muted-foreground {filter:blur(8px)!important}' });
   await hideRenterContact(page);
-  await showMenu(page, 17, 'CUENTA CORRIENTE', '/renters', 'Seguimos dentro de Operación → Inquilinos. Esta página es la cuenta individual que el administrador abre desde la lista.');
-  await scene(page, 18, 'RESUMEN PERSONAL', 'Abono, cocheras y saldo', 'La cabecera muestra cuánto paga por mes, sus cocheras asignadas y si debe, está al día o tiene saldo a favor.', page.getByText('Abono mensual').first(), 10500);
-  await scene(page, 19, 'ESTADO DE CUENTA', 'Resumen de movimientos', 'La pestaña Resumen ordena cargos, pagos y ajustes y permite seguir cómo cambió el saldo en el tiempo.', page.getByText('Resumen', { exact: true }).first(), 10500);
+  await showMenu(page, 20, 'UBICACIÓN', '/renters', 'Seguimos en Operación, Inquilinos. Ahora vemos la cuenta de una persona; no es la lista general de la playa.');
+  await scene(page, 21, 'SALDO', 'Pendiente, vencido o a favor', 'Un cargo sin pagar suma al saldo pendiente. Al pasar su vencimiento aparece también como vencido. Un pago o un descuento lo reduce; un excedente queda a favor.', page.getByText('Saldo pendiente').first(), 14000);
+  await scene(page, 22, 'ESTADO DE CUENTA', 'Para qué sirve', 'Resumen es el estado de cuenta: muestra fecha, concepto, cargos, pagos y ajustes en orden, con el saldo acumulado. Sirve para explicar o imprimir lo que debe y cómo cambió.', page.getByText('Resumen', { exact: true }).first(), 14000);
+  await scene(page, 23, 'IMPRESIÓN', 'Entregá el estado de cuenta', 'El botón Estado de cuenta prepara un documento imprimible de esta historia. No es un cobro ni un recibo nuevo; los movimientos anulados no figuran en ese documento.', page.getByRole('button', { name: 'Imprimir estado de cuenta' }), 13000);
   await page.getByRole('button', { name: /Cargos/ }).first().click();
-  await scene(page, 20, 'CARGOS', 'Lo que se le cobró por período', 'Cada cargo indica concepto, vencimiento, cuánto pagó y qué saldo queda. Un pago parcial no borra el resto.', page.getByText('Cargos', { exact: true }).first(), 10500);
+  await scene(page, 24, 'CARGOS', 'Abrí la pestaña Cargos', 'Cada abono o recargo tiene concepto, período, vencimiento, importe y saldo que falta pagar. Un pago parcial deja el resto visible.', page.getByText('Cargos', { exact: true }).first(), 13000);
   await page.getByRole('button', { name: /Pagos/ }).first().click();
-  await scene(page, 21, 'PAGOS', 'El dinero recibido queda trazado', 'La pestaña Pagos conserva importe, fecha y medio. Desde “Recibo” se puede volver a entregar un comprobante anterior.', page.getByText('Pagos', { exact: true }).first(), 10500);
-  await goto(page, '/renters', 'Inquilinos');
-  await page.addStyleTag({ content: '[role="table"][aria-label="Inquilinos"] [role="row"] [role="cell"]:first-child {filter:blur(9px)!important}' });
-  const pendingAccount = page.getByRole('table', { name: 'Inquilinos' }).getByRole('link', { name: 'Ver cuenta' }).nth(1);
-  const pendingHref = await pendingAccount.getAttribute('href');
-  await pendingAccount.click();
-  try { await page.waitForFunction(() => /^\/renters\/[^/]+$/.test(window.location.pathname), null, { timeout: 8000 }); }
-  catch { await goto(page, pendingHref); }
-  await page.addStyleTag({ content: 'h1, h1+div span:has(svg), .gm-display + div .text-muted-foreground {filter:blur(8px)!important}' });
-  await hideRenterContact(page);
-  await showMenu(page, 22, 'CUENTA CON SALDO PENDIENTE', '/renters', 'Abrimos otra cuenta que tiene un abono pendiente. El menú confirma que seguimos en Operación → Inquilinos.');
-  const charge = page.getByRole('button', { name: 'Cobrar', exact: true }).first();
-  await scene(page, 23, 'COBRAR', 'Elegí “Cobrar” desde la cuenta', 'Tocamos Cobrar en esta cuenta. La ventana propone los cargos pendientes y el total que falta pagar.', charge, 8500);
-  await charge.click();
-  const chargeDialog = page.locator('[role="dialog"]').filter({ hasText: 'Cobrar a' });
-  await chargeDialog.getByText('Cómo paga').waitFor({ state: 'visible', timeout: 30000 });
-  await chargeDialog.getByRole('heading').first().evaluate(node => { node.style.filter = 'blur(9px)'; });
-  await scene(page, 24, 'QUÉ PAGA', 'Marcá los cargos', 'Podés cobrar todo o elegir cargos específicos. Si recibe un importe parcial, editás el total y se aplica a los más antiguos primero.', chargeDialog.getByText('Qué paga'), 11000);
-  await scene(page, 25, 'MEDIOS DE PAGO', 'Efectivo, transferencia, ambos o QR', 'El efectivo entra en caja; una transferencia se verifica por fuera. Si vinculaste Mercado Pago, el QR espera la acreditación automática.', chargeDialog.getByRole('radiogroup', { name: 'Medio de pago' }), 11000);
-  await scene(page, 26, 'RECIBO Y SALDO', 'Revisá cómo quedará la cuenta', 'Antes de confirmar, el pie dice cuánto recibís y qué saldo quedará. Al cobrar se genera un recibo que se puede volver a consultar.', chargeDialog.getByText('Recibís', { exact: false }).first(), 10500);
-  await page.keyboard.press('Escape');
-  await chargeDialog.waitFor({ state: 'hidden' });
+  await scene(page, 25, 'PAGOS', 'Abrí la pestaña Pagos', 'Cada pago muestra fecha, importe y medio. Desde Recibo podés volver a entregar el mismo comprobante por QR, WhatsApp o impresión.', page.getByText('Pagos', { exact: true }).first(), 13000);
+
   const actions = page.getByRole('button', { name: 'Acciones de administración' });
   await actions.click();
-  await scene(page, 27, 'CORRECCIONES', 'Ajustes y saldo inicial', 'Desde estas acciones podés aplicar una bonificación, cargar un recargo, registrar saldo inicial o editar los datos. Todo queda en el historial.', page.getByText('Cargar un ajuste'), 10500);
+  await scene(page, 26, 'ADMINISTRACIÓN', 'Abrí el menú de tres puntos', 'Acá se corrige la cuenta sin borrar su historia: ajustes, saldo inicial, edición de cochera y baja o restauración del inquilino.', page.getByText('Cargar un ajuste'), 13000);
+  await page.getByText('Cargar un ajuste').click();
+  const adjust = page.locator('[role="dialog"]').filter({ hasText: 'Ajuste de cuenta' });
+  await scene(page, 27, 'BONIFICACIÓN', 'Un descuento baja la deuda', 'Elegí Bonificación, escribí el importe y el motivo. Puede aplicarse a los cargos más viejos o a uno concreto. No es plata recibida: queda como descuento en la cuenta.', adjust.getByText('Tipo de ajuste'), 14500);
+  await adjust.getByRole('button', { name: 'Recargo', exact: true }).click();
+  await scene(page, 28, 'RECARGO', 'Un recargo aumenta lo pendiente', 'Elegí Recargo para sumar un importe que el inquilino debe pagar, por ejemplo un interés de mora. Es un cargo propio, con motivo, visible en el estado de cuenta.', adjust.getByText('Importe', { exact: true }).first(), 14000);
+  await scene(page, 29, 'CORRECCIÓN', 'Guardá con un motivo claro', 'El ajuste no modifica el abono mensual configurado ni reescribe pagos anteriores. Queda una operación nueva, con fecha y responsable. No confirmamos el ejemplo de esta guía.', adjust.getByText('Motivo', { exact: true }).first(), 12500);
   await page.keyboard.press('Escape');
+  await adjust.waitFor({ state: 'hidden' });
+
+  const loadInitial = page.getByRole('button', { name: 'Cargar saldo inicial' });
+  if (!(await loadInitial.isVisible().catch(() => false)) && !(await page.getByText('Saldo inicial ya cargado', { exact: true }).isVisible().catch(() => false))) await actions.click();
+  if (await loadInitial.isVisible().catch(() => false)) {
+    await scene(page, 30, 'SALDO INICIAL', 'También se carga después del alta', 'Si al crear el inquilino elegiste Está al día y luego descubrís una deuda o crédito anterior, usá Cargar saldo inicial desde este menú.', loadInitial, 13000);
+    await loadInitial.click();
+    const initial = page.locator('[role="dialog"]').filter({ hasText: 'Saldo inicial' });
+    await scene(page, 31, 'SALDO INICIAL', 'Elegí deuda o crédito', 'Para deuda anterior, detallá los meses o cargá un total con fecha. Para saldo a favor, ingresá el crédito. El sistema lo registra como el comienzo de la cuenta.', initial, 14000);
+    await page.keyboard.press('Escape');
+    await initial.waitFor({ state: 'hidden' });
+    if (!(await loadInitial.isVisible().catch(() => false)) && !(await page.getByText('Saldo inicial ya cargado', { exact: true }).isVisible().catch(() => false))) await actions.click();
+  } else {
+    await scene(page, 30, 'SALDO INICIAL', 'Ya está registrado', 'Cuando el menú dice Saldo inicial ya cargado, no se puede cargar un segundo saldo inicial encima: duplicaría el punto de partida de la cuenta.', page.getByText('Saldo inicial ya cargado', { exact: true }), 13000);
+    await scene(page, 31, 'CORREGIR SALDO', '¿Cómo se cambia?', 'Si todavía se puede anular, abrí el movimiento en Resumen o Cargos, indicá motivo y volvé a cargarlo. Fuera del mes en que se cargó, corregilo con una bonificación o un recargo.', page.getByText('Saldo inicial ya cargado', { exact: true }), 15000);
+  }
+  await page.keyboard.press('Escape');
+  await scene(page, 32, 'SIN DUPLICAR', 'No repitas el saldo inicial', 'La primera carga fija cómo arrancó la cuenta. Para movimientos nuevos usá abonos, pagos o ajustes. Una anulación conserva el rastro; no borra silenciosamente la operación.', actions, 13000);
+
   await goto(page, '/renters', 'Inquilinos');
-  await showMenu(page, 28, 'CONTROL', '/renters', 'Volvemos a Operación → Inquilinos para revisar el control general de anulaciones.');
-  await page.getByRole('button', { name: /Anulaciones/ }).first().click();
-  const cancellations = page.locator('[role="dialog"]').filter({ hasText: 'Anulaciones' });
-  await scene(page, 29, 'ANULACIONES', 'Los errores se corrigen con rastro', 'El administrador puede revisar qué se anuló, por qué, cuándo y por quién. Una anulación no borra silenciosamente la cuenta.', cancellations, 11000);
+  await showMenu(page, 33, 'UBICACIÓN', '/renters', 'Volvemos al listado de Operación, Inquilinos. Desde Más filtros se pueden encontrar las cuentas dadas de baja.');
+  await scene(page, 34, 'DADOS DE BAJA', 'Cómo encontrar una cuenta dada de baja', 'Dar de baja libera sus cocheras y detiene los próximos abonos, pero conserva la cuenta y las deudas. En la siguiente parte abrimos Más filtros y vemos cómo restaurarla.', page.locator('[aria-label="Más filtros"]'), 14000);
+  await finish(recording);
+}
+
+async function rentersEnding() {
+  const recording = await recordedPage('inquilinos-final-v3', 'ADMIN');
+  const { page } = recording;
+  await goto(page, '/renters', 'Inquilinos');
+  await page.addStyleTag({ content: '[role="table"][aria-label="Inquilinos"] [role="row"] [role="cell"]:first-child {filter:blur(9px)!important}' });
+  await showMenu(page, 35, 'UBICACIÓN', '/renters', 'Seguimos en Operación, Inquilinos. Desde el filtro del listado podemos encontrar a quienes fueron dados de baja.');
+  const moreFilters = page.locator('[aria-label="Más filtros"]');
+  await scene(page, 36, 'DADOS DE BAJA', 'Usá Más filtros', 'Abrimos Más filtros y elegimos Dados de baja. La baja deja de generar nuevos abonos y libera las cocheras, pero mantiene la historia de la cuenta.', moreFilters, 13000);
+  await moreFilters.click();
+  await page.getByRole('option', { name: /Dados de baja/ }).click();
+  await scene(page, 37, 'LISTADO', 'Encontrá la cuenta anterior', 'Acá siguen visibles los inquilinos que ya no ocupan una cochera. Un saldo pendiente puede consultarse y cobrarse aunque estén dados de baja.', page.getByRole('table', { name: 'Inquilinos' }), 13000);
+  const deleted = page.getByRole('table', { name: 'Inquilinos' }).getByRole('link', { name: 'Ver cuenta' });
+  if (await deleted.count()) {
+    const href = await deleted.first().getAttribute('href');
+    await deleted.first().click();
+    try { await page.waitForFunction(() => /^\/renters\/[^/]+$/.test(location.pathname), null, { timeout: 8000 }); }
+    catch { await goto(page, href); }
+    await page.addStyleTag({ content: 'h1, h1+div span:has(svg), .gm-display + div .text-muted-foreground {filter:blur(8px)!important}' });
+    await hideRenterContact(page);
+    await showMenu(page, 38, 'UBICACIÓN', '/renters', 'Abrimos la cuenta dada de baja desde Operación, Inquilinos. Restaurar está en su menú de administración.');
+    await page.getByRole('button', { name: 'Acciones de administración' }).click();
+    const restore = page.getByRole('button', { name: 'Restaurar inquilino' });
+    await scene(page, 39, 'RESTAURAR', 'Qué hace esta opción', 'Restaura al inquilino, sus cocheras y su cuenta anterior. Volverá a los activos y podrá recibir cargos en las próximas cargas de abonos.', restore, 14000);
+    await restore.click();
+    await scene(page, 40, 'CONFIRMACIÓN', 'Leé antes de restaurar', 'La ventana confirma qué persona y cocheras se reactivarán. Restaurar no paga su deuda, no borra movimientos y no duplica cargos de períodos anteriores.', page.locator('[role="dialog"]').last(), 15000);
+    await scene(page, 41, 'CONTROL', 'La cuenta conserva su historia', 'Al confirmar, revisá el listado activo y su estado de cuenta. En esta guía mostramos el paso sin cambiar los datos reales de la playa.', page.locator('[role="dialog"]').last(), 13000);
+  } else {
+    await scene(page, 38, 'RESTAURAR', 'Cuando aparezca una baja', 'Abrí Ver cuenta en una fila dada de baja. Desde el menú de tres puntos vas a encontrar Restaurar inquilino.', moreFilters, 13000);
+    await scene(page, 39, 'CONFIRMACIÓN', 'Qué se recupera', 'Al confirmar, vuelven el inquilino, sus cocheras y su cuenta. Los movimientos anteriores se conservan; las cargas futuras podrán incluirlo.', page.getByRole('table', { name: 'Inquilinos' }), 14000);
+    await scene(page, 40, 'CONTROL', 'No se cobra automáticamente', 'Restaurar no registra ningún pago ni borra una deuda. Consultá su estado de cuenta para ver el saldo con el que vuelve.', page.getByRole('table', { name: 'Inquilinos' }), 13000);
+    await scene(page, 41, 'CONTROL', 'Prepará el próximo abono', 'En la próxima carga del mes se le incluirá si tiene cochera y precio. Los períodos que ya tenían cargo se omiten para no duplicarlos.', page.getByRole('table', { name: 'Inquilinos' }), 13000);
+  }
+  await finish(recording);
+}
+
+async function rentersPayments() {
+  const recording = await recordedPage('inquilinos-cobros-v3', 'ADMIN');
+  const { page } = recording;
+  await goto(page, '/renters', 'Inquilinos');
+  await page.addStyleTag({ content: '[role="table"][aria-label="Inquilinos"] [role="row"] [role="cell"]:first-child {filter:blur(9px)!important}' });
+  await showMenu(page, 42, 'UBICACIÓN', '/renters', 'Para terminar, volvemos a Operación, Inquilinos. Ahora veremos cómo se cobra una deuda de la cuenta mensual.');
+  const pendingRows = page.getByRole('table', { name: 'Inquilinos' }).getByRole('row').filter({ hasText: /Pendiente|Vencido desde/ }).filter({ hasNotText: /De baja/ });
+  const account = pendingRows.getByRole('link', { name: 'Ver cuenta' }).first();
+  if (!(await account.count())) throw new Error('No hay una cuenta activa con saldo pendiente para la escena de cobro.');
+  await scene(page, 43, 'COBRAR', 'Abrí una cuenta con deuda', 'Desde el listado podés tocar Cobrar directamente o abrir Ver cuenta para revisar primero los cargos pendientes.', account, 12000);
+  const href = await account.getAttribute('href');
+  await account.click();
+  try { await page.waitForFunction(() => /^\/renters\/[^/]+$/.test(location.pathname), null, { timeout: 8000 }); }
+  catch { await goto(page, href); }
+  await page.addStyleTag({ content: 'h1, h1+div span:has(svg), .gm-display + div .text-muted-foreground {filter:blur(8px)!important}' });
+  await hideRenterContact(page);
+  await showMenu(page, 44, 'UBICACIÓN', '/renters', 'Seguimos en Operación, Inquilinos, dentro de la cuenta individual. Desde acá se puede cobrar y entregar el recibo.');
+  const charge = page.getByRole('button', { name: 'Cobrar', exact: true }).first();
+  await scene(page, 45, 'COBRAR', 'Tocá Cobrar', 'El formulario propone los cargos pendientes y muestra cuánto se debe. Cargar un abono fue crear deuda; tocar Cobrar es registrar el dinero recibido.', charge, 13000);
+  await charge.click();
+  const dialog = page.locator('[role="dialog"]').filter({ hasText: 'Cobrar a' });
+  await dialog.getByText('Cómo paga').waitFor({ state: 'visible', timeout: 30000 });
+  await dialog.getByRole('heading').first().evaluate(node => { node.style.filter = 'blur(9px)'; });
+  await scene(page, 46, 'QUÉ PAGA', 'Elegí cargos o un pago parcial', 'Podés dejar marcados todos los cargos o elegir solo algunos. Si recibís menos, editá el total: se aplica primero a los cargos más antiguos y el resto sigue pendiente.', dialog.getByText('Qué paga'), 15000);
+  await scene(page, 47, 'MEDIO DE PAGO', 'Indicá cómo pagó', 'Podés registrar efectivo, transferencia o ambos. El QR de Mercado Pago es opcional y requiere vincular la cuenta de la empresa; se registra solo cuando se acredita.', dialog.getByRole('radiogroup', { name: 'Medio de pago' }), 15000);
+  await scene(page, 48, 'REVISIÓN', 'Mirá el saldo que quedará', 'Antes de confirmar, el pie muestra cuánto recibís y el saldo nuevo. Si paga de más, el excedente queda a favor y se descontará de próximos cargos.', dialog.getByText('Recibís', { exact: false }).first(), 14000);
+  await scene(page, 49, 'RECIBO', 'El comprobante se puede recuperar', 'Al confirmar un cobro se genera un recibo. Después, desde Pagos, podés volver a verlo o entregarlo por QR, WhatsApp o impresión. Esta guía no registra un pago ficticio.', dialog, 15000);
   await finish(recording);
 }
 
@@ -621,6 +711,8 @@ try {
   else if (chapter === 'tarifas') await tariffs();
   else if (chapter === 'caja') await cash();
   else if (chapter === 'inquilinos') await renters();
+  else if (chapter === 'inquilinos-final') await rentersEnding();
+  else if (chapter === 'inquilinos-cobros') await rentersPayments();
   else if (chapter === 'administracion') await administration();
   else if (chapter === 'administracion-notas') await administrationNotes();
   else if (chapter === 'pases-operacion') await plannedStay();

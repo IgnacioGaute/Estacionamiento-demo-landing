@@ -11,8 +11,8 @@ const guides = [
   ['cobro', '02', 'COBRO', 'Turnos, búsqueda y salida'],
   ['tarifas', '03', 'TARIFAS', 'Precios por tiempo y estadía'],
   ['caja', '04', 'CAJA', 'Movimientos y planilla'],
-  ['inquilinos', '05', 'MENSUALES', 'Inquilinos'],
-  ['administracion', '06', 'ADMINISTRACIÓN', 'Acceso y configuración'],
+  ['administracion', '05', 'ADMINISTRACIÓN', 'Acceso y configuración'],
+  ['inquilinos', '06', 'MENSUALES', 'Inquilinos'],
 ];
 
 const browser = await chromium.launch({ channel: 'chrome' });

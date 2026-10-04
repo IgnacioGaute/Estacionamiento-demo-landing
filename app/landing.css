@@ -153,6 +153,23 @@
 .plan .puntos { margin: 0; padding-top: 20px; border-top: 1px solid var(--line-soft); gap: 10px; }
 .plan .boton { width: 100%; height: 48px; margin-top: auto; }
 
+.planes__opciones { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 18px 32px; }
+.planes__opcion { display: flex; flex-direction: column; align-items: center; gap: 9px; }
+.planes__opcion-label { color: var(--text-2); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.selector--periodo button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
+.selector__ahorro { padding: 3px 5px; border-radius: 4px; background: #fff3bc; color: #624700; font-size: 11px; line-height: 1; font-weight: 700; }
+.selector button[aria-pressed='true'] .selector__ahorro { background: var(--yellow); color: var(--ink); }
+.plan__monto { flex-wrap: wrap; align-items: baseline; gap: 5px 9px; }
+.plan__cifra { font-family: var(--mono); font-weight: 500; white-space: nowrap; font-size: clamp(32px, 2.8vw, 44px); line-height: 1.08; letter-spacing: -.035em; font-variant-numeric: tabular-nums; }
+.plan__equivalente { min-height: 34px; font-size: 13px; line-height: 1.4; color: var(--text-2); }
+.plan__equivalente strong { color: var(--ink); font-weight: 600; }
+.planes__periodo-nota { width: 100%; margin-top: -12px; text-align: center; color: var(--text-2); font-size: 13px; line-height: 1.5; }
+@media (max-width: 640px) {
+  .planes__opcion, .planes__opcion .selector { width: 100%; }
+  .planes__opcion .selector button { flex: 1; padding: 0 7px; font-size: 12px; }
+  .selector--periodo button { flex-direction: column; height: 52px; gap: 2px; }
+  .plan__cifra { font-size: clamp(32px, 9vw, 42px); }
+}
 .planes__notas { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px 40px; padding-top: 8px; }
 .planes__notas > div { padding-top: 20px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
 .planes__notas h3 { font-size: 16px; font-weight: 600; }

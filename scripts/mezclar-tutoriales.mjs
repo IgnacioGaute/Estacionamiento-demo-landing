@@ -5,13 +5,13 @@ import { join } from 'node:path';
 
 const root = process.cwd();
 const name = process.argv[2];
-const durations = { cobro: 197, tarifas: 319.5, caja: 179, administracion: 496.5, inquilinos: 310.34 };
+const durations = { cobro: 197, tarifas: 319.5, caja: 179, administracion: 496.5, inquilinos: 657.28 };
 if (!name || !(name in durations)) throw new Error('Uso: node scripts/mezclar-tutoriales.mjs cobro|tarifas|caja|administracion|inquilinos');
 const ffmpeg = join(root, '.revision/ffmpeg-tools/node_modules/ffmpeg-static/ffmpeg.exe');
 const folder = join(root, '.revision/sonorizacion', name);
 const script = JSON.parse(readFileSync(join(folder, 'guion.json'), 'utf8'));
 const source = name === 'inquilinos'
-  ? join(root, '.revision/tutoriales/inquilinos-limpio.mp4')
+  ? join(root, '.revision/tutoriales/inquilinos-v3.webm')
   : join(root, 'public/videos', `${name}-real.webm`);
 const intro = join(root, 'public/video-posters', `intro-${name}.png`);
 const target = join(root, 'public/videos', `${name}-con-audio.mp4`);

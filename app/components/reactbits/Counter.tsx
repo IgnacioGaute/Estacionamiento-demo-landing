@@ -1,9 +1,9 @@
 'use client';
 
-// Counter de React Bits (https://reactbits.dev, licencia MIT), variante TS + CSS, con un solo cambio
-// marcado en Digit.
+// Counter de React Bits (https://reactbits.dev, licencia MIT), variante TS + CSS, adaptada para animar cifras
+// y admitir varios separadores de miles.
 
-import { MotionValue, motion, useSpring, useTransform } from 'motion/react';
+import { AnimatePresence, MotionValue, motion, useReducedMotion, useSpring, useTransform } from 'motion/react';
 import type React from 'react';
 import { useEffect } from 'react';
 
@@ -53,31 +53,27 @@ interface DigitProps {
   digitStyle?: React.CSSProperties;
 }
 
-function Digit({ place, value, height, digitStyle }: DigitProps) {
-  if (place === '.') {
-    return (
-      <span className="counter-digit" style={{ height, ...digitStyle, width: 'fit-content' }}>
-        .
-      </span>
-    );
-  }
-
-  // Cambio respecto del original: cada cifra gira solo hasta su propio dígito. El original anima el
-  // número entero hasta esa posición, y al pasar de 50.000 a 70.000 las unidades recorrían veinte
-  // mil valores, como una tragamonedas.
-  const valueRoundedToPlace = getValueRoundedToPlace(value, place) % 10;
-  const animatedValue = useSpring(valueRoundedToPlace);
+function Digit({ place, value, height, digitStyle }: DigitProps & { place: number }) {
+  const reducedMotion = useReducedMotion();
+  const digit = getValueRoundedToPlace(value, place) % 10;
+  const animatedValue = useSpring(0, { stiffness: 110, damping: 20 });
 
   useEffect(() => {
-    animatedValue.set(valueRoundedToPlace);
-  }, [animatedValue, valueRoundedToPlace]);
+    if (reducedMotion) animatedValue.jump(digit);
+    else animatedValue.set(digit);
+  }, [animatedValue, digit, reducedMotion]);
 
   return (
-    <span className="counter-digit" style={{ height, ...digitStyle }}>
+    <motion.span className="counter-digit" data-place={place}
+      initial={{ width: 0, opacity: 0 }}
+      animate={{ width: '1ch', opacity: 1 }}
+      exit={{ width: 0, opacity: 0 }}
+      transition={{ duration: reducedMotion ? 0 : 0.3 }}
+      style={{ height, ...digitStyle }}>
       {Array.from({ length: 10 }, (_, i) => (
         <Number key={i} mv={animatedValue} number={i} height={height} />
       ))}
-    </span>
+    </motion.span>
   );
 }
 
@@ -162,9 +158,15 @@ export default function Counter({
   return (
     <span className="counter-container" style={containerStyle}>
       <span className="counter-counter" style={{ ...defaultCounterStyle, ...counterStyle }}>
-        {places.map(place => (
-          <Digit key={place} place={place} value={value} height={height} digitStyle={digitStyle} />
-        ))}
+        <AnimatePresence initial={false}>
+          {places.map((place, index) => place === '.' ? (
+            <motion.span key={`separator-${places[index + 1]}`} className="counter-digit"
+              initial={{ width: 0, opacity: 0 }} animate={{ width: '0.6ch', opacity: 1 }} exit={{ width: 0, opacity: 0 }}
+              style={{ height, ...digitStyle }}>.</motion.span>
+          ) : (
+            <Digit key={place} place={place} value={value} height={height} digitStyle={digitStyle} />
+          ))}
+        </AnimatePresence>
       </span>
       <span className="gradient-container">
         <span className="top-gradient" style={topGradientStyle ?? defaultTopGradientStyle} />

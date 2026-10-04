@@ -34,6 +34,9 @@ def lines_in(function):
 
 
 def get_script(name):
+    if name == 'inquilinos':
+        scenes = json.loads((ROOT / 'scripts/inquilinos-v3-scenes.json').read_text(encoding='utf-8'))
+        return [{'number': scene['number'], 'start': scene['start'], 'text': scene['text']} for scene in scenes]
     captions = {}
     for function in FUNCTIONS[name]:
         for line in lines_in(function):

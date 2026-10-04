@@ -1,0 +1,345 @@
+[
+  {
+    "number": 1,
+    "start": 4.61,
+    "chapter": "UBICACIÓN",
+    "title": "Dónde estamos",
+    "text": "Entramos por Operación, Inquilinos. Acá se administran las cocheras mensuales de la playa. La opción aparece cuando el módulo está habilitado."
+  },
+  {
+    "number": 2,
+    "start": 10.96,
+    "chapter": "PANORAMA",
+    "title": "Entendé los saldos",
+    "text": "El saldo pendiente es lo que todavía deben. Lo cobrado este mes es dinero recibido, aunque corresponda a meses anteriores. El abono del mes muestra qué parte del cargo actual está saldada."
+  },
+  {
+    "number": 3,
+    "start": 25.18,
+    "chapter": "BUSCAR",
+    "title": "Encontrá una cuenta",
+    "text": "Escribí el nombre, la patente o la cochera. Los filtros separan cuentas al día, pendientes, vencidas, a favor y dadas de baja."
+  },
+  {
+    "number": 4,
+    "start": 36.33,
+    "chapter": "LISTA",
+    "title": "Leé cada fila",
+    "text": "Ves la cochera, el abono mensual y el saldo. El botón Ver cuenta abre la historia completa; Cobrar registra dinero recibido."
+  },
+  {
+    "number": 5,
+    "start": 47.48,
+    "chapter": "ABONOS",
+    "title": "Empezá por Cargar abonos",
+    "text": "Esta acción crea los cargos mensuales de todos los inquilinos elegibles. No registra un pago ni emite un recibo: eso sucede después, cuando se cobra."
+  },
+  {
+    "number": 6,
+    "start": 59.88,
+    "chapter": "MES",
+    "title": "Elegí el período",
+    "text": "Podés cargar el mes actual o el siguiente. El importe de cada cargo sale de la suma de los precios mensuales de sus cocheras."
+  },
+  {
+    "number": 7,
+    "start": 71.91,
+    "chapter": "VENCIMIENTO",
+    "title": "Definí el día",
+    "text": "El número, del 1 al 28, fija cuándo vence el abono. Antes de esa fecha aparece pendiente. Si al día siguiente sigue impago, pasa a deuda vencida; no se cobra automáticamente."
+  },
+  {
+    "number": 8,
+    "start": 87.16,
+    "chapter": "CARGA TARDÍA",
+    "title": "¿Y si la fecha ya pasó?",
+    "text": "Si cargás los abonos después del día elegido, estos cargos vencen el día en que los cargás. El sistema nunca crea una deuda que ya estaba vencida antes de registrarla."
+  },
+  {
+    "number": 9,
+    "start": 100.63,
+    "chapter": "VISTA PREVIA",
+    "title": "Revisá antes de confirmar",
+    "text": "Se ve cuántos abonos se crearán, el total y el detalle por inquilino. Los meses ya cargados se omiten; también se avisa si falta cochera o precio. Confirmar crea los cargos."
+  },
+  {
+    "number": 10,
+    "start": 116.42,
+    "chapter": "SEGURIDAD",
+    "title": "Una sola carga por período",
+    "text": "Si abrís otra vez la carga del mismo mes, los cargos existentes aparecen como ya cargados. No se duplican. En esta guía dejamos la vista previa sin confirmar."
+  },
+  {
+    "number": 11,
+    "start": 128.01,
+    "chapter": "ALTA",
+    "title": "Abrí Nuevo inquilino",
+    "text": "El primer paso reúne nombre y contacto. El celular sirve para enviar recibos por WhatsApp; no cambia el precio de la cochera."
+  },
+  {
+    "number": 12,
+    "start": 139.47,
+    "chapter": "DATOS",
+    "title": "Completá la identidad",
+    "text": "Escribimos un ejemplo para mostrar el formulario. También indicás cuántas cocheras alquila. No vamos a guardar un cliente ficticio."
+  },
+  {
+    "number": 13,
+    "start": 151.58,
+    "chapter": "COCHERAS",
+    "title": "Número y precio de cada cochera",
+    "text": "Cada cochera lleva su número y su propio precio mensual. Si tiene varias, el abono del inquilino es la suma. Cambiar el precio después afecta los próximos cargos, no los ya cargados."
+  },
+  {
+    "number": 14,
+    "start": 166.33,
+    "chapter": "SALDO INICIAL",
+    "title": "Elegí cómo empieza la cuenta",
+    "text": "Está al día es el punto de partida normal. Si venís de una planilla anterior, podés registrar deuda previa o un crédito a favor. Esto no cobra ni mueve dinero."
+  },
+  {
+    "number": 15,
+    "start": 180.43,
+    "chapter": "DEUDA ANTERIOR",
+    "title": "Mes por mes",
+    "text": "Elegí Debe y Mes por mes cuando sabés qué períodos quedaron impagos. Cada mes se crea como un cargo separado y ya vencido, para identificarlo y cobrarlo por separado."
+  },
+  {
+    "number": 16,
+    "start": 194.81,
+    "chapter": "DEUDA ANTERIOR",
+    "title": "Un total a una fecha",
+    "text": "Si solo conocés cuánto debe, elegí un total y la fecha de corte. Se crea un único cargo Saldo inicial, vencido desde esa fecha; no se inventan meses que desconocés."
+  },
+  {
+    "number": 17,
+    "start": 209.42,
+    "chapter": "CRÉDITO",
+    "title": "Saldo a favor",
+    "text": "Si el inquilino pagó de más antes de usar el sistema, anotá ese importe. Queda como crédito y se descuenta automáticamente de los próximos cargos."
+  },
+  {
+    "number": 18,
+    "start": 222.26,
+    "chapter": "GUARDADO",
+    "title": "Se registra una sola vez",
+    "text": "Al crear el inquilino, el saldo inicial queda asentado junto con su cuenta. Si elegís Está al día no se crea ningún saldo inicial, por eso se puede cargar más adelante desde su cuenta."
+  },
+  {
+    "number": 19,
+    "start": 235.54,
+    "chapter": "CUENTA",
+    "title": "Abrí Ver cuenta",
+    "text": "La cuenta individual reúne abono, cocheras, saldo y los movimientos que explican de dónde sale ese número."
+  },
+  {
+    "number": 20,
+    "start": 250.75,
+    "chapter": "UBICACIÓN",
+    "title": "Dónde estamos",
+    "text": "Seguimos en Operación, Inquilinos. Ahora vemos la cuenta de una persona; no es la lista general de la playa."
+  },
+  {
+    "number": 21,
+    "start": 257.17,
+    "chapter": "SALDO",
+    "title": "Pendiente, vencido o a favor",
+    "text": "Un cargo sin pagar suma al saldo pendiente. Al pasar su vencimiento aparece también como vencido. Un pago o un descuento lo reduce; un excedente queda a favor."
+  },
+  {
+    "number": 22,
+    "start": 271.31,
+    "chapter": "ESTADO DE CUENTA",
+    "title": "Para qué sirve",
+    "text": "Resumen es el estado de cuenta: muestra fecha, concepto, cargos, pagos y ajustes en orden, con el saldo acumulado. Sirve para explicar o imprimir lo que debe y cómo cambió."
+  },
+  {
+    "number": 23,
+    "start": 285.33,
+    "chapter": "IMPRESIÓN",
+    "title": "Entregá el estado de cuenta",
+    "text": "El botón Estado de cuenta prepara un documento imprimible de esta historia. No es un cobro ni un recibo nuevo; los movimientos anulados no figuran en ese documento."
+  },
+  {
+    "number": 24,
+    "start": 298.56,
+    "chapter": "CARGOS",
+    "title": "Abrí la pestaña Cargos",
+    "text": "Cada abono o recargo tiene concepto, período, vencimiento, importe y saldo que falta pagar. Un pago parcial deja el resto visible."
+  },
+  {
+    "number": 25,
+    "start": 311.69,
+    "chapter": "PAGOS",
+    "title": "Abrí la pestaña Pagos",
+    "text": "Cada pago muestra fecha, importe y medio. Desde Recibo podés volver a entregar el mismo comprobante por QR, WhatsApp o impresión."
+  },
+  {
+    "number": 26,
+    "start": 324.93,
+    "chapter": "ADMINISTRACIÓN",
+    "title": "Abrí el menú de tres puntos",
+    "text": "Acá se corrige la cuenta sin borrar su historia: ajustes, saldo inicial, edición de cochera y baja o restauración del inquilino."
+  },
+  {
+    "number": 27,
+    "start": 338.36,
+    "chapter": "BONIFICACIÓN",
+    "title": "Un descuento baja la deuda",
+    "text": "Elegí Bonificación, escribí el importe y el motivo. Puede aplicarse a los cargos más viejos o a uno concreto. No es plata recibida: queda como descuento en la cuenta."
+  },
+  {
+    "number": 28,
+    "start": 353.08,
+    "chapter": "RECARGO",
+    "title": "Un recargo aumenta lo pendiente",
+    "text": "Elegí Recargo para sumar un importe que el inquilino debe pagar, por ejemplo un interés de mora. Es un cargo propio, con motivo, visible en el estado de cuenta."
+  },
+  {
+    "number": 29,
+    "start": 367.43,
+    "chapter": "CORRECCIÓN",
+    "title": "Guardá con un motivo claro",
+    "text": "El ajuste no modifica el abono mensual configurado ni reescribe pagos anteriores. Queda una operación nueva, con fecha y responsable. No confirmamos el ejemplo de esta guía."
+  },
+  {
+    "number": 30,
+    "start": 380.63,
+    "chapter": "SALDO INICIAL",
+    "title": "También se carga después del alta",
+    "text": "Si al crear el inquilino elegiste Está al día y luego descubrís una deuda o crédito anterior, usá Cargar saldo inicial desde este menú."
+  },
+  {
+    "number": 31,
+    "start": 393.92,
+    "chapter": "SALDO INICIAL",
+    "title": "Elegí deuda o crédito",
+    "text": "Para deuda anterior, detallá los meses o cargá un total con fecha. Para saldo a favor, ingresá el crédito. El sistema lo registra como el comienzo de la cuenta."
+  },
+  {
+    "number": 32,
+    "start": 408.69,
+    "chapter": "SIN DUPLICAR",
+    "title": "No repitas el saldo inicial",
+    "text": "La primera carga fija cómo arrancó la cuenta. Para movimientos nuevos usá abonos, pagos o ajustes. Una anulación conserva el rastro; no borra silenciosamente la operación."
+  },
+  {
+    "number": 33,
+    "start": 427.36,
+    "chapter": "UBICACIÓN",
+    "title": "Dónde estamos",
+    "text": "Volvemos al listado de Operación, Inquilinos. Desde Más filtros se pueden encontrar las cuentas dadas de baja."
+  },
+  {
+    "number": 34,
+    "start": 433.78,
+    "chapter": "DADOS DE BAJA",
+    "title": "Encontrá a quien se dio de baja",
+    "text": "Dar de baja libera sus cocheras y detiene los próximos abonos, pero conserva la cuenta y las deudas que quedaron. Elegí Dados de baja en Más filtros."
+  },
+  {
+    "number": 35,
+    "start": 452.33,
+    "chapter": "UBICACIÓN",
+    "title": "Dónde estamos",
+    "text": "Seguimos en Operación, Inquilinos. Desde el filtro del listado podemos encontrar a quienes fueron dados de baja."
+  },
+  {
+    "number": 36,
+    "start": 458.79,
+    "chapter": "DADOS DE BAJA",
+    "title": "Usá Más filtros",
+    "text": "Abrimos Más filtros y elegimos Dados de baja. La baja deja de generar nuevos abonos y libera las cocheras, pero mantiene la historia de la cuenta."
+  },
+  {
+    "number": 37,
+    "start": 472.52,
+    "chapter": "LISTADO",
+    "title": "Encontrá la cuenta anterior",
+    "text": "Acá siguen visibles los inquilinos que ya no ocupan una cochera. Un saldo pendiente puede consultarse y cobrarse aunque estén dados de baja."
+  },
+  {
+    "number": 38,
+    "start": 489.89,
+    "chapter": "UBICACIÓN",
+    "title": "Dónde estamos",
+    "text": "Abrimos la cuenta dada de baja desde Operación, Inquilinos. Restaurar está en su menú de administración."
+  },
+  {
+    "number": 39,
+    "start": 496.49,
+    "chapter": "RESTAURAR",
+    "title": "Qué hace esta opción",
+    "text": "Restaura al inquilino, sus cocheras y su cuenta anterior. Volverá a los activos y podrá recibir cargos en las próximas cargas de abonos."
+  },
+  {
+    "number": 40,
+    "start": 510.84,
+    "chapter": "CONFIRMACIÓN",
+    "title": "Leé antes de restaurar",
+    "text": "La ventana confirma qué persona y cocheras se reactivarán. Restaurar no paga su deuda, no borra movimientos y no duplica cargos de períodos anteriores."
+  },
+  {
+    "number": 41,
+    "start": 526.14,
+    "chapter": "CONTROL",
+    "title": "La cuenta conserva su historia",
+    "text": "Al confirmar, revisá el listado activo y su estado de cuenta. En esta guía mostramos el paso sin cambiar los datos reales de la playa."
+  },
+  {
+    "number": 42,
+    "start": 546.31,
+    "chapter": "UBICACIÓN",
+    "title": "Dónde estamos",
+    "text": "Para terminar, volvemos a Operación, Inquilinos. Ahora veremos cómo se cobra una deuda de la cuenta mensual."
+  },
+  {
+    "number": 43,
+    "start": 552.88,
+    "chapter": "COBRAR",
+    "title": "Abrí una cuenta con deuda",
+    "text": "Desde el listado podés tocar Cobrar directamente o abrir Ver cuenta para revisar primero los cargos pendientes."
+  },
+  {
+    "number": 44,
+    "start": 573.03,
+    "chapter": "UBICACIÓN",
+    "title": "Dónde estamos",
+    "text": "Seguimos en Operación, Inquilinos, dentro de la cuenta individual. Desde acá se puede cobrar y entregar el recibo."
+  },
+  {
+    "number": 45,
+    "start": 579.55,
+    "chapter": "COBRAR",
+    "title": "Tocá Cobrar",
+    "text": "El formulario propone los cargos pendientes y muestra cuánto se debe. Cargar un abono fue crear deuda; tocar Cobrar es registrar el dinero recibido."
+  },
+  {
+    "number": 46,
+    "start": 594.52,
+    "chapter": "QUÉ PAGA",
+    "title": "Elegí cargos o un pago parcial",
+    "text": "Podés dejar marcados todos los cargos o elegir solo algunos. Si recibís menos, editá el total: se aplica primero a los cargos más antiguos y el resto sigue pendiente."
+  },
+  {
+    "number": 47,
+    "start": 609.78,
+    "chapter": "MEDIO DE PAGO",
+    "title": "Indicá cómo pagó",
+    "text": "Podés registrar efectivo, transferencia o ambos. El QR de Mercado Pago es opcional y requiere vincular la cuenta de la empresa; se registra solo cuando se acredita."
+  },
+  {
+    "number": 48,
+    "start": 625.07,
+    "chapter": "REVISIÓN",
+    "title": "Mirá el saldo que quedará",
+    "text": "Antes de confirmar, el pie muestra cuánto recibís y el saldo nuevo. Si paga de más, el excedente queda a favor y se descontará de próximos cargos."
+  },
+  {
+    "number": 49,
+    "start": 639.44,
+    "chapter": "RECIBO",
+    "title": "El comprobante se puede recuperar",
+    "text": "Al confirmar un cobro se genera un recibo. Después, desde Pagos, podés volver a verlo o entregarlo por QR, WhatsApp o impresión. Esta guía no registra un pago ficticio."
+  }
+]
