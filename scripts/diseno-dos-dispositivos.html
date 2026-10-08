@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<style>
+  :root { --y:#f5c518; --ink:#111; --bg:#0d0d0c; --s1:#1a1a18; --s2:#22221f; --mut:#9a978d; --line:#2e2d29; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { width:1920px; height:1080px; overflow:hidden; background:radial-gradient(ellipse at 60% 40%, #24210f 0%, var(--bg) 60%); font-family: "Inter", "Segoe UI", system-ui, sans-serif; color:#eee; position:relative; }
+  .stripe { position:absolute; left:0; right:0; height:14px; background:repeating-linear-gradient(-45deg, var(--y) 0 18px, #111 18px 36px); }
+  .stripe.top { top:0 } .stripe.bot { bottom:0 }
+  .title { position:absolute; top:58px; left:0; right:0; text-align:center; }
+  .title h1 { font-size:46px; font-weight:800; letter-spacing:-.5px; }
+  .title h1 span { color:var(--y); }
+  .title p { margin-top:8px; color:var(--mut); font-size:22px; }
+  .tag { position:absolute; font-size:17px; font-weight:700; padding:8px 16px; border-radius:999px; background:#1c1b17; border:1px solid #3a382f; display:flex; gap:8px; align-items:center; }
+  .tag i { width:10px; height:10px; border-radius:50%; background:var(--y); display:inline-block; box-shadow:0 0 12px var(--y); }
+
+  /* Notebook */
+  .laptop { position:absolute; left:150px; top:225px; width:1130px; }
+  .screen { background:#050505; border:14px solid #1d1d1f; border-bottom-width:18px; border-radius:22px 22px 0 0; height:680px; overflow:hidden; box-shadow:0 40px 90px rgba(0,0,0,.7); }
+  .base { height:26px; background:linear-gradient(#3b3b3e, #1b1b1d); border-radius:0 0 30px 30px; margin:0 -60px; position:relative; }
+  .base::after { content:""; position:absolute; left:50%; top:0; width:160px; height:8px; transform:translateX(-50%); background:#121213; border-radius:0 0 10px 10px; }
+  .app { display:flex; height:100%; background:var(--bg); }
+  .side { width:200px; background:var(--s1); border-right:1px solid var(--line); padding:18px 14px; }
+  .logo { font-weight:800; font-size:18px; margin-bottom:22px; } .logo b { color:var(--y); }
+  .nav { font-size:14px; color:var(--mut); padding:9px 10px; border-radius:8px; margin-bottom:4px; }
+  .nav.on { background:#2a2716; color:var(--y); font-weight:600; }
+  .main { flex:1; padding:22px 26px; }
+  .main h2 { font-size:22px; } .sub { color:var(--mut); font-size:13px; margin:4px 0 16px; }
+  .kpis { display:flex; gap:12px; margin-bottom:16px; }
+  .kpi { flex:1; background:var(--s1); border:1px solid var(--line); border-radius:12px; padding:12px 14px; }
+  .kpi small { color:var(--mut); font-size:12px; } .kpi div { font-size:24px; font-weight:800; margin-top:4px; }
+  .kpi.hl div { color:var(--y); }
+  table { width:100%; border-collapse:collapse; font-size:14px; background:var(--s1); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  th { text-align:left; color:var(--mut); font-weight:500; font-size:12px; padding:10px 14px; border-bottom:1px solid var(--line); }
+  td { padding:11px 14px; border-bottom:1px solid var(--line); }
+  .plate { font-family:ui-monospace,monospace; font-weight:700; background:#eee; color:#111; padding:2px 8px; border-radius:4px; font-size:13px; }
+  .pill { font-size:11px; padding:3px 8px; border-radius:999px; background:#203321; color:#7fd88a; }
+  tr.new td { background:rgba(245,197,24,.12); }
+  tr.new { box-shadow: inset 4px 0 0 var(--y); }
+  .newbadge { font-size:11px; font-weight:800; color:var(--ink); background:var(--y); padding:3px 8px; border-radius:999px; margin-left:8px; }
+  .toast { position:absolute; right:22px; bottom:22px; background:#1f1d12; border:1px solid var(--y); border-radius:12px; padding:12px 16px; font-size:14px; display:flex; gap:10px; align-items:center; box-shadow:0 10px 30px rgba(0,0,0,.6); }
+  .toast b { color:var(--y); }
+
+  /* Celular */
+  .phone { position:absolute; right:170px; top:205px; width:380px; height:790px; background:#0a0a0a; border:12px solid #1d1d1f; border-radius:56px; box-shadow:0 50px 100px rgba(0,0,0,.8), 0 0 0 2px #3a3a3c; overflow:hidden; }
+  .notch { position:absolute; top:10px; left:50%; transform:translateX(-50%); width:110px; height:30px; background:#000; border-radius:20px; z-index:3; }
+  .papp { position:absolute; inset:0; background:var(--bg); padding:56px 18px 18px; }
+  .pstripe { position:absolute; top:0; left:0; right:0; height:6px; background:repeating-linear-gradient(-45deg, var(--y) 0 8px, #111 8px 16px); }
+  .papp h3 { font-size:22px; margin-bottom:4px; } .papp .sub { margin-bottom:14px; }
+  .photo { height:210px; border-radius:16px; background:linear-gradient(160deg,#3a3f47,#1b1e22); position:relative; overflow:hidden; border:1px solid var(--line); }
+  .car { position:absolute; left:50%; top:52%; transform:translate(-50%,-50%); width:230px; height:110px; background:linear-gradient(#5b6470,#2c3138); border-radius:40px 40px 16px 16px; }
+  .bigplate { position:absolute; left:50%; top:66%; transform:translate(-50%,-50%); background:#f2f2f2; color:#111; font:800 22px ui-monospace,monospace; padding:4px 12px; border-radius:5px; outline:3px solid var(--y); outline-offset:6px; }
+  .scanline { position:absolute; left:0; right:0; height:3px; background:var(--y); box-shadow:0 0 16px var(--y); top:60%; opacity:.8; }
+  .field { margin-top:14px; background:var(--s1); border:1px solid var(--line); border-radius:12px; padding:10px 14px; }
+  .field small { color:var(--mut); font-size:12px; } .field div { font-size:17px; font-weight:700; margin-top:2px; }
+  .seg { display:flex; gap:6px; background:#0f0f0e; border:1px solid var(--line); padding:5px; border-radius:14px; margin-top:12px; }
+  .seg span { flex:1; text-align:center; padding:9px 0; border-radius:10px; font-size:14px; font-weight:600; color:var(--mut); }
+  .seg .on { background:#e5e5e5; color:#111; }
+  .cta { margin-top:16px; background:var(--y); color:var(--ink); font-weight:800; font-size:18px; text-align:center; padding:16px; border-radius:14px; position:relative; }
+  .tap { position:absolute; width:58px; height:58px; border-radius:50%; border:3px solid #fff; background:rgba(255,255,255,.25); left:62%; top:50%; transform:translate(-50%,-50%); box-shadow:0 0 0 10px rgba(255,255,255,.12); }
+
+  /* Conexión en tiempo real */
+  svg.flow { position:absolute; inset:0; pointer-events:none; }
+  .dash { stroke:var(--y); stroke-width:3; fill:none; stroke-dasharray:8 10; opacity:.85; animation:move 1s linear infinite; }
+  @keyframes move { to { stroke-dashoffset:-36; } }
+  .dot { fill:var(--y); filter:drop-shadow(0 0 12px var(--y)); }
+  .live { position:absolute; left:1215px; top:470px; background:var(--y); color:var(--ink); font-weight:800; font-size:15px; padding:7px 14px; border-radius:999px; box-shadow:0 0 30px rgba(245,197,24,.5); }
+  .step { position:absolute; bottom:56px; left:0; right:0; display:flex; justify-content:center; gap:18px; }
+  .step div { background:#17160f; border:1px solid #3a382f; border-radius:14px; padding:12px 20px; font-size:18px; color:#ddd; }
+  .step b { color:var(--y); margin-right:6px; }
+</style>
+</head>
+<body>
+  <div class="stripe top"></div>
+  <div class="title">
+    <h1>Registrá desde el celular, <span>se ve al instante</span> en la notebook</h1>
+    <p>Un mismo sistema, en todos tus dispositivos</p>
+  </div>
+
+  <div class="tag" style="left:150px; top:178px;"><i></i>Administración · notebook</div>
+  <div class="tag" style="right:170px; top:158px;"><i></i>Operador · celular</div>
+
+  <div class="laptop">
+    <div class="screen"><div class="app">
+      <aside class="side">
+        <div class="logo">Garage <b>Mitre</b></div>
+        <div class="nav">Inicio</div>
+        <div class="nav on">Estadías activas</div>
+        <div class="nav">Caja y turnos</div>
+        <div class="nav">Tarifas</div>
+        <div class="nav">Clientes</div>
+        <div class="nav">Cartelera</div>
+      </aside>
+      <section class="main" style="position:relative">
+        <h2>Estadías activas</h2>
+        <div class="sub">Playa Centro · se actualiza en tiempo real</div>
+        <div class="kpis">
+          <div class="kpi hl"><small>Vehículos adentro</small><div>24</div></div>
+          <div class="kpi"><small>Ingresos hoy</small><div>87</div></div>
+          <div class="kpi"><small>Caja del turno</small><div>$ 182.400</div></div>
+        </div>
+        <table>
+          <tr><th>Patente</th><th>Vehículo</th><th>Ingreso</th><th>Tarifa</th><th>Estado</th></tr>
+          <tr class="new"><td><span class="plate">AF 482 KD</span><span class="newbadge">NUEVO</span></td><td>Auto</td><td>14:32</td><td>Día</td><td><span class="pill">Adentro</span></td></tr>
+          <tr><td><span class="plate">AD 117 PL</span></td><td>Camioneta</td><td>14:18</td><td>Día</td><td><span class="pill">Adentro</span></td></tr>
+          <tr><td><span class="plate">PQR 903</span></td><td>Auto</td><td>13:55</td><td>Día</td><td><span class="pill">Adentro</span></td></tr>
+          <tr><td><span class="plate">AE 650 TT</span></td><td>Moto</td><td>13:41</td><td>Día</td><td><span class="pill">Adentro</span></td></tr>
+          <tr><td><span class="plate">AC 208 MN</span></td><td>Auto</td><td>12:09</td><td>Día</td><td><span class="pill">Adentro</span></td></tr>
+        </table>
+        <div class="toast">🚗 <span>Nuevo ingreso: <b>AF 482 KD</b> · registrado por Juan</span></div>
+      </section>
+    </div></div>
+    <div class="base"></div>
+  </div>
+
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="papp">
+      <div class="pstripe"></div>
+      <h3>Nuevo ingreso</h3>
+      <div class="sub">Patente reconocida por foto</div>
+      <div class="photo"><div class="car"></div><div class="scanline"></div><div class="bigplate">AF 482 KD</div></div>
+      <div class="field"><small>Patente</small><div>AF 482 KD</div></div>
+      <div class="seg"><span class="on">Auto</span><span>Camioneta</span><span>Moto</span></div>
+      <div class="field"><small>Hora de ingreso</small><div>14:32 · Tarifa de día ☀️</div></div>
+      <div class="cta">Confirmar ingreso<div class="tap"></div></div>
+    </div>
+  </div>
+
+  <svg class="flow" viewBox="0 0 1920 1080">
+    <path class="dash" d="M1390 800 C 1300 760, 1290 560, 1290 505" />
+    <circle class="dot" cx="1290" cy="620" r="9" />
+  </svg>
+  <div class="live">⚡ Tiempo real</div>
+
+  <div class="step">
+    <div><b>1</b>El operador saca la foto</div>
+    <div><b>2</b>Confirma el ingreso</div>
+    <div><b>3</b>La administración lo ve al instante</div>
+  </div>
+  <div class="stripe bot"></div>
+</body>
+</html>

@@ -27,6 +27,7 @@ export default function AprenderPage() {
   const elegir = (nuevo: number) => {
     setIndice(nuevo);
     setReproduciendo(true);
+    if (nuevo === indice) void video.current?.play().catch(() => {});
     const caja = principal.current?.getBoundingClientRect();
     if (caja && (caja.top < 0 || caja.top > window.innerHeight * 0.6)) principal.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
