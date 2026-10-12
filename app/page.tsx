@@ -59,10 +59,10 @@ export default async function Home() {
       <div className="contenedor">
         <div className="escenario">
           <div className="escenario__notebook">
-            <NotebookFrente src="/screens/operacion-desktop.png" alt="Pantalla de entradas y salidas del sistema, en una notebook"/>
+            <NotebookFrente src="/screens/operacion-desktop.png?v=20261012" alt="Pantalla de entradas y salidas del sistema, en una notebook"/>
           </div>
           <div className="escenario__celular">
-            <CelularFrente src="/screens/operacion-mobile.png" alt="La misma pantalla en un celular"/>
+            <CelularFrente src="/screens/operacion-mobile.png?v=20261012" alt="La misma pantalla en un celular"/>
           </div>
         </div>
       </div>
@@ -90,7 +90,7 @@ export default async function Home() {
             </div>
             <TiltedCard className="fila__equipo fila__equipo--celular" innerClassName="rig-celular"
               baseRotateX={6} baseRotateY={-20} baseRotateZ={1} perspective={1400}>
-              <Celular3D src="/screens/activos-mobile.png" alt="Lista de vehículos activos en el celular"/>
+              <Celular3D src="/screens/activos-mobile.png?v=20261012" alt="Lista de vehículos activos en el celular"/>
             </TiltedCard>
           </article>
 
@@ -107,24 +107,24 @@ export default async function Home() {
             </div>
             <TiltedCard className="fila__equipo" innerClassName="rig-notebook"
               baseRotateX={-13} baseRotateY={16} perspective={3600}>
-              <Notebook3D src="/screens/tarifas-desktop.png" alt="Lista de precios por duración para autos: hasta 15 minutos, 45 minutos, 1 hora, 2 horas y 1 día"/>
+              <Notebook3D src="/screens/tarifas-desktop.png?v=20261012" alt="Lista de precios por duración, tipo de vehículo y horario"/>
             </TiltedCard>
           </article>
 
           <article className="fila">
             <div className="fila__texto">
               <p className="fila__tema">Caja y turnos</p>
-              <h3>La caja cierra, turno por turno</h3>
-              <p>Uno, tres o los turnos que necesites. Con qué abrió, cuánto se esperaba, cuánto se contó y qué se entregó al siguiente operador.</p>
+              <h3>Cada turno, con su responsable</h3>
+              <p>Cada operador abre su turno. Si comparten el mismo cajón, el último cuenta y cierra la caja. Revisá cobros, retiros y el fondo que queda para el relevo.</p>
               <Puntos items={[
                 'Cada cierre con el nombre del operador y si la caja dio bien',
-                'Ingresos y gastos del día en la misma caja',
+                'Cobros por medio de pago, retiros y saldo de caja',
                 'Planilla diaria en PDF, lista para imprimir',
               ]}/>
             </div>
             <TiltedCard className="fila__equipo fila__equipo--tablet" innerClassName="rig-tablet"
               baseRotateX={8} baseRotateY={-20} perspective={1600}>
-              <Tablet3D src="/screens/turnos-tablet.png" alt="Historial de turnos: cada cierre con el operador, lo contado y lo entregado"/>
+              <Tablet3D src="/screens/turnos-tablet.png?v=20261012" alt="Historial de turnos: cada cierre con el operador, lo contado y lo entregado"/>
             </TiltedCard>
           </article>
         </div>

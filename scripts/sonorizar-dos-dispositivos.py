@@ -1,7 +1,12 @@
 """Voces para las nuevas grabaciones. Reutiliza las aprobadas si el texto coincide."""
-import asyncio,json,re,shutil,sys
+import asyncio,json,re,shutil,sys,os
 from pathlib import Path
 import edge_tts
+# Alternativa oficial del servicio de lectura de Edge; conserva la misma voz y los límites de palabras.
+if os.environ.get('EDGE_TTS_ENDPOINT') == 'msedge':
+ import edge_tts.communicate as tts_client
+ from edge_tts.constants import TRUSTED_CLIENT_TOKEN
+ tts_client.WSS_URL=f'wss://api.msedgeservices.com/tts/cognitiveservices/websocket/v1?Ocp-Apim-Subscription-Key={TRUSTED_CLIENT_TOKEN}'
 ROOT=Path(__file__).resolve().parents[1]
 NAMES=sys.argv[1:] or ['operacion','cobro','tarifas','caja','administracion']
 def norm(s): return re.sub(r'[^a-záéíóúñ0-9 ]','',s.lower().replace('→',' ').replace('·',' ')).strip()
@@ -31,7 +36,7 @@ async def main():
      await asyncio.sleep(2+attempt)
  jobs=[]
  for name in NAMES:
-  folder=ROOT/'.revision/dos-dispositivos'/name
+  folder=Path(os.environ['DEMO_RECORDING_FOLDER']) if os.environ.get('DEMO_RECORDING_FOLDER') else ROOT/'.revision/dos-dispositivos'/name
   rec=json.loads((folder/'grabacion.json').read_text(encoding='utf8'))
   source=ROOT/'.revision/sonorizacion'/('' if name=='operacion' else name)/'guion.json'
   old=json.loads(source.read_text(encoding='utf8'))

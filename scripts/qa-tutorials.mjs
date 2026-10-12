@@ -1,10 +1,12 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
+import { join, resolve } from 'node:path';
+import { stat } from 'node:fs/promises';
 
-const base = process.env.LANDING_QA_URL || 'http://localhost:3001';
+const base = process.env.LANDING_QA_URL || (process.env.LANDING_QA_DIR ? 'http://landing.test' : 'http://localhost:3001');
 const expected = [
   ['operacion-dos-dispositivos', 189],
-  ['cobro-dos-dispositivos', 367],
+  ['cobro-turnos-20261012', 870],
   ['tarifas-dos-dispositivos', 458],
   ['caja-dos-dispositivos', 222],
   ['administracion-dos-dispositivos', 506],
@@ -13,6 +15,21 @@ const expected = [
 const browser = await chromium.launch({ channel: 'chrome' });
 try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  if (process.env.LANDING_QA_DIR) {
+    const root = resolve(process.env.LANDING_QA_DIR);
+    await page.route(`${base}/**`, async route => {
+      const pathname = decodeURIComponent(new URL(route.request().url()).pathname);
+      const relative = pathname === '/' ? 'index.html' : pathname === '/aprender' ? 'aprender.html' : pathname.slice(1);
+      const file = resolve(join(root, relative));
+      if (!file.startsWith(root + '\\')) return route.fulfill({ status: 403 });
+      try {
+        await stat(file);
+        const types = { '.html': 'text/html', '.js': 'application/javascript', '.css': 'text/css', '.mp4': 'video/mp4', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml' };
+        const ext = file.slice(file.lastIndexOf('.'));
+        await route.fulfill({ path: file, contentType: types[ext] || 'application/octet-stream' });
+      } catch { await route.fulfill({ status: 404 }); }
+    });
+  }
   await page.goto(`${base}/aprender`, { waitUntil: 'domcontentloaded' });
   const choices = page.getByRole('complementary', { name: 'Todas las guías' }).getByRole('button');
   await choices.first().waitFor();
