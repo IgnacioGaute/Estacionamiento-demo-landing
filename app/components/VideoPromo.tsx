@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-const VERSION = '20261015';
+const VERSION = '20261016';
 
 type VideoConPantallaCompleta = HTMLVideoElement & { webkitEnterFullscreen?: () => void };
 type OrientacionBloqueable = ScreenOrientation & { lock?: (orientacion: string) => Promise<void> };
