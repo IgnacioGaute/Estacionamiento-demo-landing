@@ -17,18 +17,54 @@
 .portada__confianza li { display: flex; align-items: center; gap: 8px; }
 .portada__confianza .check { width: 16px; height: 16px; }
 
-/* La notebook de frente con el celular adelante, a la derecha. Todo en %: escala con el ancho. */
-.escenario { position: relative; margin-top: 56px; padding-bottom: 2%; }
-.escenario__notebook { width: 78%; margin-left: 2%; }
-.escenario__celular { position: absolute; right: 1%; bottom: 0; width: 19%; }
+/* El video de presentación: una pantalla oscura que resalta sobre el fondo claro. Nunca más alta que la ventana
+   (en una notebook se ve entero sin bajar) y centrada. */
+.video-promo {
+  position: relative; width: 100%; margin: 56px auto 0; aspect-ratio: 16 / 9; overflow: hidden;
+  max-width: min(1080px, calc((100vh - 200px) * 16 / 9));
+  max-width: min(1080px, calc((100svh - 200px) * 16 / 9));
+  border-radius: 22px; background: #0d0c0a;
+  box-shadow: 0 0 0 1px rgba(18, 18, 17, .1), 0 44px 90px -40px rgba(18, 18, 17, .6);
+}
+.video-promo__video { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* El play: el círculo va justo en el centro del video y el texto cuelga debajo, sin correrlo. */
+.video-promo__play {
+  --circulo: 112px;
+  position: absolute; inset: 0; display: block; padding: 0; border: 0; color: #fff; font: inherit; cursor: pointer;
+  background: radial-gradient(60% 70% at 50% 50%, rgba(10, 10, 9, .25) 0%, rgba(10, 10, 9, .65) 100%);
+}
+.video-promo__circulo {
+  position: absolute; left: 50%; top: 50%; width: var(--circulo); height: var(--circulo);
+  margin: calc(var(--circulo) / -2) 0 0 calc(var(--circulo) / -2);
+  display: grid; place-items: center; border-radius: 50%; color: var(--ink);
+  background: radial-gradient(circle at 35% 30%, #ffe27a 0%, var(--yellow) 55%, #e8a900 100%);
+  box-shadow: 0 0 0 calc(var(--circulo) * .12) rgba(255, 255, 255, .14), 0 22px 50px -14px rgba(0, 0, 0, .8);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.video-promo__circulo::after { content: ''; position: absolute; inset: calc(var(--circulo) * -.12); border: 2px solid rgba(255, 201, 28, .7); border-radius: 50%; animation: video-promo-pulso 2.4s ease-out infinite; }
+/* El triángulo se corre apenas a la derecha: centrado por su caja se ve corrido a la izquierda. */
+.video-promo__circulo svg { width: 40%; height: 40%; margin-left: 7%; fill: currentColor; }
+.video-promo__texto {
+  position: absolute; left: 0; right: 0; top: calc(50% + var(--circulo) / 2 + var(--circulo) * .12 + 18px);
+  display: flex; flex-direction: column; align-items: center; gap: 8px; text-shadow: 0 2px 14px rgba(0, 0, 0, .7);
+}
+.video-promo__texto strong { font-size: 22px; font-weight: 600; letter-spacing: -.015em; }
+.video-promo__duracion { padding: 3px 10px; border-radius: 999px; background: rgba(0, 0, 0, .5); font-size: 13px; font-weight: 600; letter-spacing: .04em; text-shadow: none; font-variant-numeric: tabular-nums; }
+.video-promo__play:hover .video-promo__circulo { transform: scale(1.06); box-shadow: 0 0 0 calc(var(--circulo) * .12) rgba(255, 255, 255, .2), 0 22px 50px -14px rgba(0, 0, 0, .8); }
+.video-promo__play:focus-visible { outline: none; }
+.video-promo__play:focus-visible .video-promo__circulo { outline: 3px solid #fff; outline-offset: calc(var(--circulo) * .12 + 4px); }
+@keyframes video-promo-pulso { from { transform: scale(1); opacity: 1; } to { transform: scale(1.3); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .video-promo__circulo::after { animation: none; opacity: 0; } }
 
 @media (max-width: 640px) {
   .portada { padding-top: 48px; gap: 20px; }
   .portada__acciones { width: 100%; flex-direction: column; }
   .portada__acciones .boton { width: 100%; }
-  .escenario { margin-top: 40px; padding-top: 40px; }
-  .escenario__notebook { width: 80%; margin-left: 0; }
-  .escenario__celular { right: 0; width: 31%; }
+  .video-promo { margin-top: 36px; border-radius: 16px; }
+  .video-promo__play { --circulo: 64px; }
+  .video-promo__texto { top: calc(50% + var(--circulo) / 2 + var(--circulo) * .12 + 8px); gap: 4px; }
+  .video-promo__texto strong { font-size: 14px; }
+  .video-promo__duracion { padding: 2px 8px; font-size: 11px; }
 }
 
 /* ── Secciones ───────────────────────────────────────────── */
