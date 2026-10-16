@@ -84,7 +84,7 @@ export default async function Home() {
             </div>
             <TiltedCard className="fila__equipo fila__equipo--celular" innerClassName="rig-celular"
               baseRotateX={6} baseRotateY={-20} baseRotateZ={1} perspective={1400}>
-              <Celular3D src="/screens/activos-mobile.png?v=20261012" alt="Lista de vehículos activos en el celular"/>
+              <Celular3D src="/screens/entrada-mobile.png?v=20261015" alt="Registro de una entrada en el celular: la patente identifica a un cliente frecuente"/>
             </TiltedCard>
           </article>
 
@@ -101,7 +101,7 @@ export default async function Home() {
             </div>
             <TiltedCard className="fila__equipo" innerClassName="rig-notebook"
               baseRotateX={-13} baseRotateY={16} perspective={3600}>
-              <Notebook3D src="/screens/tarifas-desktop.png?v=20261012" alt="Lista de precios por duración, tipo de vehículo y horario"/>
+              <Notebook3D src="/screens/tarifas-desktop.png?v=20261015" alt="Lista de precios por duración, tipo de vehículo y horario"/>
             </TiltedCard>
           </article>
 
@@ -118,7 +118,7 @@ export default async function Home() {
             </div>
             <TiltedCard className="fila__equipo fila__equipo--tablet" innerClassName="rig-tablet"
               baseRotateX={8} baseRotateY={-20} perspective={1600}>
-              <Tablet3D src="/screens/turnos-tablet.png?v=20261012" alt="Historial de turnos: cada cierre con el operador, lo contado y lo entregado"/>
+              <Tablet3D src="/screens/turnos-tablet.png?v=20261015" alt="Historial de turnos: cada cierre con el operador, lo contado y lo entregado"/>
             </TiltedCard>
           </article>
         </div>
