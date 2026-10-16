@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { CONSULTA_WSP, DEMO_WSP, WHATSAPP_VISIBLE } from './contacto';
-import { Celular3D, CelularFrente, Notebook3D, NotebookFrente, Tablet3D } from './components/Dispositivos';
+import { Celular3D, Notebook3D, Tablet3D } from './components/Dispositivos';
 import Encabezado from './components/Encabezado';
 import { Calendario, Charla, Check, Comprobante, Escudo, Flecha, IconoWhatsApp, SinConexion, Ubicacion } from './components/Iconos';
 import Marca from './components/Marca';
@@ -9,6 +9,7 @@ import { CATALOGO_FIJO, pedirCatalogo } from './catalogo';
 import SpotlightCard from './components/reactbits/SpotlightCard';
 import TiltedCard from './components/reactbits/TiltedCard';
 import TituloPortada from './components/TituloPortada';
+import VideoPromo from './components/VideoPromo';
 import { guides } from './tutorial-data';
 import './landing.css';
 
@@ -57,14 +58,7 @@ export default async function Home() {
       </section>
 
       <div className="contenedor">
-        <div className="escenario">
-          <div className="escenario__notebook">
-            <NotebookFrente src="/screens/operacion-desktop.png?v=20261012" alt="Pantalla de entradas y salidas del sistema, en una notebook"/>
-          </div>
-          <div className="escenario__celular">
-            <CelularFrente src="/screens/operacion-mobile.png?v=20261012" alt="La misma pantalla en un celular"/>
-          </div>
-        </div>
+        <VideoPromo/>
       </div>
 
       <section id="sistema" className="contenedor seccion">
