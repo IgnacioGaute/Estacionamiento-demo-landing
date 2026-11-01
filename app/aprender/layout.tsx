@@ -1,12 +1,10 @@
 import type { Metadata, Viewport } from 'next';
+import type { ReactNode } from 'react';
 
 export const metadata: Metadata = {
-  title: 'Aprender | Estacionamiento',
-  description: 'Seis guías en video, grabadas sobre el sistema real y narradas paso a paso.',
+  title: 'Guías del sistema | Estacionamiento',
+  description: 'Aprendé a registrar entradas, cobrar salidas, configurar tarifas y controlar turnos y caja. Guías narradas, con pasos directos y ejemplos en computadora y celular.',
 };
-// La página es oscura: la barra del navegador en el celular tiene que acompañarla.
-export const viewport: Viewport = { themeColor: '#0c0c0b' };
+export const viewport: Viewport = { themeColor: '#0b0e13' };
 
-export default function AprenderLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return children;
-}
+export default function LearningLayout({ children }: { children: ReactNode }) { return children; }

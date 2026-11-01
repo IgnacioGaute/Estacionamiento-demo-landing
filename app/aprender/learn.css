@@ -1,116 +1,74 @@
-/* Aprender: oscura y neutra, para que el video sea lo que se mire. El amarillo queda para el
-   botón de reproducir, la demo y la guía que se está viendo. */
-
-body:has(.aprender) { background: #0c0c0b; }
-.aprender { min-height: 100vh; background: #0c0c0b; color: #f3f1ec; }
-
-.aprender__cabeza { padding-block: 64px 48px; display: flex; flex-direction: column; gap: 16px; }
-.aprender__etiqueta { font-size: 14px; font-weight: 500; color: var(--yellow); }
-.aprender__cabeza h1 { max-width: 760px; font-size: clamp(36px, 5vw, 52px); line-height: 1.05; font-weight: 600; letter-spacing: -.03em; text-wrap: balance; }
-.aprender__cabeza > p:not(.aprender__etiqueta, .aprender__datos) { max-width: 620px; font-size: 18px; line-height: 1.6; color: #a8a49b; text-wrap: pretty; }
-.aprender__datos { display: flex; flex-wrap: wrap; gap: 8px 12px; font-size: 14px; color: #8a867e; }
-
-.aprender__cuerpo { padding-bottom: 96px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 40px; }
-.aprender__principal { flex: 1 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 28px; scroll-margin-top: 88px; }
-
-/* ── Reproductor ─────────────────────────────────────────── */
-
-.reproductor { position: relative; aspect-ratio: 16 / 9; border: 1px solid #22211e; border-radius: 12px; overflow: hidden; background: #000; }
-.reproductor video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
-.reproductor__portada { position: absolute; inset: 0; display: grid; place-items: center; padding: 0; border: 0; background: rgba(8, 8, 7, .38); cursor: pointer; }
-.reproductor__boton {
-  display: grid; place-items: center; width: 76px; height: 76px; border-radius: 50%;
-  background: var(--yellow); color: #141410; box-shadow: 0 8px 24px rgba(0, 0, 0, .35); transition: transform .2s;
-}
-.reproductor__boton svg { margin-left: 3px; }
-.reproductor__portada:hover .reproductor__boton,
-.reproductor__portada:focus-visible .reproductor__boton { transform: scale(1.06); }
-.reproductor__duracion {
-  position: absolute; right: 14px; bottom: 14px; padding: 4px 8px; border-radius: 6px;
-  background: rgba(12, 12, 11, .82); font-family: var(--mono); font-size: 12px; color: #f3f1ec;
-}
-
-/* ── La guía elegida ─────────────────────────────────────── */
-
-.guia { display: flex; flex-direction: column; gap: 12px; }
-.guia__meta { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #8a867e; }
-.guia__titulo { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; }
-.guia__titulo h2 { font-size: 32px; line-height: 1.15; font-weight: 600; letter-spacing: -.02em; }
-.guia__titulo .boton { height: 44px; padding: 0 14px; font-weight: 500; }
-.guia__titulo .boton svg { width: 16px; height: 16px; }
-.guia__descripcion { max-width: 640px; font-size: 16px; line-height: 1.6; color: #a8a49b; text-wrap: pretty; }
-
-.temas { padding-top: 24px; border-top: 1px solid #22211e; display: flex; flex-direction: column; gap: 8px; }
-.temas h3 { font-size: 15px; font-weight: 600; }
-.temas ol { max-width: 720px; margin: 0; padding: 0; list-style: none; }
-.temas li { display: flex; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid #1d1c1a; font-size: 15px; line-height: 1.5; color: #d9d6cf; }
-.temas li span { flex: none; width: 20px; font-family: var(--mono); font-size: 12px; color: #8a867e; }
-
-/* El consejo de girar la pantalla solo tiene sentido en el celular. */
-.consejo { display: none; }
-
-/* ── Lista de guías ──────────────────────────────────────── */
-
-.lista { flex: 1 1 320px; max-width: 360px; min-width: 0; border: 1px solid #22211e; border-radius: 12px; background: #121211; overflow: hidden; }
-.lista__cabeza { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 18px 20px; border-bottom: 1px solid #22211e; }
-.lista__cabeza h2 { font-size: 15px; font-weight: 600; }
-.lista__cabeza span { font-size: 13px; color: #8a867e; }
-.lista ol { margin: 0; padding: 8px; list-style: none; display: flex; flex-direction: column; gap: 2px; }
-.lista button {
-  width: 100%; display: flex; align-items: center; gap: 14px; padding: 10px 12px;
-  border: 0; border-radius: 8px; background: transparent; color: inherit; text-align: left; cursor: pointer;
-  transition: background-color .2s;
-}
-.lista button:hover { background: #171715; }
-.lista button[aria-current='true'] { background: #1d1c1a; }
-.lista img { flex: none; width: 112px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; background: #000; }
-.lista__texto { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
-.lista__tema { font-size: 12px; color: #8a867e; }
-.lista__titulo { font-size: 14px; font-weight: 500; line-height: 1.35; color: #d9d6cf; }
-.lista button[aria-current='true'] .lista__titulo { color: #f3f1ec; }
-.lista__duracion { font-family: var(--mono); font-size: 12px; color: #8a867e; }
-.lista__viendo { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--yellow); }
-.lista__viendo::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); }
-
-/* ── Cierre y pie ────────────────────────────────────────── */
-
-.aprender__cierre { padding-bottom: 96px; }
-.aprender__tarjeta {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px;
-  padding: 40px; border: 1px solid #22211e; border-radius: 12px; background: #121211;
-}
-.aprender__tarjeta > div { max-width: 560px; display: flex; flex-direction: column; gap: 8px; }
-.aprender__tarjeta h2 { font-size: 28px; line-height: 1.2; font-weight: 600; letter-spacing: -.02em; }
-.aprender__tarjeta p { font-size: 16px; line-height: 1.6; color: #a8a49b; }
-
-.aprender__pie { border-top: 1px solid #22211e; }
-.aprender__pie .contenedor { padding-block: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: #8a867e; }
-.aprender__pie a { color: #a8a49b; }
-.aprender__pie a:hover { color: #f3f1ec; }
-
-@media (max-width: 1000px) {
-  .lista { max-width: none; flex-basis: 100%; }
-}
-
-@media (max-width: 640px) {
-  .aprender__cabeza { padding-block: 36px 28px; gap: 12px; }
-  .aprender__cabeza > p:not(.aprender__etiqueta, .aprender__datos) { font-size: 16px; }
-  .aprender__cuerpo { gap: 24px; padding-bottom: 56px; }
-  .aprender__principal { gap: 24px; }
-  .reproductor { border-radius: 10px; }
-  .reproductor__boton { width: 60px; height: 60px; }
-  .reproductor__boton svg { width: 22px; height: 22px; }
-  .guia__titulo h2 { font-size: 24px; }
-  .guia__titulo .boton { width: 100%; justify-content: space-between; height: 48px; }
-  .consejo {
-    display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px;
-    border: 1px solid #22211e; border-radius: 10px; background: #121211;
-    font-size: 14px; line-height: 1.5; color: #a8a49b;
-  }
-  .consejo svg { flex: none; margin-top: 1px; color: #d9d6cf; }
-  .lista img { width: 96px; }
-  .aprender__tarjeta { padding: 24px 20px; }
-  .aprender__tarjeta h2 { font-size: 22px; }
-  .aprender__tarjeta .boton { width: 100%; }
-  .aprender__cierre { padding-bottom: 56px; }
-}
+@font-face{font-family:LearnArchivo;src:url('/tutoriales/operacion/assets/fonts/archivo-latin.woff2') format('woff2');font-style:normal;font-weight:100 900;font-display:swap}
+body:has(.aprender){background:#0b0e13}
+.aprender{--learn-accent:#ff9b5e;--learn-line:#ffffff12;--learn-muted:#929baa;position:relative;min-height:100vh;isolation:isolate;overflow:clip;background:#0b0e13;color:#f2f2f5;font-family:LearnArchivo,var(--font)}
+.learn-mobile-nav{display:none}
+.aprender :where(button,a,summary):focus-visible{outline:2px solid #ffb580;outline-offset:4px}
+.aprender .encabezado--oscuro{background:#0b0e13e8;border-color:#ffffff0c}
+.learn-ambient{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:radial-gradient(ellipse 650px 500px at -12% 17%,#c74b1325,transparent 80%),radial-gradient(ellipse 650px 500px at 112% 43%,#d1591721,transparent 80%)}
+.learn-ambient:after{content:'';position:absolute;inset:0 0 auto;height:600px;background-image:radial-gradient(#c37f542e .7px,transparent .7px);background-size:32px 32px;mask-image:linear-gradient(90deg,#000,transparent 38%,transparent 70%,#000);opacity:.45}
+.aprender__cabeza{display:flex;align-items:center;justify-content:space-between;gap:44px;padding-block:54px 44px}
+.aprender__etiqueta{display:flex;align-items:center;gap:10px;color:#c4a990;font-size:11px;text-transform:uppercase;letter-spacing:1.9px;font-weight:600;margin-bottom:19px}
+.aprender__etiqueta>span{width:6px;height:6px;border-radius:50%;background:#ff9b5e;box-shadow:0 0 12px #ff924e88}
+.aprender__cabeza h1{font-size:clamp(38px,4vw,56px);line-height:1.05;letter-spacing:-2px;font-weight:600;text-wrap:balance}
+.aprender__cabeza h1>span{color:#ffa568;background:linear-gradient(100deg,#ffc398,#ff8c49);background-clip:text;-webkit-text-fill-color:transparent}
+.learn-intro__copy{max-width:485px;color:#a0a6b0;line-height:1.65;font-size:15px;margin-top:18px;text-wrap:pretty}
+.aprender__datos{display:flex;align-items:center;gap:17px;color:#8c95a3;margin-top:23px;font-size:12px}
+.aprender__datos b{font-family:var(--mono);color:#e6dfd8;font-size:12px;font-weight:500;margin-right:5px}
+.aprender__datos i{width:3px;height:3px;background:#6d574a;border-radius:50%}
+.learn-assistant{display:flex;align-items:center;gap:22px;padding:0 26px 0 0;flex:none;position:relative}
+.learn-assistant:before{content:'';position:absolute;right:-50px;top:-85px;width:310px;height:270px;border:1px solid #cf763118;border-radius:48%;transform:rotate(-18deg);pointer-events:none}
+.learn-assistant:after{content:'';position:absolute;right:-26px;top:-62px;width:268px;height:226px;border:1px solid #cf76310c;border-radius:48%;transform:rotate(-18deg);pointer-events:none}
+.learn-assistant__bubble{position:relative;min-width:204px;padding:19px 24px;border:1px solid #ba7b3a55;background:linear-gradient(120deg,#282015a8,#13161aeb);border-radius:15px 15px 5px 15px;font-size:13px;font-weight:500;box-shadow:0 10px 40px #0002}
+.learn-assistant__bubble:after{content:'';position:absolute;right:-6px;top:35px;width:10px;height:10px;transform:rotate(45deg);background:#191a18;border-right:1px solid #ba7b3a55;border-top:1px solid #ba7b3a55}
+.learn-assistant__bubble>span{display:block;font-size:11px;font-weight:400;color:#a69a89;margin-top:5px}
+.learn-assistant__character{width:116px;position:relative;z-index:1;animation:learn-assistant-idle 6s ease-in-out infinite}
+.learn-assistant__orb{position:relative;width:116px;height:91px;border-radius:47px;transform-origin:50% 55%;background:linear-gradient(152deg,#60513a,#252119 20%,#0b0c09 57%,#17130b 82%,#4a351b);border:1px solid #f7ce46b8;box-shadow:inset 0 2px 5px #fff0bd36,inset 0 -3px 5px #000,0 0 8px #ffe05a55,0 0 23px #ffce2638,0 13px 23px #6c270a45}
+.learn-assistant__orb:before{content:'';position:absolute;inset:3px;border:1px solid #ffdf7629;border-radius:44px}
+.learn-assistant__aura{position:absolute;inset:-5px;border:1px solid #fff19a7a;border-radius:53px;box-shadow:0 0 10px #fff0974a,0 0 24px #ffc52632;opacity:.62}
+.learn-assistant__highlight{position:absolute;left:19px;right:19px;top:4px;height:8px;border-top:1px solid #fff7d366;border-radius:50%}
+.learn-assistant__led{position:absolute;top:7px;left:52px;width:12px;height:2px;border-radius:3px;background:#fff9d9;box-shadow:0 0 5px #fff17e}
+.learn-assistant__screw{position:absolute;top:70px;width:3px;height:3px;border:1px solid #ab8f4e;border-radius:50%;background:#17130b}.learn-assistant__screw.left{left:19px}.learn-assistant__screw.right{right:19px}
+.learn-assistant__vent{position:absolute;top:35px;width:3px;height:19px;border-top:1px solid #ab7936;border-bottom:1px solid #ab7936;background:repeating-linear-gradient(0deg,#ffd46a40 0 1px,transparent 1px 5px)}.learn-assistant__vent.left{left:3px}.learn-assistant__vent.right{right:3px}
+.learn-assistant__visor{position:absolute;left:11px;right:11px;top:17px;height:44px;border-radius:24px;background:linear-gradient(#020403,#11130c 70%,#060904);border:1px solid #ffe97a70;box-shadow:inset 0 3px 8px #000,0 0 7px #f7ce461a;overflow:hidden}
+.learn-assistant__eyes{position:absolute;left:16px;top:11px;display:flex;gap:22px;animation:learn-blink 6s infinite}
+.learn-assistant__eyes>span{position:relative;width:19px;height:19px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#ffffcd,#fff383 22%,#ffdd40 60%,#f7b916);box-shadow:0 0 5px #fff7ac,0 0 13px #ffe34baa,0 0 22px #ffbe234d}
+.learn-assistant__eyes i{position:absolute;left:5px;top:3px;width:5px;height:4px;border-radius:50%;background:#ffffe4c9}
+.learn-assistant__reflection{position:absolute;left:9px;right:12px;top:3px;height:11px;border-radius:50%;border-top:1px solid #e6ffd62e}
+.learn-assistant__mouth{position:absolute;left:44px;top:69px;width:28px;height:8px;border-bottom:2px solid #fff083;border-radius:0 0 15px 15px;box-shadow:0 2px 5px -2px #fff16b,0 0 3px #ffd32c80;transform-origin:center}
+.is-talking .learn-assistant__mouth{animation:learn-talk .6s ease-in-out infinite}
+.learn-assistant__label{display:block;font-size:8px;letter-spacing:1.6px;text-align:center;color:#bca688;text-transform:uppercase;margin-top:17px}
+.aprender__cuerpo{display:grid;grid-template-columns:minmax(0,1fr)310px;gap:28px;align-items:start;padding-bottom:64px}
+.aprender__principal{min-width:0;scroll-margin-top:90px}
+.learn-player-card{position:relative;overflow:hidden;border:1px solid #b969383b;border-radius:17px;background:#101318;box-shadow:0 20px 70px #0003,0 0 40px #c6601805}
+.learn-player-card:before{content:'';position:absolute;top:-1px;left:12%;width:27%;height:1px;background:linear-gradient(90deg,transparent,#ff9b5e,transparent);z-index:1}
+.learn-player-bar{display:flex;align-items:center;gap:15px;padding:13px 18px;color:#d5d6da;font-size:11px;border-bottom:1px solid #ffffff08}
+.learn-player-bar__tag{display:flex;align-items:center;gap:7px;color:#ffc094}.learn-player-bar__tag>i{width:5px;height:5px;background:#ff9c58;border-radius:50%;box-shadow:0 0 9px #ff924e88}.learn-player-bar .muted{color:#59616f}.learn-player-bar__duration{margin-left:auto;color:#8d95a3;font-family:var(--mono)}
+.reproductor{position:relative;aspect-ratio:16/9;background:#05070a;isolation:isolate}
+.reproductor iframe,.reproductor video,.reproductor__imagen{display:block;border:0;width:100%;height:100%;position:absolute;inset:0;object-fit:contain}
+.reproductor__portada{position:absolute;inset:0;display:flex;flex-direction:column;gap:13px;align-items:center;justify-content:center;padding:0;border:0;background:linear-gradient(0deg,#080b10a6,#080b1036 60%,#080b1044);color:white;cursor:pointer}
+.reproductor__boton{display:grid;place-items:center;width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#ffb078,#ff8c48);color:#291507;box-shadow:0 0 0 10px #ff9b5e0d,0 0 0 11px #ff9b5e28,0 10px 35px #0006;transition:transform .25s,box-shadow .25s}
+.reproductor__boton svg{width:24px;height:24px;margin-left:3px}.reproductor__portada:hover .reproductor__boton{transform:scale(1.07);box-shadow:0 0 0 13px #ff9b5e12,0 0 0 14px #ff9b5e22,0 10px 35px #0006}
+.reproductor__invitacion{font-size:12px;font-weight:500;text-shadow:0 1px 8px #000}.reproductor__duracion{position:absolute;right:16px;bottom:14px;padding:4px 7px;border:1px solid #ffffff16;border-radius:5px;background:#0a0d12d9;color:#d5d8de;font:10px var(--mono)}
+.learn-player-foot{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:12px 17px;color:#7e8795;font-size:10px;border-top:1px solid #ffffff08}.learn-player-foot>span{display:flex;align-items:center;gap:8px}.learn-player-foot button{background:none;border:0;color:#b8a18e;font-size:10px;cursor:pointer;padding:2px}.learn-player-foot button:hover{color:#ffc094}
+.learn-monitor{width:12px;height:9px;border:1px solid #8d7662;border-radius:2px;position:relative}.learn-monitor:after{content:'';position:absolute;width:6px;border-bottom:1px solid #8d7662;top:10px;left:2px}
+.learn-loading{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:15px;background:#0a0e13;color:#b4bdc9;font-size:12px}.learn-loading button{color:#ffa568;background:none;border:1px solid #9a62424d;border-radius:6px;padding:8px 12px;cursor:pointer}.learn-spinner{width:25px;height:25px;border:2px solid #ffffff0f;border-top-color:#ff9b5e;border-radius:50%;animation:learn-spin .85s linear infinite}
+.guia{padding:29px 1px 26px}.guia__meta{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#7a8493;font-size:10px;margin-bottom:11px}.guia__meta>span:first-child{letter-spacing:1.5px;color:#ac8a6e}.guia h2{font-size:27px;line-height:1.2;font-weight:600;letter-spacing:-.8px}.guia__descripcion{max-width:640px;color:#a1a8b4;font-size:14px;line-height:1.7;margin-top:12px;text-wrap:pretty}
+.learn-chapters,.temas{border:1px solid var(--learn-line);border-radius:13px;background:linear-gradient(130deg,#141820,#0f131a)}
+.learn-section-head{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:19px 21px;border-bottom:1px solid #ffffff0b}.learn-section-head h3{font-size:14px;font-weight:500;letter-spacing:-.2px}.learn-section-head>span{font-size:10px;color:#818b9a}
+.learn-chapters__list{max-height:338px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#584236 #11151c}.learn-chapters ol,.temas ol{padding:6px 12px;margin:0;list-style:none}
+.learn-chapters li+li{border-top:1px solid #ffffff06}.learn-chapters li button{display:flex;align-items:center;gap:13px;width:100%;padding:12px 10px;text-align:left;background:none;border:0;border-radius:7px;color:#bcc3ce;cursor:pointer;transition:background .2s}.learn-chapters li button:hover{background:#ffffff04}.learn-chapters li button[aria-current=step]{background:#f38d3810;color:#ffbc8a}.learn-step-number{font:10px var(--mono);color:#6c7686;width:19px;flex:none}.learn-chapters li button[aria-current=step] .learn-step-number{color:#ffad70}.learn-step-copy{display:flex;min-width:0;flex-direction:column;gap:4px}.learn-step-copy>span{font-size:9px;color:#778394}.learn-step-copy>strong{font-size:12px;line-height:1.4;font-weight:500}.learn-chapters time{font:10px var(--mono);color:#8a94a2;margin-left:auto;white-space:nowrap;flex:none}.learn-step-play{width:21px;height:21px;border:1px solid #ffffff12;border-radius:50%;display:grid;place-items:center;flex:none;color:#917a66}.learn-step-play svg{width:8px;height:8px;margin-left:1px}
+.learn-transcript{border-top:1px solid #ffffff0b;padding:15px 21px}.learn-transcript summary{display:flex;justify-content:space-between;gap:12px;cursor:pointer;font-size:11px;color:#a49280;list-style:none}.learn-transcript summary::-webkit-details-marker{display:none}.learn-transcript[open] summary{color:#ffc094}.learn-transcript p{margin-top:13px;line-height:1.8;font-size:13px;color:#a8b1bf;max-width:680px}.learn-transcript[open] summary span{transform:rotate(90deg)}
+.temas li{display:flex;align-items:baseline;gap:14px;padding:12px 9px;font-size:13px;color:#abb4c2;line-height:1.6}.temas li+li{border-top:1px solid #ffffff06}.temas li>span{font:10px var(--mono);color:#8f765f}
+.learn-next{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:23px 0;margin-top:16px}.learn-next>div>span{color:#7c8695;font-size:9px;letter-spacing:1.5px}.learn-next p{font-size:14px;color:#c8ced7;margin-top:6px}.learn-next button{display:flex;align-items:center;gap:17px;white-space:nowrap;padding:11px 14px;background:#ff9b5e0a;border:1px solid #e7945b38;border-radius:8px;color:#ffb77f;cursor:pointer;font-size:11px}.learn-next button:hover{background:#ff9b5e15}.learn-next button svg{width:15px;height:15px}
+.consejo{display:none}.learn-demo-note{font-size:10px;color:#636e7f;margin-top:5px}
+.lista{position:sticky;top:91px;min-width:0;border:1px solid var(--learn-line);background:linear-gradient(150deg,#171a20,#10141a);border-radius:14px;overflow:hidden}.lista__cabeza{padding:22px 20px 18px}.learn-overline{font-size:9px;letter-spacing:1.7px;color:#ad8868;font-weight:500}.lista__cabeza h2{font-size:20px;letter-spacing:-.6px;font-weight:500;margin-top:9px}.lista__cabeza p{font-size:11px;color:#818b9a;line-height:1.7;margin-top:9px;max-width:225px}.lista>ol{list-style:none;margin:0;padding:0 8px 10px}.lista li+li{margin-top:4px}.lista li button{position:relative;display:flex;align-items:center;gap:10px;width:100%;padding:15px 10px;border:1px solid transparent;border-radius:9px;background:transparent;color:#929baa;text-align:left;cursor:pointer;overflow:hidden;transition:background .2s,border-color .2s}.lista li button:hover{background:#ffffff04}.lista li button[aria-current=true]{border-color:#d48e4c30;background:linear-gradient(100deg,#ed8e3d12,#ed8e3d05)}.lista__numero{font:10px var(--mono);color:#6d7787;align-self:flex-start;padding-top:2px;width:16px;flex:none}.lista button[aria-current=true] .lista__numero{color:#ffbc87}.lista__texto{display:flex;flex:1;min-width:0;flex-direction:column;gap:5px}.lista__tema{font-size:9px;color:#818b9a}.lista__titulo{font-size:12px;line-height:1.4;color:#d1d5dd;font-weight:500}.lista__duracion{font:9px var(--mono);color:#758193;margin-top:2px}.lista__viendo{display:flex;align-items:center;gap:5px;color:#ffab6d;font-size:9px;margin-top:2px}.lista__viendo:before{content:'';width:4px;height:4px;border-radius:50%;background:#ffab6d;box-shadow:0 0 7px #f7834d55}.lista img{width:68px;height:41px;object-fit:cover;border-radius:5px;opacity:.72;align-self:center;flex:none;border:1px solid #ffffff0c}.lista button[aria-current=true] img{opacity:1;border-color:#ff9b5e36}.lista__track{position:absolute;bottom:0;left:0;right:0;height:2px;background:#fff1}.lista__track>span{display:block;height:100%;background:#bb773f}
+.lista__ayuda{display:flex;gap:12px;padding:18px 22px;border-top:1px solid #ffffff09;background:#0a0e1333}.lista__ayuda>span{color:#bc8458}.lista__ayuda p{font-size:11px;color:#b7bec9;line-height:1.6}.lista__ayuda p>span{font-size:10px;color:#778394}
+.aprender__cierre{padding-bottom:64px}.aprender__tarjeta{display:flex;align-items:center;justify-content:space-between;gap:32px;padding:35px 39px;border:1px solid #b9693329;border-radius:15px;background:radial-gradient(ellipse at 0 100%,#a7441314,transparent 70%),linear-gradient(120deg,#16191f,#10141a)}.aprender__tarjeta h2{font-size:26px;line-height:1.25;font-weight:500;letter-spacing:-.8px;margin-top:10px}.aprender__tarjeta p{font-size:13px;color:#8e98a7;margin-top:12px;line-height:1.6}.aprender .boton--acento{background:linear-gradient(130deg,#ffb47b,#ff9b5e);color:#28180e;font-size:13px;border-color:#ffc49344;white-space:nowrap;box-shadow:0 4px 28px #e7771710}.aprender__pie{border-top:1px solid #ffffff09}.aprender__pie .contenedor{padding-block:24px;display:flex;justify-content:space-between;gap:20px;color:#6f7a89;font-size:11px}.aprender__pie a{color:#8f99a7}.aprender__pie a>span{margin-left:12px}
+@keyframes learn-blink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.1)}}@keyframes learn-assistant-idle{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-3px) rotate(1deg)}}@keyframes learn-talk{0%,100%{transform:scaleY(1)}35%{transform:scaleY(2.2)}65%{transform:scaleY(.8)}}@keyframes learn-spin{to{transform:rotate(360deg)}}
+@media(min-width:1500px){.aprender>.contenedor,.aprender main>.contenedor{max-width:1400px}.aprender__cuerpo{grid-template-columns:minmax(0,1fr)330px;gap:32px}.lista img{width:77px;height:44px}}
+@media(max-width:1050px){.aprender__cuerpo{grid-template-columns:minmax(0,1fr)280px;gap:20px}.learn-assistant{padding-right:4px;gap:17px}.learn-assistant__bubble{min-width:0;padding:16px;font-size:12px}.lista img{display:none}.learn-intro__copy{max-width:420px}.learn-assistant:before,.learn-assistant:after{display:none}}
+@media(max-width:800px){.aprender__cuerpo{grid-template-columns:minmax(0,1fr);padding-bottom:40px}.lista{position:static;grid-row:2}.lista>ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}.lista li+li{margin:0}.lista img{display:block}.lista__cabeza{padding:20px}.lista__ayuda{padding-block:16px}.aprender__cabeza{gap:25px;padding-block:38px 32px}.learn-assistant{transform:scale(.86);transform-origin:right center;margin-left:-32px}.learn-assistant__bubble{font-size:11px;white-space:nowrap}.learn-assistant__bubble>span{font-size:9px}.learn-assistant__character{flex:none}.learn-intro__copy{font-size:14px}.aprender__cabeza h1{font-size:43px}.aprender__tarjeta{padding:28px}.aprender__tarjeta h2{font-size:24px}}
+@media(max-width:560px){.aprender__cabeza{position:relative;align-items:flex-start;min-height:296px;gap:0;padding-block:32px 29px}.learn-intro{max-width:100%}.aprender__etiqueta{font-size:9px;letter-spacing:1.5px;margin-bottom:17px}.aprender__cabeza h1{font-size:40px;letter-spacing:-1.6px}.learn-intro__copy{font-size:13px;line-height:1.65;max-width:300px;margin-top:17px}.aprender__datos{font-size:10px;gap:10px;margin-top:20px}.aprender__datos b{font-size:10px}.learn-assistant{position:absolute;right:16px;top:71px;transform:scale(.57);transform-origin:right top;margin:0;padding:0}.learn-assistant__bubble{display:none}.learn-assistant__label{font-size:10px;margin-top:15px}.aprender__cuerpo{gap:25px}.learn-player-card{border-radius:12px}.learn-player-bar{padding:11px 13px;gap:13px;font-size:10px}.learn-player-foot{font-size:8px;padding:11px 12px;gap:9px}.learn-player-foot button{font-size:8px}.reproductor__boton{width:50px;height:50px;box-shadow:0 0 0 7px #ff9b5e0d,0 0 0 8px #ff9b5e28,0 10px 35px #0006}.reproductor__boton svg{width:19px;height:19px}.reproductor__portada{gap:12px}.reproductor__invitacion{font-size:10px}.reproductor__duracion{font-size:9px;right:11px;bottom:10px}.guia{padding:24px 0 22px}.guia h2{font-size:24px;letter-spacing:-.6px}.guia__descripcion{font-size:13px}.guia__meta{font-size:9px;margin-bottom:11px}.learn-section-head{padding:17px 16px}.learn-section-head h3{font-size:13px}.learn-section-head>span{font-size:9px}.learn-chapters ol{padding-inline:7px}.learn-chapters li button{gap:10px;padding:12px 8px}.learn-chapters__list{max-height:310px}.learn-step-copy>strong{font-size:11px}.learn-step-copy>span{font-size:8px}.learn-step-play{display:none}.learn-chapters time{font-size:9px}.learn-transcript{padding:15px 16px}.learn-transcript summary{font-size:10px}.learn-transcript p{font-size:12px}.learn-next{gap:15px;padding-block:20px}.learn-next p{font-size:12px;max-width:190px;line-height:1.5}.learn-next>div>span{font-size:8px}.learn-next button{font-size:10px;padding:10px 11px;gap:9px}.consejo{display:flex;align-items:flex-start;gap:10px;padding:13px 14px;border:1px solid #ffffff0b;border-radius:8px;color:#8691a1;font-size:11px;line-height:1.6;background:#11151b}.consejo svg{flex:none;width:17px;height:17px;margin-top:2px;color:#b2825d}.learn-demo-note{font-size:9px;margin-top:15px}.lista>ol{grid-template-columns:1fr}.lista img{width:85px;height:49px}.lista li button{padding:14px 12px;gap:13px}.lista__titulo{font-size:13px}.lista__tema,.lista__duracion,.lista__viendo{font-size:10px}.lista__cabeza h2{font-size:22px}.aprender__tarjeta{flex-direction:column;align-items:flex-start;padding:25px 22px;gap:24px}.aprender__tarjeta h2{font-size:23px}.aprender__tarjeta p{font-size:12px}.aprender__tarjeta .boton{width:100%;justify-content:space-between;height:46px}.aprender__cierre{padding-bottom:40px}.aprender__pie .contenedor{flex-direction:column;gap:14px;padding-block:22px;font-size:10px}}
+@media(prefers-reduced-motion:reduce){.learn-assistant__character,.learn-assistant__eyes,.is-talking .learn-assistant__mouth{animation:none}.aprender *{scroll-behavior:auto!important}.reproductor__boton{transition:none}}
+@media(max-width:800px){.learn-mobile-nav{display:flex;gap:7px;overflow:auto;padding-block:0 19px;scrollbar-width:none}.learn-mobile-nav::-webkit-scrollbar{display:none}.learn-mobile-nav button{display:flex;gap:7px;align-items:center;flex:none;padding:9px 11px;border:1px solid #ffffff12;border-radius:7px;background:#121720;color:#a2acba;font-size:10px;cursor:pointer}.learn-mobile-nav button>span{font:9px var(--mono);color:#626f81}.learn-mobile-nav button[aria-current=true]{border-color:#df905d50;background:#ff9b5e10;color:#ffc094}.learn-mobile-nav button[aria-current=true]>span{color:#f4a466}}
+@media(max-width:380px){.aprender__cabeza h1{font-size:clamp(31px,10vw,37px)}.learn-assistant{transform:scale(.48)}}
