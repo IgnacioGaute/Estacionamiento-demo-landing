@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './VideoPromo.module.css';
 
-const VERSION = '20261102-foto-v1';
+const VERSION = '20261102-original-v2';
 
 type VideoConPantallaCompleta = HTMLVideoElement & { webkitEnterFullscreen?: () => void };
 type OrientacionBloqueable = ScreenOrientation & { lock?: (orientacion: string) => Promise<void> };
@@ -64,11 +64,10 @@ export default function VideoPromo() {
         controls={reproduciendo}
         preload="none"
         poster={`/videos/promo/estacionamiento-promo.webp?v=${VERSION}`}
-        aria-label="Video de presentación: identificación mediante foto, entradas, comprobantes, cobros, tarifas, configuración y caja"
+        aria-label="Video de presentación: foto de patentes, comprobantes, cobros, alertas, tarifas, configuración, caja y dashboard"
       >
         <source src={`/videos/promo/estacionamiento-promo-720.mp4?v=${VERSION}`} type="video/mp4" media="(max-width: 820px)" />
         <source src={`/videos/promo/estacionamiento-promo-1080.mp4?v=${VERSION}`} type="video/mp4" />
-        <track kind="captions" src={`/videos/promo/estacionamiento-promo-es.vtt?v=${VERSION}`} srcLang="es" label="Español" />
       </video>
       {!reproduciendo && (
         <button type="button" className={`video-promo__play ${styles.play}`} onClick={reproducir}>
@@ -77,7 +76,7 @@ export default function VideoPromo() {
           </span>
           <span className={`video-promo__texto ${styles.text}`}>
             <strong>{visto ? 'Ver de nuevo' : 'Mirá el sistema en acción'}</strong>
-            <span className="video-promo__duracion">1:57</span>
+            <span className="video-promo__duracion">1:42</span>
           </span>
         </button>
       )}
