@@ -1,4 +1,10 @@
+/* Más grande que la columna del texto: hasta 1440 px de ancho, siempre con aire a los costados y sin pasar el
+   alto de la ventana (con el encabezado fijo arriba se ve entero). Centrado, sobresale parejo de los dos lados. */
 figure.frame {
+  width: min(1440px, calc(100vw - 48px), calc((100vh - 128px) * 16 / 9));
+  width: min(1440px, calc(100vw - 48px), calc((100svh - 128px) * 16 / 9));
+  max-width: none;
+  flex-shrink: 0;
   background: #0b0e14;
   box-shadow: 0 0 0 1px #f58b5138, 0 40px 90px -40px #15100dd0;
 }
@@ -12,6 +18,30 @@ figure.frame {
 }
 .frame .circle::after { border-color: #ffad7999; }
 .frame .text strong { letter-spacing: -.02em; }
+
+/* Mientras corre solo y sin sonido: todo el video es el botón y la pastilla avisa abajo a la derecha. */
+.sonido {
+  position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: flex-end;
+  padding: clamp(14px, 2.2vw, 28px); border: 0; background: transparent; font: inherit; cursor: pointer;
+}
+.pastilla {
+  display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px 12px 16px; border-radius: 999px;
+  color: #23140e; font-size: 16px; font-weight: 700; letter-spacing: -.01em;
+  background: linear-gradient(145deg, #ffd0a1, #ff9b64 55%, #eb753d);
+  box-shadow: 0 0 0 6px #f79a6824, 0 15px 40px -12px #f1773d80;
+  transition: transform .25s ease;
+}
+.pastilla svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.sonido:hover .pastilla { transform: scale(1.04); }
+.sonido:focus-visible { outline: none; }
+.sonido:focus-visible .pastilla { outline: 3px solid #fff; outline-offset: 4px; }
+
+@media (max-width: 640px) {
+  figure.frame { width: 100%; }
+  .sonido { padding: 10px; }
+  .pastilla { gap: 6px; padding: 6px 11px 6px 9px; font-size: 12px; box-shadow: 0 0 0 4px #f79a6824, 0 10px 24px -10px #f1773d80; }
+  .pastilla svg { width: 14px; height: 14px; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .frame .circle { transition: none; }
+  .frame .circle, .pastilla { transition: none; }
 }
