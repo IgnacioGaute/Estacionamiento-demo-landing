@@ -1,0 +1,17 @@
+figure.frame {
+  background: #0b0e14;
+  box-shadow: 0 0 0 1px #f58b5138, 0 40px 90px -40px #15100dd0;
+}
+.frame .play {
+  background: radial-gradient(ellipse at 50% 50%, #080b1030 15%, #080b1070 100%);
+}
+.frame .circle {
+  color: #23140e;
+  background: linear-gradient(145deg, #ffd0a1, #ff9b64 55%, #eb753d);
+  box-shadow: 0 0 0 calc(var(--circulo) * .12) #f79a6824, 0 15px 55px -12px #f1773d66;
+}
+.frame .circle::after { border-color: #ffad7999; }
+.frame .text strong { letter-spacing: -.02em; }
+@media (prefers-reduced-motion: reduce) {
+  .frame .circle { transition: none; }
+}

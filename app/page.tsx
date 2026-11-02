@@ -78,7 +78,7 @@ export default async function Home() {
               <p>Por patente o con ficha física. El primer registro abre la estadía y el siguiente lleva al cobro, con el importe ya calculado.</p>
               <Puntos items={[
                 'El buscador encuentra la patente aunque esté mal escrita',
-                'Con la cámara del celular, la patente se escribe sola',
+                'Una foto desde el celular propone la patente y el modelo',
                 'Efectivo, transferencia o QR de Mercado Pago, que se verifica solo',
               ]}/>
             </div>

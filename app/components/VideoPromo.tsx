@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import styles from './VideoPromo.module.css';
 
-const VERSION = '20261016';
+const VERSION = '20261102-foto-v1';
 
 type VideoConPantallaCompleta = HTMLVideoElement & { webkitEnterFullscreen?: () => void };
 type OrientacionBloqueable = ScreenOrientation & { lock?: (orientacion: string) => Promise<void> };
@@ -44,7 +45,7 @@ export default function VideoPromo() {
     setReproduciendo(true);
     video.currentTime = 0;
     video.muted = false;
-    video.play().catch(() => {});
+    video.play().catch(() => { setReproduciendo(false); });
     // En el celular el video se disfruta a pantalla completa. Tiene que pedirse dentro del mismo toque.
     if (window.matchMedia('(max-width: 820px)').matches) {
       const pedido = video.requestFullscreen ? video.requestFullscreen() : (video.webkitEnterFullscreen?.(), undefined);
@@ -55,7 +56,7 @@ export default function VideoPromo() {
   };
 
   return (
-    <figure className="video-promo">
+    <figure className={`video-promo ${styles.frame}`}>
       <video
         ref={ref}
         className="video-promo__video"
@@ -63,19 +64,20 @@ export default function VideoPromo() {
         controls={reproduciendo}
         preload="none"
         poster={`/videos/promo/estacionamiento-promo.webp?v=${VERSION}`}
-        aria-label="Video de presentación: escáner de patentes, comprobantes, cobros, alertas, tarifas, caja y dashboard"
+        aria-label="Video de presentación: identificación mediante foto, entradas, comprobantes, cobros, tarifas, configuración y caja"
       >
         <source src={`/videos/promo/estacionamiento-promo-720.mp4?v=${VERSION}`} type="video/mp4" media="(max-width: 820px)" />
         <source src={`/videos/promo/estacionamiento-promo-1080.mp4?v=${VERSION}`} type="video/mp4" />
+        <track kind="captions" src={`/videos/promo/estacionamiento-promo-es.vtt?v=${VERSION}`} srcLang="es" label="Español" />
       </video>
       {!reproduciendo && (
-        <button type="button" className="video-promo__play" onClick={reproducir}>
-          <span className="video-promo__circulo" aria-hidden="true">
+        <button type="button" className={`video-promo__play ${styles.play}`} onClick={reproducir}>
+          <span className={`video-promo__circulo ${styles.circle}`} aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" /></svg>
           </span>
-          <span className="video-promo__texto">
+          <span className={`video-promo__texto ${styles.text}`}>
             <strong>{visto ? 'Ver de nuevo' : 'Mirá el sistema en acción'}</strong>
-            <span className="video-promo__duracion">1:42</span>
+            <span className="video-promo__duracion">1:57</span>
           </span>
         </button>
       )}
