@@ -1,3 +1,5 @@
 Includes HyperFrames 0.8.162 — https://github.com/heygen-com/hyperframes — Apache License 2.0 (LICENSE.txt).
 Archivo typeface — SIL Open Font License 1.1 (Archivo-OFL.txt).
 GSAP retains its original license notice in each assets/gsap.min.js file.
+
+Static tutorial playback modifications: cache caption presentation, avoid redundant visibility writes and inactive timeline seeks. Original HyperFrames license retained.
