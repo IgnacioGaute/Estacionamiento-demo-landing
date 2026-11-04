@@ -19,12 +19,20 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; scrollbar-color: var(--line-strong) var(--paper); accent-color: var(--ink); }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); -webkit-font-smoothing: antialiased; }
 a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
 button { font: inherit; }
 h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+/* Lo que dibuja el navegador también lleva la marca: selección en amarillo y un foco de teclado visible
+   en tinta (en amarillo sobre las superficies oscuras). */
+::selection { background: var(--yellow); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.encabezado--oscuro :focus-visible, .caso :focus-visible, .cierre__tarjeta :focus-visible { outline-color: var(--yellow); }
 
 .contenedor { width: 100%; max-width: 1264px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 32px); }
 
@@ -32,10 +40,6 @@ h1, h2, h3, p { margin: 0; }
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
-
-/* Rótulo chico arriba de cada título: el amarillo de la marca, una sola vez por sección. */
-.etiqueta { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text-2); }
-.etiqueta::before { content: ''; flex: none; width: 8px; height: 8px; border-radius: 2px; background: var(--yellow); }
 
 .check { flex: none; width: 18px; height: 18px; color: var(--ok); }
 

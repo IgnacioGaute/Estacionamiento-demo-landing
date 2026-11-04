@@ -15,6 +15,13 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* El separador es más angosto que una cifra: el punto va centrado en su caja, si no queda pegado al
+   dígito siguiente y deja un hueco con el anterior ("$50 .000"). */
+.counter-separator {
+  display: flex;
+  justify-content: center;
+}
+
 .counter-number {
   position: absolute;
   top: 0;

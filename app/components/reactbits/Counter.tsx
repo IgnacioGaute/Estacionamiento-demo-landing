@@ -160,7 +160,7 @@ export default function Counter({
       <span className="counter-counter" style={{ ...defaultCounterStyle, ...counterStyle }}>
         <AnimatePresence initial={false}>
           {places.map((place, index) => place === '.' ? (
-            <motion.span key={`separator-${places[index + 1]}`} className="counter-digit"
+            <motion.span key={`separator-${places[index + 1]}`} className="counter-digit counter-separator"
               initial={{ width: 0, opacity: 0 }} animate={{ width: '0.6ch', opacity: 1 }} exit={{ width: 0, opacity: 0 }}
               style={{ height, ...digitStyle }}>.</motion.span>
           ) : (

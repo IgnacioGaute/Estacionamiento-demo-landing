@@ -1,12 +1,6 @@
 /* ── Portada ─────────────────────────────────────────────── */
 
 .portada { padding-top: 80px; display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center; }
-.portada__pastilla {
-  display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px;
-  border: 1px solid var(--line); border-radius: 999px; background: #fff;
-  font-size: 13px; font-weight: 500; color: var(--text-2);
-}
-.portada__pastilla::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: var(--yellow); }
 /* El título lo dibuja TechText en un canvas por línea; acá solo se le da el ancho disponible. */
 .portada__titulo { width: 100%; max-width: 1120px; margin-block: -12px; }
 .portada__lineas { display: flex; flex-direction: column; width: 100%; }
@@ -16,6 +10,11 @@
 .portada__confianza { margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; font-size: 14px; color: var(--text-2); }
 .portada__confianza li { display: flex; align-items: center; gap: 8px; }
 .portada__confianza .check { width: 16px; height: 16px; }
+
+/* El video es más ancho que el contenedor: el flex lo centra y sobresale parejo de los dos lados (con margen
+   automático se iba todo hacia la derecha y abría un scroll horizontal). */
+.portada__video { display: flex; justify-content: center; }
+.portada__video .video-promo { margin-inline: 0; }
 
 /* El video de presentación: una pantalla oscura que resalta sobre el fondo claro. Nunca más alta que la ventana
    (en una notebook se ve entero sin bajar) y centrada. */
@@ -74,15 +73,16 @@
 .seccion__titulo { max-width: 660px; display: flex; flex-direction: column; gap: 16px; }
 .seccion__bajada { max-width: 440px; font-size: 17px; line-height: 1.6; color: var(--text-2); }
 .titulo-2 { font-size: clamp(32px, 3.6vw, 46px); line-height: 1.08; font-weight: 600; letter-spacing: -.03em; text-wrap: balance; }
+/* Cada oración del título se mantiene entera: si no entra en una línea, corta entre oraciones. */
+.frase { display: inline-block; }
 
 /* ── El sistema: un bloque por tarea, cada uno con su equipo en 3D ── */
 
 .filas { display: flex; flex-direction: column; gap: 24px; }
 .fila { display: grid; grid-template-columns: 1fr; border: 1px solid var(--line); border-radius: 16px; background: #fff; overflow: hidden; }
 .fila__texto { padding: clamp(28px, 4.5vw, 56px); display: flex; flex-direction: column; justify-content: center; gap: 16px; }
-.fila__tema { font-size: 13px; font-weight: 600; color: var(--text-3); }
 .fila__texto h3 { font-size: 30px; line-height: 1.15; font-weight: 600; letter-spacing: -.025em; }
-.fila__texto > p:not(.fila__tema) { font-size: 17px; line-height: 1.6; color: var(--text-2); }
+.fila__texto > p { font-size: 17px; line-height: 1.6; color: var(--text-2); }
 
 .puntos { margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 15px; line-height: 1.5; color: var(--text-body); }
 .puntos li { display: flex; gap: 10px; }
@@ -122,16 +122,13 @@
 
 /* ── Incluido en todos los planes ────────────────────────── */
 
-.incluidos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 16px; }
-.incluido {
-  padding: 28px; border: 1px solid var(--line); border-radius: 16px; background: #fff;
-  display: flex; flex-direction: column; gap: 12px;
-  transition: transform .3s, box-shadow .3s, border-color .3s;
-}
-.incluido:hover { transform: translateY(-2px); border-color: var(--line-strong); box-shadow: 0 18px 36px -24px rgba(18, 18, 17, .3); }
-.incluido__icono { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); }
-.incluido h3 { font-size: 18px; font-weight: 600; letter-spacing: -.01em; }
-.incluido p { font-size: 15.5px; line-height: 1.6; color: var(--text-2); }
+/* Una lista, no tarjetas: es el complemento de las filas de arriba y se lee de corrido, separada por filetes. */
+.incluidos { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 0 48px; }
+.incluido { padding: 24px 0 32px; border-top: 1px solid var(--line-strong); display: flex; flex-direction: column; gap: 10px; }
+.incluido h3 { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; letter-spacing: -.01em; }
+.incluido__icono { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: var(--ink); color: var(--yellow); }
+.incluido__icono svg { width: 18px; height: 18px; }
+.incluido p { max-width: 46ch; font-size: 15.5px; line-height: 1.6; color: var(--text-2); }
 
 /* ── Módulo de cocheras ──────────────────────────────────── */
 
@@ -140,7 +137,7 @@
   padding: clamp(28px, 5vw, 56px); border: 1px solid var(--line); border-radius: 16px; background: #fff;
 }
 .modulo__intro { display: flex; flex-direction: column; gap: 16px; }
-.modulo__intro h2 { font-size: clamp(28px, 3vw, 38px); line-height: 1.1; font-weight: 600; letter-spacing: -.03em; }
+.modulo__intro h2 { font-size: clamp(28px, 3vw, 38px); line-height: 1.1; font-weight: 600; letter-spacing: -.03em; text-wrap: balance; }
 .modulo__intro > p:last-child { font-size: 17px; line-height: 1.6; color: var(--text-2); }
 .modulo__lista { margin: 0; padding: 0; list-style: none; }
 .modulo__lista li { padding: 16px 0; display: flex; flex-direction: column; gap: 4px; border-bottom: 1px solid var(--line-soft); }
@@ -152,7 +149,6 @@
 
 .caso { margin-top: 96px; background: var(--ink); color: #f3f1ec; }
 .caso__contenido { padding-block: clamp(64px, 8vw, 104px); display: flex; flex-direction: column; gap: 28px; }
-.caso .etiqueta { color: #a8a49b; }
 .caso__texto { max-width: 1000px; font-size: clamp(24px, 2.8vw, 36px); line-height: 1.3; font-weight: 500; letter-spacing: -.02em; text-wrap: pretty; }
 .caso__firma { font-size: 15px; color: #a8a49b; }
 .caso__firma strong { font-weight: 600; color: #f3f1ec; }
@@ -163,19 +159,24 @@
 .planes__cabeza { max-width: 720px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
 .planes__cabeza > p:last-child { font-size: 17px; line-height: 1.6; color: var(--text-2); text-wrap: pretty; }
 
-.selector { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
-.selector button {
-  height: 40px; padding: 0 16px; border: 0; border-radius: 7px; background: transparent;
-  color: var(--text-2); font-size: 14px; font-weight: 600; cursor: pointer;
-  transition: background-color .25s, color .25s;
-}
-.selector button[aria-pressed='true'] { background: var(--ink); color: #fff; }
+/* Los selectores son el Rubber Segment de React Bits (reactbits/RubberSegment.css); acá van el borde
+   de la pista y el peso del texto. */
+.selector.rubber-segment { box-shadow: inset 0 0 0 1px var(--line); }
+.selector .rubber-segment__item { font-weight: 600; }
 
+/* Las tarjetas son el Pixel Card de React Bits (reactbits/PixelCard.css) sin su tamaño fijo, sobre
+   blanco. El marco lleva la etiqueta, que la tarjeta recortaría. */
 .planes__grilla { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px; }
-.plan { display: flex; flex-direction: column; gap: 20px; padding: 32px; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
-.plan--destacado { border: 1.5px solid var(--ink); box-shadow: 0 24px 48px -32px rgba(18, 18, 17, .35); }
-.plan .plan__distintivo {
-  position: absolute; top: -12px; left: 32px; padding: 4px 10px; border-radius: 999px;
+.plan-marco { position: relative; display: flex; min-width: 0; }
+.pixel-card.plan[data-theme] {
+  --pixel-card-surface: #fff; --pixel-card-shadow: none;
+  flex: 1; min-width: 0; width: auto; height: auto; display: flex; place-items: stretch; user-select: auto;
+}
+.plan { flex-direction: column; gap: 20px; padding: 32px; border: 1px solid var(--line); border-radius: 16px; }
+.pixel-card.plan--destacado[data-theme] { --pixel-card-shadow: 0 24px 48px -32px rgba(18, 18, 17, .35); }
+.plan--destacado { border: 1.5px solid var(--ink); }
+.plan-marco .plan__distintivo {
+  position: absolute; z-index: 3; top: -12px; left: 32px; padding: 4px 10px; border-radius: 999px;
   background: var(--yellow); color: var(--ink); font-size: 12px; font-weight: 700;
 }
 .plan__nombre { display: flex; flex-direction: column; gap: 4px; }
@@ -192,9 +193,10 @@
 .planes__opciones { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 18px 32px; }
 .planes__opcion { display: flex; flex-direction: column; align-items: center; gap: 9px; }
 .planes__opcion-label { color: var(--text-2); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.selector--periodo button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
+.selector--periodo .rubber-segment__item { gap: 7px; }
 .selector__ahorro { padding: 3px 5px; border-radius: 4px; background: #fff3bc; color: #624700; font-size: 11px; line-height: 1; font-weight: 700; }
-.selector button[aria-pressed='true'] .selector__ahorro { background: var(--yellow); color: var(--ink); }
+/* Dentro de la pastilla (la copia que React Bits dibuja encima) el descuento va en amarillo. */
+.selector .rubber-segment__copy .selector__ahorro { background: var(--yellow); color: var(--ink); }
 .plan__monto { flex-wrap: wrap; align-items: baseline; gap: 5px 9px; }
 .plan__cifra { font-family: var(--mono); font-weight: 500; white-space: nowrap; font-size: clamp(32px, 2.8vw, 44px); line-height: 1.08; letter-spacing: -.035em; font-variant-numeric: tabular-nums; }
 .plan__equivalente { min-height: 34px; font-size: 13px; line-height: 1.4; color: var(--text-2); }
@@ -202,8 +204,10 @@
 .planes__periodo-nota { width: 100%; margin-top: -12px; text-align: center; color: var(--text-2); font-size: 13px; line-height: 1.5; }
 @media (max-width: 640px) {
   .planes__opcion, .planes__opcion .selector { width: 100%; }
-  .planes__opcion .selector button { flex: 1; padding: 0 7px; font-size: 12px; }
-  .selector--periodo button { flex-direction: column; height: 52px; gap: 2px; }
+  /* Opciones del mismo ancho, en la pista y en la pastilla. */
+  .planes__opcion .selector, .planes__opcion .selector .rubber-segment__thumb { grid-auto-columns: minmax(0, 1fr); }
+  .planes__opcion .selector .rubber-segment__item { min-width: 0; padding: 0 7px; font-size: 12px; }
+  .selector--periodo .rubber-segment__item { flex-direction: column; height: 44px; gap: 2px; }
   .plan__cifra { font-size: clamp(32px, 9vw, 42px); }
 }
 .planes__notas { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px 40px; padding-top: 8px; }
@@ -219,7 +223,7 @@
 }
 .guias__texto { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
 .guias__texto h2 { font-size: 28px; line-height: 1.15; font-weight: 600; letter-spacing: -.025em; }
-.guias__texto > p:not(.fila__tema) { font-size: 16px; line-height: 1.6; color: var(--text-2); }
+.guias__texto > p { font-size: 16px; line-height: 1.6; color: var(--text-2); }
 .guias__texto .boton { margin-top: 6px; height: 44px; padding: 0 16px; border-radius: 8px; font-size: 14px; }
 .guias__miniaturas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .guias__miniaturas a { display: flex; flex-direction: column; gap: 8px; font-size: 13px; line-height: 1.4; color: var(--text-body); }
@@ -242,15 +246,14 @@
   border-radius: 20px; overflow: hidden; background: var(--ink); color: #f3f1ec;
 }
 .cierre__demo { padding: clamp(32px, 5vw, 64px); display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
-.cierre__demo .etiqueta { color: #a8a49b; }
-.cierre__demo > p:not(.etiqueta) { max-width: 480px; font-size: 17px; line-height: 1.6; color: #c9c5bc; }
+.cierre__demo > p { max-width: 480px; font-size: 17px; line-height: 1.6; color: #c9c5bc; }
 .cierre__demo .boton { margin-top: 6px; }
 .pasos {
   width: 100%; margin: 24px 0 0; padding: 24px 0 0; border-top: 1px solid #2c2b28; list-style: none;
   display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 20px;
 }
 .pasos li { display: flex; flex-direction: column; gap: 6px; }
-.pasos__numero { font-family: var(--mono); font-size: 12px; color: #a8a49b; }
+.pasos__numero { font-size: 13px; font-weight: 600; color: var(--yellow); font-variant-numeric: tabular-nums; }
 .pasos strong { font-size: 15px; font-weight: 600; }
 .pasos li > span:last-child { font-size: 14px; line-height: 1.5; color: #a8a49b; }
 
@@ -260,7 +263,8 @@
 .autor strong { display: block; font-size: 17px; font-weight: 600; }
 .autor span { font-size: 14px; color: #a8a49b; }
 .cierre__autor > p { font-size: 17px; line-height: 1.65; color: #d9d6cf; }
-.cierre__autor > a { font-size: 15px; font-weight: 600; }
+/* Links de una línea: el relleno vertical agranda el área táctil sin mover el diseño. */
+.cierre__autor > a { align-self: flex-start; padding-block: 6px; margin-block: -6px; font-size: 15px; font-weight: 600; }
 .cierre__autor > a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ── Pie ─────────────────────────────────────────────────── */
@@ -273,6 +277,7 @@
 .pie__columnas { display: flex; flex-wrap: wrap; gap: 32px 64px; }
 .pie__columna { display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
 .pie__columna strong { font-size: 13px; font-weight: 600; color: var(--text-3); }
+.pie__columna a { align-self: flex-start; padding-block: 5px; margin-block: -5px; }
 .pie__columna a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .pie__columna span { color: var(--text-2); }
 .pie__abajo { padding-top: 24px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--text-3); }

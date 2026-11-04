@@ -6,7 +6,6 @@ import { Calendario, Charla, Check, Comprobante, Escudo, Flecha, IconoWhatsApp, 
 import Marca from './components/Marca';
 import Planes from './components/Planes';
 import { CATALOGO_FIJO, pedirCatalogo } from './catalogo';
-import SpotlightCard from './components/reactbits/SpotlightCard';
 import TiltedCard from './components/reactbits/TiltedCard';
 import TituloPortada from './components/TituloPortada';
 import VideoPromo from './components/VideoPromo';
@@ -43,9 +42,8 @@ export default async function Home() {
     <Encabezado/>
     <main>
       <section id="inicio" className="contenedor portada">
-        <p className="portada__pastilla">Playas por hora y cocheras mensuales</p>
         <TituloPortada/>
-        <p className="portada__bajada">Registrá entradas y salidas, cobrá la tarifa correcta y seguí cada movimiento de caja con el nombre de quien lo hizo.</p>
+        <p className="portada__bajada">Para playas por hora y cocheras mensuales: registrá entradas y salidas, cobrá la tarifa correcta y seguí cada movimiento de caja con el nombre de quien lo hizo.</p>
         <div className="portada__acciones">
           <a className="boton boton--oscuro" href={DEMO_WSP} target="_blank" rel="noopener noreferrer"><IconoWhatsApp/>Pedir una demo</a>
           <a className="boton boton--linea" href="#sistema">Ver el sistema</a>
@@ -57,15 +55,14 @@ export default async function Home() {
         </ul>
       </section>
 
-      <div className="contenedor">
+      <div className="contenedor portada__video">
         <VideoPromo/>
       </div>
 
       <section id="sistema" className="contenedor seccion">
         <div className="seccion__cabeza">
           <div className="seccion__titulo">
-            <p className="etiqueta">El sistema</p>
-            <h2 className="titulo-2">Rápido cuando operás. Completo cuando administrás.</h2>
+            <h2 className="titulo-2"><span className="frase">Rápido cuando operás.</span> <span className="frase">Completo cuando administrás.</span></h2>
           </div>
           <p className="seccion__bajada">El operador registra y cobra desde el celular o la computadora del mostrador. El administrador configura precios, revisa la caja y sigue cada playa desde el mismo lugar.</p>
         </div>
@@ -73,7 +70,6 @@ export default async function Home() {
         <div className="filas">
           <article className="fila">
             <div className="fila__texto">
-              <p className="fila__tema">Operación</p>
               <h3>Entrada y cobro, en dos pasos</h3>
               <p>Por patente o con ficha física. El primer registro abre la estadía y el siguiente lleva al cobro, con el importe ya calculado.</p>
               <Puntos items={[
@@ -90,7 +86,6 @@ export default async function Home() {
 
           <article className="fila fila--invertida">
             <div className="fila__texto">
-              <p className="fila__tema">Tarifas</p>
               <h3>Cobrá como trabaja tu playa</h3>
               <p>Precios por duración o por período iniciado, con valores distintos de día y de noche. También por día, semana o mes.</p>
               <Puntos items={[
@@ -107,7 +102,6 @@ export default async function Home() {
 
           <article className="fila">
             <div className="fila__texto">
-              <p className="fila__tema">Caja y turnos</p>
               <h3>Cada turno, con su responsable</h3>
               <p>Cada operador abre su turno. Si comparten el mismo cajón, el último cuenta y cierra la caja. Revisá cobros, retiros y el fondo que queda para el relevo.</p>
               <Puntos items={[
@@ -127,27 +121,25 @@ export default async function Home() {
       <section className="contenedor seccion">
         <div className="seccion__cabeza">
           <div className="seccion__titulo">
-            <p className="etiqueta">Incluido en todos los planes</p>
             <h2 className="titulo-2">Todo lo demás, sin módulos extra.</h2>
+            <p className="seccion__bajada">Viene en todos los planes.</p>
           </div>
         </div>
-        <div className="incluidos">
+        <ul className="incluidos">
           {INCLUIDOS.map(({ icono, titulo, texto }) => (
-            <SpotlightCard key={titulo} className="incluido" spotlightColor="rgba(255, 201, 28, 0.32)">
-              <span className="incluido__icono">{icono}</span>
-              <h3>{titulo}</h3>
+            <li key={titulo} className="incluido">
+              <h3><span className="incluido__icono">{icono}</span>{titulo}</h3>
               <p>{texto}</p>
-            </SpotlightCard>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
       <section id="cocheras" className="contenedor seccion">
         <div className="modulo">
           <div className="modulo__intro">
-            <p className="etiqueta">Módulo opcional</p>
             <h2>Cocheras mensuales, en orden.</h2>
-            <p>Cada inquilino con su cochera, sus recibos y su cuenta. El abono mensual se lleva aparte de los tickets de rotación.</p>
+            <p>Un módulo opcional: cada inquilino con su cochera, sus recibos y su cuenta. El abono mensual se lleva aparte de los tickets de rotación.</p>
           </div>
           <ul className="modulo__lista">
             <li><strong>Quién ocupa cada cochera</strong><span>Inquilino, patente, cochera asignada y abono mensual en un solo lugar.</span></li>
@@ -159,16 +151,14 @@ export default async function Home() {
 
       <section className="caso">
         <div className="contenedor caso__contenido">
-          <p className="etiqueta">Andando hoy</p>
           <p className="caso__texto">En Garage Mitre todo se hacía a mano: anotar cada auto, sacar la cuenta del tiempo, cobrar y después lograr que el día cerrara. Hoy el operador registra la entrada y la salida, y el resto sale solo: el precio, el cobro, la caja del turno y el historial.</p>
-          <p className="caso__firma"><strong>Garage Mitre</strong> · Mendoza</p>
+          <p className="caso__firma"><strong>Garage Mitre</strong> · Mendoza · en funcionamiento hoy</p>
         </div>
       </section>
 
       <section id="planes" className="contenedor seccion planes">
         <div className="planes__cabeza">
-          <p className="etiqueta">Planes</p>
-          <h2 className="titulo-2">Precios simples. Sin contar las salidas.</h2>
+          <h2 className="titulo-2"><span className="frase">Precios simples.</span> <span className="frase">Sin contar las salidas.</span></h2>
           <p>El plan depende de cuántos vehículos de rotación tenés estacionados al mismo tiempo, no de cuántos entran por día.</p>
         </div>
         <Planes inicial={catalogo}/>
@@ -191,7 +181,6 @@ export default async function Home() {
       <section className="contenedor seccion">
         <div className="guias">
           <div className="guias__texto">
-            <p className="fila__tema">Guías en video</p>
             <h2>Miralo en acción antes de probarlo.</h2>
             <p>Seis recorridos narrados paso a paso sobre el sistema real: entrada, cobro, tarifas, caja, inquilinos y administración.</p>
             <a className="boton boton--linea" href="/aprender">Ver las guías<Flecha/></a>
@@ -209,7 +198,6 @@ export default async function Home() {
 
       <section id="preguntas" className="contenedor seccion">
         <div className="seccion__titulo preguntas__titulo">
-          <p className="etiqueta">Preguntas frecuentes</p>
           <h2 className="titulo-2">Antes de que me escribas.</h2>
         </div>
         <div className="preguntas">
@@ -222,9 +210,8 @@ export default async function Home() {
       <section id="demo" className="contenedor cierre">
         <div className="cierre__tarjeta">
           <div className="cierre__demo">
-            <p className="etiqueta">Demo sin compromiso</p>
             <h2 className="titulo-2">Hablemos de tu playa.</h2>
-            <p>Te muestro el sistema con un ejemplo armado con tus precios: registramos una entrada, simulamos el cobro y vemos cómo queda en la caja.</p>
+            <p>Te muestro el sistema con un ejemplo armado con tus precios: registramos una entrada, simulamos el cobro y vemos cómo queda en la caja. Sin compromiso.</p>
             <a className="boton boton--acento" href={DEMO_WSP} target="_blank" rel="noopener noreferrer"><IconoWhatsApp/>Pedir una demo por WhatsApp</a>
             <ol className="pasos">
               <li><span className="pasos__numero">01</span><strong>Cargamos tus tarifas</strong><span>Vehículos, horarios y precios.</span></li>
