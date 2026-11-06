@@ -1,4 +1,4 @@
-@font-face{font-family:LearnArchivo;src:url('/tutoriales/operacion/assets/fonts/archivo-latin.woff2') format('woff2');font-style:normal;font-weight:100 900;font-display:swap}
+@font-face{font-family:LearnArchivo;src:url('/fonts/aprender/archivo-var.woff2') format('woff2');font-style:normal;font-weight:100 900;font-display:swap}
 body:has(.aprender){background:#100f0d}
 .aprender{--learn-accent:#f5c219;--learn-line:#ffffff12;--learn-muted:#a59b8d;position:relative;min-height:100vh;isolation:isolate;overflow:clip;background:#100f0d;color:#f2ece3;font-family:LearnArchivo,var(--font)}
 .learn-mobile-nav{display:none}
