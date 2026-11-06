@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import Encabezado from '../components/Encabezado';
 import { CelularAcostado, Flecha, Reproducir } from '../components/Iconos';
 import { DEMO_WSP } from '../contacto';
@@ -102,7 +102,7 @@ export default function AprenderPage() {
     <Encabezado tono="oscuro" actual="guias"/>
     <main>
       <section className="contenedor aprender__cabeza">
-        <div className="learn-intro"><p className="aprender__etiqueta"><span/>Centro de aprendizaje</p><h1>Todo el sistema.<br/><span>Paso a paso.</span></h1><p className="learn-intro__copy">Mirá cómo se hace en computadora y celular. Elegí una guía o andá directo al paso que necesitás.</p><div className="aprender__datos"><span><b>06</b> guías completas</span><i/><span><b>{totalMinutes}</b> minutos para aprender</span></div></div>
+        <div className="learn-intro"><p className="aprender__etiqueta"><span/>Centro de aprendizaje</p><h1>Todo el sistema.<br/><span>Paso a paso.</span></h1><p className="learn-intro__copy">Mirá cómo se hace en computadora y celular. Elegí una guía o andá directo al paso que necesitás.</p><div className="aprender__datos"><span><b>{String(guides.length).padStart(2, '0')}</b> guías cortas</span><i/><span><b>{totalMinutes}</b> minutos para aprender</span></div></div>
         <Assistant talking={playing}/>
       </section>
 
@@ -110,7 +110,8 @@ export default function AprenderPage() {
       <section className="contenedor aprender__cuerpo" aria-label="Guías del sistema">
         <div className="aprender__principal" ref={principal}>
           <div className="learn-player-card">
-            <div className="learn-player-bar"><span className="learn-player-bar__tag"><i/>{guide.category}</span><span>Guía {guide.number} <span className="muted">/ 06</span></span><span className="learn-player-bar__duration">{guide.duration}</span></div>
+            <div className="learn-player-bar"><span className="learn-player-bar__tag"><i/>{guide.category}</span><span>Guía {guide.number} <span className="muted">/ {String(guides.length).padStart(2, '0')}</span></span><span className="learn-player-bar__duration">{guide.duration}</span></div>
+            {steps.length > 0 && <div className="learn-rail" aria-hidden="true">{steps.map((step, index) => { const p = Math.max(0, Math.min(1, (time - step.start) / step.duration)); return <button type="button" tabIndex={-1} key={`${guide.number}-r${index}`} className={started && p >= 1 ? 'is-done' : undefined} style={{ '--w': step.duration, '--p': started ? p : 0 } as CSSProperties} onClick={() => seek(step.start)} title={step.title}><span><i/></span></button>; })}</div>}
             <div className="reproductor" aria-label={`Reproductor: ${guide.title}`}>
               {started ? guide.player ? <iframe key={`${guide.file}-${nonce}`} ref={frame} src={`${guide.player}?autoplay=1&t=${startAt}`} title={`Guía en video: ${guide.title}`} allow="autoplay; fullscreen" allowFullScreen/> : <video key={`${guide.file}-${nonce}`} ref={video} controls autoPlay playsInline preload="metadata" poster={`/video-posters/${guide.poster}.jpg`} aria-label={`Guía en video: ${guide.title}`} onLoadedMetadata={event => { event.currentTarget.currentTime = startAt; setReady(true); }} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} onTimeUpdate={event => { setTime(event.currentTarget.currentTime); persist(event.currentTarget.currentTime); }}><source src={`/videos/${guide.file}.mp4`} type="video/mp4"/>Tu navegador no puede reproducir este video.</video> : <><img className="reproductor__imagen" src={`/video-posters/${guide.poster}.jpg`} alt={`Vista previa: ${guide.title}`} fetchPriority="high"/><button type="button" className="reproductor__portada" onClick={() => play()} aria-label={`${resume > 10 ? 'Continuar' : 'Reproducir'}: ${guide.title}`}><span className="reproductor__boton"><Reproducir/></span><span className="reproductor__invitacion">{resume > 10 ? `Continuar desde ${clock(resume)}` : 'Empezar la guía'}</span><span className="reproductor__duracion">{guide.duration}</span></button></>}
               {started && !ready && <div className="learn-loading" role="status"><span className="learn-spinner"/><span>{slow ? 'La primera carga está tardando un poco.' : 'Preparando tu guía…'}</span>{slow && <button type="button" onClick={() => play(startAt)}>Volver a intentar</button>}</div>}

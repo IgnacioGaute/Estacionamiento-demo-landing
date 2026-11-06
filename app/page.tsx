@@ -182,7 +182,7 @@ export default async function Home() {
         <div className="guias">
           <div className="guias__texto">
             <h2>Miralo en acción antes de probarlo.</h2>
-            <p>Seis recorridos narrados paso a paso sobre el sistema real: entrada, cobro, tarifas, caja, inquilinos y administración.</p>
+            <p>Siete guías cortas, narradas sobre el sistema real: configuración, entrada, cobro, tarifas, caja, administración e inquilinos.</p>
             <a className="boton boton--linea" href="/aprender">Ver las guías<Flecha/></a>
           </div>
           <div className="guias__miniaturas">
